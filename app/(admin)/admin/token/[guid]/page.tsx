@@ -608,7 +608,7 @@ export default function TokenDetailPage() {
                   <Alert>
                     <AlertCircle className="h-4 w-4" />
                     <AlertDescription>
-                      Configure admin tax phases. Phase C rate must not exceed creator's flat tax rates (Buy: {(token.flatBuyTax/100).toFixed(1)}%, Sell: {(token.flatSellTax/100).toFixed(1)}%).
+                      Configure admin tax phases. Phase C rate must not exceed creator&apos;s flat tax rates (Buy: {(token.flatBuyTax/100).toFixed(1)}%, Sell: {(token.flatSellTax/100).toFixed(1)}%).
                     </AlertDescription>
                   </Alert>
                   

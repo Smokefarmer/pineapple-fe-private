@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/app/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/app/components/ui/card";
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
@@ -32,14 +32,12 @@ import { toast } from 'sonner';
 interface TaxManagementProps {
   tokenAddress?: string;
   creatorAddress?: string;
-  launchTime?: number;
   isTokenLaunched?: boolean;
 }
 
 export default function TaxManagement({
   tokenAddress,
   creatorAddress,
-  launchTime,
   isTokenLaunched = false
 }: TaxManagementProps) {
   const [form, setForm] = useState<TaxDecreaseForm>({
@@ -67,8 +65,7 @@ export default function TaxManagement({
     decreaseTaxes,
     disableTaxes,
     isDecreasingTaxes,
-    isDisablingTaxes,
-    refetchTaxInfo
+    isDisablingTaxes
   } = useTaxManagement({
     tokenAddress,
     creatorAddress,
@@ -117,9 +114,9 @@ export default function TaxManagement({
     try {
       await decreaseTaxes(form);
       toast.success('Tax decrease transaction submitted!');
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.error('Failed to decrease taxes', {
-        description: error.message
+        description: error instanceof Error ? error.message : 'Unknown error occurred'
       });
     }
   };
@@ -133,9 +130,9 @@ export default function TaxManagement({
     try {
       await disableTaxes();
       toast.success('Tax disable transaction submitted!');
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.error('Failed to disable taxes', {
-        description: error.message
+        description: error instanceof Error ? error.message : 'Unknown error occurred'
       });
     }
   };
@@ -159,7 +156,7 @@ export default function TaxManagement({
             4. Tax Management
           </CardTitle>
           <CardDescription className="mt-1">
-            Manage your token's trading taxes after launch.
+            Manage your token&apos;s trading taxes after launch.
           </CardDescription>
         </CardHeader>
         <CardContent className="px-6 pb-6">
@@ -182,7 +179,7 @@ export default function TaxManagement({
           4. Tax Management
         </CardTitle>
         <CardDescription className="mt-1">
-          View and adjust your token's trading taxes.
+          View and adjust your token&apos;s trading taxes.
         </CardDescription>
       </CardHeader>
       
@@ -404,7 +401,7 @@ export default function TaxManagement({
                 <div>
                   <h4 className="font-semibold mb-2">Tax Decrease Information</h4>
                   <p className="text-sm text-muted-foreground">
-                    As a token creator, you can reduce your token's trading taxes to make it more attractive to traders. However, there are important restrictions:
+                    As a token creator, you can reduce your token&apos;s trading taxes to make it more attractive to traders. However, there are important restrictions:
                   </p>
                   <ul className="list-disc list-inside text-sm text-muted-foreground mt-2 space-y-1">
                     <li><strong>You can only decrease taxes, never increase them</strong></li>
@@ -420,7 +417,7 @@ export default function TaxManagement({
                     Your token has two types of taxes:
                   </p>
                   <ul className="list-disc list-inside text-sm text-muted-foreground mt-2 space-y-1">
-                    <li><strong>Creator Taxes</strong> - These go to you and any revenue sharing partners you've set up</li>
+                    <li><strong>Creator Taxes</strong> - These go to you and any revenue sharing partners you&apos;ve set up</li>
                     <li><strong>Admin Taxes</strong> - These are protocol fees that decrease over time according to preset phases</li>
                   </ul>
                   <p className="text-sm text-muted-foreground mt-2">
