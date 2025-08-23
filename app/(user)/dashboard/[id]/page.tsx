@@ -539,7 +539,15 @@ export default function UserDashboardPage({ params }: { params: Promise<{ id: st
           console.error("Full simulation error:", simulationError);
           
           if (simulationError instanceof Error) {
-            const errorObj = simulationError as any;
+            const errorObj = simulationError as Error & { 
+              cause?: { reason?: string; shortMessage?: string; message?: string; [key: string]: unknown }; 
+              shortMessage?: string; 
+              details?: unknown; 
+              data?: { message?: string; [key: string]: unknown }; 
+              code?: string;
+              reason?: string;
+              metaMessages?: unknown;
+            };
             console.error("Simulation error details:", {
               name: errorObj.name,
               message: errorObj.message,
@@ -548,7 +556,8 @@ export default function UserDashboardPage({ params }: { params: Promise<{ id: st
               details: errorObj.details,
               data: errorObj.data,
               code: errorObj.code,
-              reason: errorObj.reason
+              reason: errorObj.reason,
+              metaMessages: errorObj.metaMessages
             });
             
             // Extract revert reason
@@ -556,7 +565,7 @@ export default function UserDashboardPage({ params }: { params: Promise<{ id: st
             if (errorObj.shortMessage) {
               revertReason = errorObj.shortMessage;
             } else if (errorObj.details) {
-              revertReason = errorObj.details;
+              revertReason = String(errorObj.details);
             } else if (errorObj.reason) {
               revertReason = errorObj.reason;
             } else if (errorObj.data?.message) {
@@ -604,7 +613,15 @@ export default function UserDashboardPage({ params }: { params: Promise<{ id: st
         console.error("Error stack:", err.stack);
         
         // Check for various error properties that might contain revert reasons
-        const errorObj = err as any;
+        const errorObj = err as Error & { 
+          cause?: { reason?: string; shortMessage?: string; message?: string; [key: string]: unknown }; 
+          shortMessage?: string; 
+          details?: unknown; 
+          data?: { message?: string; [key: string]: unknown }; 
+          reason?: string;
+          code?: string;
+          metaMessages?: unknown;
+        };
         console.error("Error properties:", {
           name: errorObj.name,
           message: errorObj.message,
@@ -624,7 +641,7 @@ export default function UserDashboardPage({ params }: { params: Promise<{ id: st
         if (errorObj.shortMessage) {
           revertReason = errorObj.shortMessage;
         } else if (errorObj.details) {
-          revertReason = errorObj.details;
+          revertReason = String(errorObj.details);
         } else if (errorObj.reason) {
           revertReason = errorObj.reason;
         } else if (errorObj.data?.message) {

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/app/components/ui/button'; // Assuming path is correct
@@ -121,7 +122,7 @@ const FloatingShapes = () => (
             animate={{ opacity: [0.6, 0.9, 0.6], scale: 1, x: [-20, 20, -20], y: [-10, 10, -10] }}
             transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
             className="absolute top-[10%] left-[5%] w-64 h-64 sm:w-80 sm:h-80  rounded-full filter blur-xl hover:blur-3xl"
-        ><img width={100} height={100} src="/icons/crypto/icon.png" alt="" /></motion.div>
+        ><Image width={100} height={100} src="/icons/crypto/icon.png" alt="Crypto icon" /></motion.div>
         {/* Shape 2 */}
         <motion.div
              initial={{ opacity: 0.6, scale: 0.5 }}
@@ -129,7 +130,7 @@ const FloatingShapes = () => (
             transition={{ duration: 30, repeat: Infinity, ease: "linear", delay: 5 }}
             className="absolute bottom-[15%] right-[10%] w-56 h-56 sm:w-72 sm:h-72  from-orange-500/50 via-amber-500/20 to-transparent rounded-full filter blur-xl"
         >
-            <img width={100} height={100} src="/icons/crypto/icon2.png" alt="" />
+            <Image width={100} height={100} src="/icons/crypto/icon2.png" alt="Crypto icon 2" />
         </motion.div>
          {/* Shape 3 - Smaller, different position */}
         <motion.div
@@ -138,7 +139,7 @@ const FloatingShapes = () => (
             transition={{ duration: 20, repeat: Infinity, ease: "linear", delay: 10 }}
             className="absolute top-[40%] right-[25%] w-40 h-40 sm:w-52 sm:h-52  from-amber-400/60 via-orange-600/30 to-transparent rounded-full filter blur-xl" // Slightly less blur
         >
-            <img width={100} height={100} src="/icons/crypto/icon3.png" alt="" />
+            <Image width={100} height={100} src="/icons/crypto/icon3.png" alt="Crypto icon 3" />
         </motion.div>
          {/* Shape 4 - Another variation */}
         <motion.div
@@ -146,7 +147,7 @@ const FloatingShapes = () => (
             animate={{ opacity: [0.6, 0.9, 0.6], scale: 1, x: [10, -10, 10], y: [-25, 25, -25] }}
             transition={{ duration: 28, repeat: Infinity, ease: "linear", delay: 2 }}
             className="absolute bottom-[30%] left-[20%] w-48 h-48 sm:w-64 sm:h-64  from-amber-600/50 via-amber-700/20 to-transparent rounded-full filter blur-xl"
-          > <img width={100} height={100} src="/icons/crypto/icon4.png" alt="" /></motion.div>
+          > <Image width={100} height={100} src="/icons/crypto/icon4.png" alt="Crypto icon 4" /></motion.div>
     </div>
 );
 
