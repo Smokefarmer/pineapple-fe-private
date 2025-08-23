@@ -609,9 +609,9 @@ export default function TokenDetailPage() {
                 <div>
                   <Label>Duration C</Label>
                   <div className="bg-muted p-2 rounded text-sm mt-1">
-                    {token.adminPhaseCDuration} seconds
+                    {token.adminPhaseCDuration === 0 ? 'Endless' : `${token.adminPhaseCDuration} seconds`}
                   </div>
-                  <p className="text-xs text-muted-foreground mt-1">Duration for tax rate C</p>
+                  <p className="text-xs text-muted-foreground mt-1">Duration for tax rate C (0 = Endless)</p>
                 </div>
               </div>
             </div>

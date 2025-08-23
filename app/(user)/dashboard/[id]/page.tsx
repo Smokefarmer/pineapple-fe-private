@@ -212,12 +212,12 @@ export default function UserDashboardPage({ params }: { params: Promise<{ id: st
             adminRateC: details.adminRateC,
             adminDurationA: details.adminDurationA,
             adminDurationB: details.adminDurationB,
-            adminDurationC: details.adminDurationC,
+            adminDurationC: "0", // Always set to 0 (endless)
         };
         setFormData(formDataUpdate);
     } else {
         // Reset form if projectData is null/undefined (e.g., on disconnect or error)
-        setFormData({});
+        setFormData({ adminDurationC: "0" }); // Always ensure adminDurationC is set to 0
     }
   }, [details]); // Re-run effect when projectData changes (now memoized)
   
@@ -1054,9 +1054,9 @@ Timestamp: ${new Date().toISOString()}
                             <p className="text-xs text-muted-foreground mt-1">Tax rate after duration B expires</p>
                         </div>
                         <div>
-                            <Label htmlFor="adminDurationC">Duration C (seconds) <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
-                            <Input id="adminDurationC" type="number" placeholder="e.g., 10800" value={formData.adminDurationC || ''} onChange={handleInputChange} required min="0" disabled={isConfigurationDisabled} className="mt-1.5"/>
-                            <p className="text-xs text-muted-foreground mt-1">Duration for tax rate C</p>
+                            <Label htmlFor="adminDurationC">Duration C (seconds)</Label>
+                            <Input id="adminDurationC" type="number" value="0" disabled={true} className="mt-1.5 bg-muted"/>
+                            <p className="text-xs text-muted-foreground mt-1">Duration for tax rate C (0 = Endless)</p>
                         </div>
                     </div>
                     
