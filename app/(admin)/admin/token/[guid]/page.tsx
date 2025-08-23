@@ -60,7 +60,12 @@ export default function TokenDetailPage() {
   const router = useRouter();
   const guid = params.guid as string;
   const [liquidityTokenPercent, setLiquidityTokenPercent] = useState(50); 
-  const [whitelistFile, setWhitelistFile] = useState<File | null>(null); 
+  const [whitelistFile, setWhitelistFile] = useState<File | null>(null);
+  
+  // Admin phase configuration state
+  const [adminPhaseA, setAdminPhaseA] = useState({ rate: 5, duration: 3600 }); // 5%, 1 hour
+  const [adminPhaseB, setAdminPhaseB] = useState({ rate: 3, duration: 7200 }); // 3%, 2 hours  
+  const [adminPhaseC, setAdminPhaseC] = useState({ rate: 1, duration: 0 }); // 1%, endless 
   const { chain } = useAccount(); 
 
   // Fetch token details
@@ -108,13 +113,46 @@ export default function TokenDetailPage() {
       return;
     }
     
+    // Validate admin phase C rate against flat tax rates
+    const flatBuyTaxPercent = token.flatBuyTax / 100; // Convert from basis points to percentage
+    const flatSellTaxPercent = token.flatSellTax / 100; // Convert from basis points to percentage
+    
+    if (adminPhaseC.rate > flatBuyTaxPercent || adminPhaseC.rate > flatSellTaxPercent) {
+      toast.error("Invalid Admin Configuration", { 
+        description: `Admin Phase C rate (${adminPhaseC.rate}%) cannot exceed the creator's flat tax rates (Buy: ${flatBuyTaxPercent}%, Sell: ${flatSellTaxPercent}%)` 
+      });
+      return;
+    }
+    
+    // Validate that rates decrease over time
+    if (adminPhaseA.rate < adminPhaseB.rate || adminPhaseB.rate < adminPhaseC.rate) {
+      toast.error("Invalid Admin Configuration", { 
+        description: "Admin tax rates must decrease over time (Phase A ≥ Phase B ≥ Phase C)" 
+      });
+      return;
+    }
+    
+    const adminRatesBps = [
+      adminPhaseA.rate * 100, // Convert to basis points
+      adminPhaseB.rate * 100, 
+      adminPhaseC.rate * 100
+    ];
+    
+    const adminDurations = [
+      adminPhaseA.duration,
+      adminPhaseB.duration, 
+      adminPhaseC.duration // Always 0 for endless
+    ];
+    
     approveToken({ 
       guid: token.guid, 
-      liquidityTokenPercent: liquidityTokenPercent * 100 
+      liquidityTokenPercent: liquidityTokenPercent * 100,
+      adminRatesBps,
+      adminDurations
     }, {
       onSuccess: () => {
         toast.success("Token Approved", { 
-          description: `${token.symbol} has been approved with ${liquidityTokenPercent}% liquidity.` 
+          description: `${token.symbol} has been approved with ${liquidityTokenPercent}% liquidity and admin tax configuration.` 
         });
         refetch(); 
       },
@@ -565,55 +603,152 @@ export default function TokenDetailPage() {
             <div className="space-y-4">
               <h3 className="text-lg font-medium">Admin Tax Configuration</h3>
               
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label>Admin Tax Rate A</Label>
-                  <div className="bg-muted p-2 rounded text-sm mt-1">
-                    {token.adminPhaseARateBps/100}%
+              {!token.isTokenApproved ? (
+                <div className="space-y-4">
+                  <Alert>
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>
+                      Configure admin tax phases. Phase C rate must not exceed creator's flat tax rates (Buy: {(token.flatBuyTax/100).toFixed(1)}%, Sell: {(token.flatSellTax/100).toFixed(1)}%).
+                    </AlertDescription>
+                  </Alert>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="adminPhaseARate">Admin Tax Rate A (%)</Label>
+                      <Input
+                        id="adminPhaseARate"
+                        type="number"
+                        min={0}
+                        max={50}
+                        step={0.1}
+                        value={adminPhaseA.rate}
+                        onChange={(e) => setAdminPhaseA(prev => ({ ...prev, rate: parseFloat(e.target.value) || 0 }))}
+                        disabled={isProcessing}
+                        className="mt-1"
+                      />
+                      <p className="text-xs text-muted-foreground mt-1">Tax rate from TGE (Token Generation Event)</p>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="adminPhaseADuration">Duration A (seconds)</Label>
+                      <Input
+                        id="adminPhaseADuration"
+                        type="number"
+                        min={0}
+                        value={adminPhaseA.duration}
+                        onChange={(e) => setAdminPhaseA(prev => ({ ...prev, duration: parseInt(e.target.value) || 0 }))}
+                        disabled={isProcessing}
+                        className="mt-1"
+                      />
+                      <p className="text-xs text-muted-foreground mt-1">Duration for tax rate A</p>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="adminPhaseBRate">Admin Tax Rate B (%)</Label>
+                      <Input
+                        id="adminPhaseBRate"
+                        type="number"
+                        min={0}
+                        max={50}
+                        step={0.1}
+                        value={adminPhaseB.rate}
+                        onChange={(e) => setAdminPhaseB(prev => ({ ...prev, rate: parseFloat(e.target.value) || 0 }))}
+                        disabled={isProcessing}
+                        className="mt-1"
+                      />
+                      <p className="text-xs text-muted-foreground mt-1">Tax rate after duration A expires</p>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="adminPhaseBDuration">Duration B (seconds)</Label>
+                      <Input
+                        id="adminPhaseBDuration"
+                        type="number"
+                        min={0}
+                        value={adminPhaseB.duration}
+                        onChange={(e) => setAdminPhaseB(prev => ({ ...prev, duration: parseInt(e.target.value) || 0 }))}
+                        disabled={isProcessing}
+                        className="mt-1"
+                      />
+                      <p className="text-xs text-muted-foreground mt-1">Duration for tax rate B</p>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="adminPhaseCRate">Admin Tax Rate C (%)</Label>
+                      <Input
+                        id="adminPhaseCRate"
+                        type="number"
+                        min={0}
+                        max={Math.min(token.flatBuyTax/100, token.flatSellTax/100)}
+                        step={0.1}
+                        value={adminPhaseC.rate}
+                        onChange={(e) => setAdminPhaseC(prev => ({ ...prev, rate: parseFloat(e.target.value) || 0 }))}
+                        disabled={isProcessing}
+                        className="mt-1"
+                      />
+                      <p className="text-xs text-muted-foreground mt-1">Tax rate after duration B expires (endless phase)</p>
+                    </div>
+                    
+                    <div>
+                      <Label>Duration C</Label>
+                      <div className="bg-muted p-2 rounded text-sm mt-1">
+                        0 (Endless)
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-1">Duration for tax rate C (always endless)</p>
+                    </div>
                   </div>
-                  <p className="text-xs text-muted-foreground mt-1">Tax rate from TGE (Token Generation Event)</p>
                 </div>
-                
-                <div>
-                  <Label>Duration A</Label>
-                  <div className="bg-muted p-2 rounded text-sm mt-1">
-                    {token.adminPhaseADuration} seconds
+              ) : (
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label>Admin Tax Rate A</Label>
+                    <div className="bg-muted p-2 rounded text-sm mt-1">
+                      {token.adminPhaseARateBps ? (token.adminPhaseARateBps/100).toFixed(1) : '0'}%
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">Tax rate from TGE (Token Generation Event)</p>
                   </div>
-                  <p className="text-xs text-muted-foreground mt-1">Duration for tax rate A</p>
-                </div>
-                
-                <div>
-                  <Label>Admin Tax Rate B</Label>
-                  <div className="bg-muted p-2 rounded text-sm mt-1">
-                    {token.adminPhaseBRateBps/100}%
+                  
+                  <div>
+                    <Label>Duration A</Label>
+                    <div className="bg-muted p-2 rounded text-sm mt-1">
+                      {token.adminPhaseADuration || 0} seconds
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">Duration for tax rate A</p>
                   </div>
-                  <p className="text-xs text-muted-foreground mt-1">Tax rate after duration A expires</p>
-                </div>
-                
-                <div>
-                  <Label>Duration B</Label>
-                  <div className="bg-muted p-2 rounded text-sm mt-1">
-                    {token.adminPhaseBDuration} seconds
+                  
+                  <div>
+                    <Label>Admin Tax Rate B</Label>
+                    <div className="bg-muted p-2 rounded text-sm mt-1">
+                      {token.adminPhaseBRateBps ? (token.adminPhaseBRateBps/100).toFixed(1) : '0'}%
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">Tax rate after duration A expires</p>
                   </div>
-                  <p className="text-xs text-muted-foreground mt-1">Duration for tax rate B</p>
-                </div>
-                
-                <div>
-                  <Label>Admin Tax Rate C</Label>
-                  <div className="bg-muted p-2 rounded text-sm mt-1">
-                    {token.adminPhaseCRateBps/100}%
+                  
+                  <div>
+                    <Label>Duration B</Label>
+                    <div className="bg-muted p-2 rounded text-sm mt-1">
+                      {token.adminPhaseBDuration || 0} seconds
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">Duration for tax rate B</p>
                   </div>
-                  <p className="text-xs text-muted-foreground mt-1">Tax rate after duration B expires</p>
-                </div>
-                
-                <div>
-                  <Label>Duration C</Label>
-                  <div className="bg-muted p-2 rounded text-sm mt-1">
-                    {token.adminPhaseCDuration === 0 ? 'Endless' : `${token.adminPhaseCDuration} seconds`}
+                  
+                  <div>
+                    <Label>Admin Tax Rate C</Label>
+                    <div className="bg-muted p-2 rounded text-sm mt-1">
+                      {token.adminPhaseCRateBps ? (token.adminPhaseCRateBps/100).toFixed(1) : '0'}%
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">Tax rate after duration B expires</p>
                   </div>
-                  <p className="text-xs text-muted-foreground mt-1">Duration for tax rate C (0 = Endless)</p>
+                  
+                  <div>
+                    <Label>Duration C</Label>
+                    <div className="bg-muted p-2 rounded text-sm mt-1">
+                      {(token.adminPhaseCDuration || 0) === 0 ? 'Endless' : `${token.adminPhaseCDuration} seconds`}
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">Duration for tax rate C (0 = Endless)</p>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
 

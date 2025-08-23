@@ -1,7 +1,7 @@
 'use client';
 
 import { useAccount, useChainId, useWaitForTransactionReceipt, usePublicClient } from 'wagmi';
-import { use } from 'react';
+import { useParams } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
 import { useState, useEffect, useMemo } from 'react';
 import { useWriteRouterDeployToken, useReadRouterGetToken, useWriteRouterAddLiquiditySigned, routerAddress, useReadErc20Allowance, useWriteErc20Approve } from '@/src/generated';
@@ -19,6 +19,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/app/components/ui/alert";
 import { toast } from "sonner";
 import { CheckCircle2, Info, Loader2, XCircle, Settings, Rocket, HelpCircle, Coins, CopyIcon, RefreshCw } from "lucide-react";
 import { parseEther } from 'viem'; // Import parseEther and getContract from viem
+import TaxManagement from '@/app/components/tax/TaxManagement';
 
 // --- Placeholder Types ---
 interface ProjectDetails {
@@ -40,13 +41,8 @@ interface ProjectDetails {
   isTokenApproved: boolean;
   isLiquidityApproved: boolean; // Add field
   originalToken?: Token; // Keep the original token data for reference
-  // New admin configuration fields
-  adminRateA: string; // Admin tax rate A (percentage)
-  adminRateB: string; // Admin tax rate B (percentage)
-  adminRateC: string; // Admin tax rate C (percentage)
-  adminDurationA: string; // Admin duration A (seconds)
-  adminDurationB: string; // Admin duration B (seconds)
-  adminDurationC: string; // Admin duration C (seconds)
+  creator?: string; // Creator address
+  // Admin configuration fields are now handled in admin approval process
 }
 // --- End Placeholder Types ---
 
@@ -76,14 +72,8 @@ function mapTokenToProjectDetails(tokenData: Token | undefined): ProjectDetails 
         isTokenApproved: !!tokenData.isTokenApproved,
         isLiquidityApproved: !!tokenData.isLiquidityApproved, // Map field
         originalToken: tokenData, // Keep the original token data for reference
-        // New admin configuration fields - map from arrays if they exist
-        // Map from the actual backend field names
-        adminRateA: tokenData.adminPhaseARateBps ? `${tokenData.adminPhaseARateBps / 100}` : '0',
-        adminRateB: tokenData.adminPhaseBRateBps ? `${tokenData.adminPhaseBRateBps / 100}` : '0',
-        adminRateC: tokenData.adminPhaseCRateBps ? `${tokenData.adminPhaseCRateBps / 100}` : '0',
-        adminDurationA: tokenData.adminPhaseADuration ? `${tokenData.adminPhaseADuration}` : '0',
-        adminDurationB: tokenData.adminPhaseBDuration ? `${tokenData.adminPhaseBDuration}` : '0',
-        adminDurationC: tokenData.adminPhaseCDuration ? `${tokenData.adminPhaseCDuration}` : '0',
+        creator: tokenData.creator, // Map creator address
+        // Admin configuration fields are handled in admin approval process
     };
 }
 
@@ -92,22 +82,37 @@ function mapTokenToProjectDetails(tokenData: Token | undefined): ProjectDetails 
 
 
 
-export default function UserDashboardPage({ params }: { params: Promise<{ id: string }> }) {
-  // Unwrap params using React.use() for Next.js 15 compatibility
-
-    const chainId = useChainId();
-  const unwrappedParams = use(params);
+export default function UserDashboardPage() {
+  const chainId = useChainId();
+  const { id: tokenId } = useParams<{ id: string }>();
   const { address, isConnected } = useAccount();
   const publicClient = usePublicClient();
   const queryClient = useQueryClient();
-  const tokenId = unwrappedParams?.id;
   
   // Check if this is a new token creation (token IDs starting with 'new-')
   const isNewTokenCreation = tokenId?.startsWith('new-');
 
-  // Form state initialized empty
-  const [formData, setFormData] = useState<Partial<ProjectDetails>>({});
+  // Form state initialized with default values to avoid controlled/uncontrolled input warnings
+  const [formData, setFormData] = useState<Partial<ProjectDetails>>({
+    name: '',
+    ticker: '',
+    supply: '',
+    liquidity: '',
+    flatBuyTax: '',
+    flatSellTax: '',
+    startBuyTax: '',
+    startSellTax: '',
+    taxWallet1: '',
+    taxWallet2: '',
+    metadataURI: '',
+    whitelistDuration: '0'
+  });
   const [imageFile, setImageFile] = useState<File | null>(null); // Add state for image file
+  // Hydration guard to ensure consistent server/client markup
+  const [hasMounted, setHasMounted] = useState(false);
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
   
   // Create token mutation
   const { mutate: createToken, isPending: isCreatingToken } = useCreateToken();
@@ -189,37 +194,26 @@ export default function UserDashboardPage({ params }: { params: Promise<{ id: st
 
    // Effect to synchronize form state with fetched data
    useEffect(() => {
-    if (details) {
+    if (details && !isNewTokenCreation) {
         // Create a subset for setFormData to avoid including originalToken
         const formDataUpdate = {
-            name: details.name,
-            ticker: details.ticker,
-            supply: details.supply,
-            liquidity: details.liquidity,
-            flatBuyTax: details.flatBuyTax,
-            flatSellTax: details.flatSellTax,
-            startBuyTax: details.startBuyTax,
-            startSellTax: details.startSellTax,
-            taxWallet1: details.taxWallet1,
-            taxWallet2: details.taxWallet2,
-            metadataURI: details.metadataURI,
-            whitelistDuration: details.whitelistDuration,
-            // Ensure other relevant fields expected by formData are included if necessary
-            // but explicitly exclude 'originalToken' if it's part of ProjectDetails but not meant for the form state.
-            // New admin configuration fields
-            adminRateA: details.adminRateA,
-            adminRateB: details.adminRateB,
-            adminRateC: details.adminRateC,
-            adminDurationA: details.adminDurationA,
-            adminDurationB: details.adminDurationB,
-            adminDurationC: "0", // Always set to 0 (endless)
+            name: details.name || '',
+            ticker: details.ticker || '',
+            supply: details.supply || '',
+            liquidity: details.liquidity || '',
+            flatBuyTax: details.flatBuyTax || '',
+            flatSellTax: details.flatSellTax || '',
+            startBuyTax: details.startBuyTax || '',
+            startSellTax: details.startSellTax || '',
+            taxWallet1: details.taxWallet1 || '',
+            taxWallet2: details.taxWallet2 || '',
+            metadataURI: details.metadataURI || '',
+            whitelistDuration: details.whitelistDuration || '0'
         };
         setFormData(formDataUpdate);
-    } else {
-        // Reset form if projectData is null/undefined (e.g., on disconnect or error)
-        setFormData({ adminDurationC: "0" }); // Always ensure adminDurationC is set to 0
     }
-  }, [details]); // Re-run effect when projectData changes (now memoized)
+    // Don't reset form for new token creation as it should keep default empty values
+  }, [details, isNewTokenCreation]); // Re-run effect when projectData changes (now memoized)
   
   // Effect to handle successful deployment
   useEffect(() => {
@@ -279,13 +273,6 @@ export default function UserDashboardPage({ params }: { params: Promise<{ id: st
     if (!formData.startSellTax) errors.push("Start Sell Tax is required.");
     if (!formData.taxWallet1) errors.push("Tax Wallet is required.");
     if (!formData.whitelistDuration) errors.push("Whitelist Duration is required.");
-    if (!formData.adminRateA) errors.push("Admin Tax Rate A is required.");
-    if (!formData.adminRateB) errors.push("Admin Tax Rate B is required.");
-    if (!formData.adminRateC) errors.push("Admin Tax Rate C is required.");
-    if (!formData.adminDurationA) errors.push("Admin Duration A is required.");
-    if (!formData.adminDurationB) errors.push("Admin Duration B is required.");
-    // Admin Duration C can be 0 (infinite), so don't require it to be non-empty
-    // if (!formData.adminDurationC) errors.push("Admin Duration C is required.");
     if (!imageFile) errors.push("Token Image is required.");
 
     // Value range checks (convert string inputs to numbers for comparison)
@@ -295,12 +282,6 @@ export default function UserDashboardPage({ params }: { params: Promise<{ id: st
     const startSellTaxNum = parseFloat(formData.startSellTax || '0');
     const liquidityNum = parseFloat(formData.liquidity || '0');
     const whitelistDurationNum = parseInt(formData.whitelistDuration || '-1', 10);
-    const adminRateANum = parseFloat(formData.adminRateA || '0');
-    const adminRateBNum = parseFloat(formData.adminRateB || '0');
-    const adminRateCNum = parseFloat(formData.adminRateC || '0');
-    const adminDurationANum = parseInt(formData.adminDurationA || '-1', 10);
-    const adminDurationBNum = parseInt(formData.adminDurationB || '-1', 10);
-    const adminDurationCNum = parseInt(formData.adminDurationC || '0', 10); // Default to 0 for infinite
 
     if (formData.flatBuyTax && (flatBuyTaxNum < 4 || flatBuyTaxNum > 7)) errors.push("Flat Buy Tax must be between 4% and 7%.");
     if (formData.flatSellTax && (flatSellTaxNum < 4 || flatSellTaxNum > 7)) errors.push("Flat Sell Tax must be between 4% and 7%.");
@@ -336,21 +317,6 @@ export default function UserDashboardPage({ params }: { params: Promise<{ id: st
     submissionData.append('whitelistOnlyDuration', String(whitelistDurationNum)); // Use validated number
     submissionData.append('taxRecipient', formData.taxWallet1 || '');
     submissionData.append('creator', address || ''); // Add creator address
-    
-    // Add admin configuration fields as arrays (as expected by backend validation - matches working script)
-    const adminRatesBps = [
-      adminRateANum * 100, // Convert to basis points
-      adminRateBNum * 100, // Convert to basis points
-      adminRateCNum * 100  // Convert to basis points
-    ];
-    const adminDurations = [
-      adminDurationANum,
-      adminDurationBNum,
-      adminDurationCNum
-    ];
-    
-    submissionData.append('adminRatesBps', JSON.stringify(adminRatesBps));
-    submissionData.append('adminDurations', JSON.stringify(adminDurations));
     // Append file data
     if (imageFile) {
       submissionData.append('image', imageFile);
@@ -818,8 +784,22 @@ Timestamp: ${new Date().toISOString()}
 
   // --- Render Logic ---
 
+  // Guard: render stable markup until mounted to avoid hydration mismatch
+  if (!hasMounted) {
+      return (
+          <div className="container py-10 space-y-10">
+            <div className="flex items-center justify-center min-h-[400px]">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+                <p className="text-muted-foreground">Loading dashboard...</p>
+              </div>
+            </div>
+          </div>
+      );
+  }
+
    // 0. Check if we have a valid token ID
-   if (!unwrappedParams.id) {
+   if (!tokenId) {
        return (
            <div className="container py-12 flex items-center justify-center min-h-[calc(100vh-8rem)]">
              <Card className="text-center max-w-md w-full bg-card shadow-xl border border-border/50 p-8 rounded-lg">
@@ -911,13 +891,7 @@ Timestamp: ${new Date().toISOString()}
          liquidityAdded: false,
          isTokenApproved: false,
          isLiquidityApproved: false, // Add field
-         // New admin configuration fields
-         adminRateA: '',
-         adminRateB: '',
-         adminRateC: '',
-         adminDurationA: '',
-         adminDurationB: '',
-         adminDurationC: '',
+         
        } as ProjectDetails 
      : details;
    
@@ -932,6 +906,20 @@ Timestamp: ${new Date().toISOString()}
    // Check form data for liquidity amount when deciding if LP can be created
    const canCreateLP = isOnchainNoLiquidity && !!tokenState.erc20Address && !!formData?.liquidity && Number(formData.liquidity) > 0;
 
+  // Show loading state to prevent hydration mismatch
+  if ((isLoading && !isNewTokenCreation) || (!isNewTokenCreation && !details)) {
+    return (
+      <div className="container py-10 space-y-10">
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+            <p className="text-muted-foreground">Loading token information...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="container py-10 space-y-10"> {/* Increased spacing */}
 
@@ -940,33 +928,39 @@ Timestamp: ${new Date().toISOString()}
 
 
         {/* Token State Alert */}
-        {tokenState && (
-            <Alert className={`w-full p-4 ${isNewTokenCreation ? 'bg-blue-500/10 border-blue-500/30 text-blue-600' :
-                              isNewToken && !isNewTokenCreation ? 'bg-yellow-500/10 border-yellow-500/30 text-yellow-600' : 
+        {tokenState && isNewTokenCreation ? (
+          <Alert className="w-full p-4 bg-blue-500/10 border-blue-500/30 text-blue-600">
+            <Settings className="h-5 w-5 mt-0.5 text-blue-500" />
+            <AlertTitle className="text-lg font-medium mb-1 w-full">
+              New Token - Fill Out Information
+            </AlertTitle>
+            <AlertDescription className="text-sm w-full">
+              Please fill out the token information below and submit to create your token.
+            </AlertDescription>
+          </Alert>
+        ) : tokenState ? (
+            <Alert className={`w-full p-4 ${isNewToken && !isNewTokenCreation ? 'bg-yellow-500/10 border-yellow-500/30 text-yellow-600' : 
                               isApprovedNotOnchain ? 'bg-blue-500/10 border-blue-500/30 text-blue-600' : 
                               isOnchainNoLiquidity ? 'bg-green-500/10 border-green-500/30 text-green-600' :
                               'bg-primary/10 border-primary/30 text-primary'}`}>
-                {isNewTokenCreation && <Settings className="h-5 w-5 mt-0.5 text-blue-500" />}
                 {isNewToken && !isNewTokenCreation && <Info className="h-5 w-5 mt-0.5 text-yellow-500" />}
                 {isApprovedNotOnchain && <Rocket className="h-5 w-5 mt-0.5 text-blue-500" />}
                 {isOnchainNoLiquidity && <Coins className="h-5 w-5 mt-0.5 text-green-500" />}
                 {!isNewToken && !isApprovedNotOnchain && !isOnchainNoLiquidity && <CheckCircle2 className="h-5 w-5 mt-0.5 text-primary" />}
                 <AlertTitle className="text-lg font-medium mb-1 w-full">
-                            {isNewTokenCreation ? 'New Token - Fill Out Information' :
-                             isNewToken && !isNewTokenCreation ? 'New Token - Awaiting Approval' : 
+                            {isNewToken && !isNewTokenCreation ? 'New Token - Awaiting Approval' : 
                              isApprovedNotOnchain ? 'Token Approved - Ready to Deploy' : 
                              isOnchainNoLiquidity ? 'Token Deployed - Add Liquidity' :
                              'Token Active - Trading Live'}
                         </AlertTitle>
                         <AlertDescription className="text-sm w-full">
-                            {isNewTokenCreation ? 'Please fill out the token information below and submit to create your token.' :
-                             isNewToken && !isNewTokenCreation ? 'Your token is awaiting admin approval. Once approved, you can deploy it to the blockchain.' : 
+                            {isNewToken && !isNewTokenCreation ? 'Your token is awaiting admin approval. Once approved, you can deploy it to the blockchain.' : 
                              isApprovedNotOnchain ? 'Your token has been approved! You can now deploy it to the blockchain.' : 
                              isOnchainNoLiquidity ? 'Your token is deployed on-chain. Add liquidity to enable trading.' :
                              'Your token is fully deployed with liquidity. Trading is now active!'}
                         </AlertDescription>
             </Alert>
-        )}
+        ) : null}
 
         {/* Step 1: Input Project Details */}
         <Card className="bg-card shadow-xl border border-border/40 rounded-lg transition-opacity hover:border-border/70">
@@ -1021,44 +1015,7 @@ Timestamp: ${new Date().toISOString()}
                             <Input id="startSellTax" type="number" placeholder="e.g., 2" value={formData.startSellTax || ''} onChange={handleInputChange} required max="20" min="4" step="0.1" disabled={isConfigurationDisabled} className="mt-1.5"/>
                         </div>
                     </div>
-                    
-                    <div className="space-y-1">
-                        <h3 className="text-sm font-medium">Admin Tax Configuration</h3>
-                        <Separator className="my-2" />
-                    </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
-                        <div>
-                            <Label htmlFor="adminRateA">Admin Tax Rate A (%) <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
-                            <Input id="adminRateA" type="number" placeholder="e.g., 5" value={formData.adminRateA || ''} onChange={handleInputChange} required disabled={isConfigurationDisabled} className="mt-1.5"/>
-                            <p className="text-xs text-muted-foreground mt-1">Tax rate from TGE (Token Generation Event)</p>
-                        </div>
-                        <div>
-                            <Label htmlFor="adminDurationA">Duration A (seconds) <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
-                            <Input id="adminDurationA" type="number" placeholder="e.g., 3600" value={formData.adminDurationA || ''} onChange={handleInputChange} required min="0" disabled={isConfigurationDisabled} className="mt-1.5"/>
-                            <p className="text-xs text-muted-foreground mt-1">Duration for tax rate A</p>
-                        </div>
-                        <div>
-                            <Label htmlFor="adminRateB">Admin Tax Rate B (%) <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
-                            <Input id="adminRateB" type="number" placeholder="e.g., 3" value={formData.adminRateB || ''} onChange={handleInputChange} required disabled={isConfigurationDisabled} className="mt-1.5"/>
-                            <p className="text-xs text-muted-foreground mt-1">Tax rate after duration A expires</p>
-                        </div>
-                        <div>
-                            <Label htmlFor="adminDurationB">Duration B (seconds) <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
-                            <Input id="adminDurationB" type="number" placeholder="e.g., 7200" value={formData.adminDurationB || ''} onChange={handleInputChange} required min="0" disabled={isConfigurationDisabled} className="mt-1.5"/>
-                            <p className="text-xs text-muted-foreground mt-1">Duration for tax rate B</p>
-                        </div>
-                        <div>
-                            <Label htmlFor="adminRateC">Admin Tax Rate C (%) <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
-                            <Input id="adminRateC" type="number" placeholder="e.g., 1" value={formData.adminRateC || ''} onChange={handleInputChange} required disabled={isConfigurationDisabled} className="mt-1.5"/>
-                            <p className="text-xs text-muted-foreground mt-1">Tax rate after duration B expires</p>
-                        </div>
-                        <div>
-                            <Label htmlFor="adminDurationC">Duration C (seconds)</Label>
-                            <Input id="adminDurationC" type="number" value="0" disabled={true} className="mt-1.5 bg-muted"/>
-                            <p className="text-xs text-muted-foreground mt-1">Duration for tax rate C (0 = Endless)</p>
-                        </div>
-                    </div>
+
                     
                     <div className="space-y-1">
                         <h3 className="text-sm font-medium">Additional Configuration</h3>
@@ -1167,10 +1124,20 @@ Timestamp: ${new Date().toISOString()}
             </CardContent>
         </Card>
 
+        {/* Tax Management Section */}
+        {tokenState && tokenState.erc20Address && (
+          <TaxManagement
+            tokenAddress={tokenState.erc20Address}
+            creatorAddress={tokenState.creator}
+            launchTime={undefined}
+            isTokenLaunched={tokenState.liquidityAdded || false}
+          />
+        )}
+
         {/* Step 4: Project Status */}
         <Card className="bg-card shadow-xl border border-border/40 rounded-lg">
             <CardHeader className="px-6 pt-6 pb-4">
-                 <CardTitle className="flex items-center gap-2 text-lg font-semibold"> <HelpCircle className="h-5 w-5 text-primary" /> 4. Project Status & Info </CardTitle>
+                 <CardTitle className="flex items-center gap-2 text-lg font-semibold"> <HelpCircle className="h-5 w-5 text-primary" /> 5. Project Status & Info </CardTitle>
             </CardHeader>
             <CardContent className="px-6 pt-2 pb-6 space-y-4 text-sm">
                 <div className="flex justify-between items-center"><span>Token Ticker:</span> <span className="font-mono bg-muted/50 px-2 py-1 rounded-md text-xs">{tokenState?.ticker || 'N/A'}</span></div>

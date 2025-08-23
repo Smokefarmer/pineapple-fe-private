@@ -54,6 +54,12 @@ function getQueryClient() {
 // --- RainbowKit Theme Wrapper ---
 function RainbowThemeWrapper({ children }: { children: React.ReactNode }) {
   const { resolvedTheme } = useTheme();
+  
+  // Wait for theme to be resolved to avoid hydration mismatch
+  if (!resolvedTheme) {
+    return <>{children}</>;
+  }
+
   const isDarkMode = resolvedTheme === 'dark';
 
   // Pineapple Express Accent (Amber)
@@ -79,8 +85,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <NextThemesProvider
       attribute="class"
-      defaultTheme="dark" // Default to dark mode
-      enableSystem={false} // Disable system preference if defaulting to dark
+      defaultTheme="system"
+      enableSystem
       disableTransitionOnChange
     >
       <WagmiProvider config={config}>

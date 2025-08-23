@@ -290,7 +290,17 @@ export function useApproveToken() {
   const chainId = useChainId();
 
   return useMutation({
-    mutationFn: async ({ guid, liquidityTokenPercent }: { guid: string; liquidityTokenPercent: number }) => {
+    mutationFn: async ({ 
+      guid, 
+      liquidityTokenPercent, 
+      adminRatesBps, 
+      adminDurations 
+    }: { 
+      guid: string; 
+      liquidityTokenPercent: number;
+      adminRatesBps: number[];
+      adminDurations: number[];
+    }) => {
       if (!address || !isSignedIn) {
         throw new Error('Authentication required');
       }
@@ -305,7 +315,9 @@ export function useApproveToken() {
         headers: authHeaders,
         body: JSON.stringify({
           guid,
-          liquidityTokenPercent
+          liquidityTokenPercent,
+          adminRatesBps,
+          adminDurations
         })
       }, chainId);
     },
