@@ -82,6 +82,7 @@ export interface Token {
   liquidityBackingETH: string;
   whitelistOnlyDuration: number;
   taxRecipient: string;
+  taxRecipient2?: string;
   imageUrl?: string;
   metaDataURI?: string;
   erc20Address?: string;
@@ -116,6 +117,7 @@ export interface TokenCreateRequest {
   liquidityBackingETH: string;
   whitelistOnlyDuration: number;
   taxRecipient: string;
+  taxRecipient2?: string;
   metaDataURI: string;
   image?: string;
   // Admin configuration fields (individual fields as returned by backend)

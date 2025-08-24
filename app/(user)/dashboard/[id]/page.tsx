@@ -63,7 +63,7 @@ function mapTokenToProjectDetails(tokenData: Token | undefined): ProjectDetails 
         startBuyTax: `${tokenData.startBuyTax / 100}`, // Convert from basis points to percentage
         startSellTax: `${tokenData.startSellTax / 100}`, // Convert from basis points to percentage
         taxWallet1: tokenData.taxRecipient,
-        taxWallet2: '',
+        taxWallet2: tokenData.taxRecipient2 || '',
         metadataURI: tokenData.metaDataURI || '',
         whitelistDuration: `${tokenData.whitelistOnlyDuration}`,
         isContractDeployed: !!tokenData.isOnChain,
@@ -271,7 +271,12 @@ export default function UserDashboardPage() {
     if (!formData.flatSellTax) errors.push("Flat Sell Tax is required.");
     if (!formData.startBuyTax) errors.push("Start Buy Tax is required.");
     if (!formData.startSellTax) errors.push("Start Sell Tax is required.");
-    if (!formData.taxWallet1) errors.push("Tax Wallet is required.");
+    if (!formData.taxWallet1) errors.push("Primary Tax Wallet is required.");
+    
+    // Validate second wallet if provided
+    if (formData.taxWallet2 && !/^0x[a-fA-F0-9]{40}$/.test(formData.taxWallet2)) {
+        errors.push("Secondary Tax Wallet must be a valid BEP-20 address if provided.");
+    }
     if (!formData.whitelistDuration) errors.push("Whitelist Duration is required.");
     if (!imageFile) errors.push("Token Image is required.");
 
@@ -316,6 +321,7 @@ export default function UserDashboardPage() {
     submissionData.append('liquidityBackingETH', formData.liquidity || '0');
     submissionData.append('whitelistOnlyDuration', String(whitelistDurationNum)); // Use validated number
     submissionData.append('taxRecipient', formData.taxWallet1 || '');
+    submissionData.append('taxRecipient2', formData.taxWallet2 || '');
     submissionData.append('creator', address || ''); // Add creator address
     // Append file data
     if (imageFile) {
@@ -1024,8 +1030,13 @@ Timestamp: ${new Date().toISOString()}
                     
                     <div className="space-y-5">
                         <div>
-                            <Label htmlFor="taxWallet1">Tax Recipient Wallet <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
+                            <Label htmlFor="taxWallet1">Primary Tax Recipient Wallet <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
                             <Input id="taxWallet1" placeholder="0x..." value={formData.taxWallet1 || ''} onChange={handleInputChange} required pattern="^0x[a-fA-F0-9]{40}$" title="Enter a valid BEP-20 address" disabled={isConfigurationDisabled} className="mt-1.5"/>
+                        </div>
+                        <div>
+                            <Label htmlFor="taxWallet2">Secondary Tax Recipient Wallet (Optional)</Label>
+                            <Input id="taxWallet2" placeholder="0x... (optional)" value={formData.taxWallet2 || ''} onChange={handleInputChange} pattern="^0x[a-fA-F0-9]{40}$" title="Enter a valid BEP-20 address (optional)" disabled={isConfigurationDisabled} className="mt-1.5"/>
+                            <p className="text-xs text-muted-foreground mt-1">If provided, tax revenue will be split between primary and secondary wallets</p>
                         </div>
                         <div>
                             <Label htmlFor="whitelistDuration">Whitelist Only Duration (seconds)</Label>

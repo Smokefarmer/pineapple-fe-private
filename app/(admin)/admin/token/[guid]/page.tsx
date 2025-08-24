@@ -576,7 +576,7 @@ export default function TokenDetailPage() {
               </div>
 
               <div>
-                <Label>Tax Recipient</Label>
+                <Label>Primary Tax Recipient</Label>
                 <div className="flex items-center mt-1">
                   <div className="bg-muted p-2 rounded text-sm flex-grow font-mono text-xs truncate">
                     {token.taxRecipient}
@@ -585,12 +585,31 @@ export default function TokenDetailPage() {
                     variant="ghost" 
                     size="icon"
                     className="ml-2"
-                    onClick={() => copyToClipboard(token.taxRecipient, "Tax recipient")}
+                    onClick={() => copyToClipboard(token.taxRecipient, "Primary tax recipient")}
                   >
                     <Copy className="h-4 w-4" />
                   </Button>
                 </div>
               </div>
+
+              {token.taxRecipient2 && (
+                <div>
+                  <Label>Secondary Tax Recipient</Label>
+                  <div className="flex items-center mt-1">
+                    <div className="bg-muted p-2 rounded text-sm flex-grow font-mono text-xs truncate">
+                      {token.taxRecipient2}
+                    </div>
+                    <Button 
+                      variant="ghost" 
+                      size="icon"
+                      className="ml-2"
+                      onClick={() => copyToClipboard(token.taxRecipient2, "Secondary tax recipient")}
+                    >
+                      <Copy className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              )}
 
               <div>
                 <Label>Whitelist Only Duration</Label>

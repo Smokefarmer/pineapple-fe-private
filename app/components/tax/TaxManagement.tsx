@@ -12,10 +12,8 @@ import {
   Settings, 
   Info, 
   AlertTriangle, 
-  CheckCircle2, 
   Loader2, 
   TrendingDown,
-  Clock,
   Shield,
   Percent
 } from "lucide-react";
@@ -63,9 +61,7 @@ export default function TaxManagement({
     isLoading,
     error,
     decreaseTaxes,
-    disableTaxes,
-    isDecreasingTaxes,
-    isDisablingTaxes
+    isDecreasingTaxes
   } = useTaxManagement({
     tokenAddress,
     creatorAddress,
@@ -121,31 +117,7 @@ export default function TaxManagement({
     }
   };
 
-  const handleDisableTaxes = async () => {
-    if (!taxInfo?.canDisable) {
-      toast.error('Taxes cannot be disabled yet');
-      return;
-    }
 
-    try {
-      await disableTaxes();
-      toast.success('Tax disable transaction submitted!');
-    } catch (error: unknown) {
-      toast.error('Failed to disable taxes', {
-        description: error instanceof Error ? error.message : 'Unknown error occurred'
-      });
-    }
-  };
-
-  const formatTimeUntilDisable = (seconds: number): string => {
-    const days = Math.floor(seconds / (24 * 60 * 60));
-    const hours = Math.floor((seconds % (24 * 60 * 60)) / (60 * 60));
-    const minutes = Math.floor((seconds % (60 * 60)) / 60);
-    
-    if (days > 0) return `${days}d ${hours}h`;
-    if (hours > 0) return `${hours}h ${minutes}m`;
-    return `${minutes}m`;
-  };
 
   if (!isTokenLaunched) {
     return (
