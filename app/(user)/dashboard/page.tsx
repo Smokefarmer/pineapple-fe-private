@@ -141,12 +141,12 @@ export default function DashboardPage() {
             <CardContent className="pt-6 pb-6">
               <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                 <div>
-                  <h3 className="text-lg font-semibold mb-1">Create a New Token</h3>
+                  <h3 className="text-lg font-semibold mb-1">Create Token Proposal</h3>
                   <p className="text-sm text-muted-foreground">Launch your own token with customizable parameters</p>
                 </div>
                 <Button onClick={handleCreateToken} className="gap-2">
                   <Plus className="h-4 w-4" />
-                  Create Token
+                  Create Token Proposal
                 </Button>
               </div>
             </CardContent>
