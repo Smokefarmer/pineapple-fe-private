@@ -9,8 +9,11 @@ import { Alert, AlertDescription } from "@/app/components/ui/alert";
 import { toast } from "sonner";
 import { UserPlus, ShieldCheck, Loader2, AlertCircle } from "lucide-react";
 import { useSiwe } from '@/app/components/auth/siwe-provider';
-import { useWritePineappleAccessControlGrantRole } from '@/src/generated';
+import { useReadSystemContextAcl } from '@/src/generated';
+import { useWriteContract } from 'wagmi';
 import { keccak256, toBytes } from 'viem';
+
+import PineappleAccessControl from '@/abis/PineappleAccessControl';
 
 interface UserManagementProps {
   isSuperAdmin?: boolean;
@@ -207,8 +210,11 @@ export default function UserManagement({ isSuperAdmin = false }: UserManagementP
   const [loading, setLoading] = useState(false);
   const { getAuthHeader } = useSiwe();
   
+  // Get ACL address from SystemContext
+  const { data: aclAddress } = useReadSystemContextAcl();
+  
   // Smart contract hook for granting admin role
-  const { writeContractAsync: grantRole, isPending: isGrantingRole } = useWritePineappleAccessControlGrantRole();
+  const { writeContractAsync: writeContract, isPending: isGrantingRole } = useWriteContract();
 
   const handleCreateUser = async (walletAddress: string) => {
     setLoading(true);
@@ -240,6 +246,10 @@ export default function UserManagement({ isSuperAdmin = false }: UserManagementP
         throw new Error('Authentication required');
       }
 
+      if (!aclAddress) {
+        throw new Error('ACL address not available. Please try again.');
+      }
+
       // Step 1: Create admin user via API
       toast.info('Creating Admin User...', {
         description: 'Step 1: Creating admin user account'
@@ -252,7 +262,10 @@ export default function UserManagement({ isSuperAdmin = false }: UserManagementP
         description: 'Step 2: Granting WHITELIST_ADMIN_ROLE on smart contract'
       });
       
-      const txHash = await grantRole({
+      const txHash = await writeContract({
+        abi: PineappleAccessControl,
+        address: aclAddress,
+        functionName: 'grantRole',
         args: [WHITELIST_ADMIN_ROLE, walletAddress as `0x${string}`]
       });
       
