@@ -6,6 +6,7 @@ import {  react } from '@wagmi/cli/plugins'
 import Router from './abis/Router';
 import WhitelistHandler from './abis/WhitelistHandler';
 import TaxHandler from './abis/TaxHandler';
+import PineappleAccessControl from './abis/PineappleAccessControl';
 
 const addresses =  {
   "network": "mainnet",
@@ -62,6 +63,13 @@ export default defineConfig({
       address: {
         [bscTestnet.id]: addressesTest.masterTaxHandler as Address,
         [bsc.id]: addresses.masterTaxHandler as Address,
+      },
+    }, {
+      name: 'PineappleAccessControl',
+      abi: PineappleAccessControl as Abi,
+      address: {
+        [bscTestnet.id]: addressesTest.systemContext as Address,
+        [bsc.id]: addresses.systemContext as Address,
       },
     }
   ],

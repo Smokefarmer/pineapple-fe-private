@@ -6,12 +6,118 @@ import {
 } from 'wagmi/codegen'
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// PineappleAccessControl
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
+ */
+export const pineappleAccessControlAbi = [
+  {
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'grantRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'hasRole',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'revokeRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'role', internalType: 'bytes32', type: 'bytes32' }],
+    name: 'getRoleAdmin',
+    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32', indexed: true },
+      {
+        name: 'account',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'sender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'RoleGranted',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32', indexed: true },
+      {
+        name: 'account',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'sender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'RoleRevoked',
+  },
+] as const
+
+/**
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
+ */
+export const pineappleAccessControlAddress = {
+  56: '0x14e2cA2c31318A82ec71543D9c34dAEd655DFF37',
+  97: '0x255843ce3cb2Cd4C9ec82306da897AE434156866',
+} as const
+
+/**
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
+ */
+export const pineappleAccessControlConfig = {
+  address: pineappleAccessControlAddress,
+  abi: pineappleAccessControlAbi,
+} as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Router
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const routerAbi = [
   {
@@ -317,16 +423,16 @@ export const routerAbi = [
 
 /**
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const routerAddress = {
   56: '0x4aF082409F215F08EA214c154b5d6c7B922D8d40',
-  97: '0x934bc099c6589a2b7058eDFBAF610e7DD767FAAa',
+  97: '0xd82A1760fDC7218263Fa761958e1c40675c26728',
 } as const
 
 /**
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const routerConfig = { address: routerAddress, abi: routerAbi } as const
 
@@ -336,7 +442,7 @@ export const routerConfig = { address: routerAddress, abi: routerAbi } as const
 
 /**
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const taxHandlerAbi = [
   {
@@ -726,16 +832,16 @@ export const taxHandlerAbi = [
 
 /**
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const taxHandlerAddress = {
   56: '0xcA99786BC41A5CD004a29E3aDBE992B3D879Fef0',
-  97: '0x6CffB2372d66c039D129b7eF5F25fb86bC9dE31A',
+  97: '0xd67C539c24b35da49C87655064FDC9F89ed64B13',
 } as const
 
 /**
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const taxHandlerConfig = {
   address: taxHandlerAddress,
@@ -748,7 +854,7 @@ export const taxHandlerConfig = {
 
 /**
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const whitelistAbi = [
   {
@@ -946,16 +1052,16 @@ export const whitelistAbi = [
 
 /**
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const whitelistAddress = {
   56: '0x8243275253eA18B01441397188A03bF2c44C1790',
-  97: '0x1C2d024794986c8C5e5E94e528B500F54433C4F3',
+  97: '0x18DF68db5D41526034fE99CcA0517Dc12b4b29C4',
 } as const
 
 /**
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const whitelistConfig = {
   address: whitelistAddress,
@@ -1068,10 +1174,162 @@ export const erc20Abi = [
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link pineappleAccessControlAbi}__
+ *
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
+ */
+export const useReadPineappleAccessControl =
+  /*#__PURE__*/ createUseReadContract({
+    abi: pineappleAccessControlAbi,
+    address: pineappleAccessControlAddress,
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link pineappleAccessControlAbi}__ and `functionName` set to `"hasRole"`
+ *
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
+ */
+export const useReadPineappleAccessControlHasRole =
+  /*#__PURE__*/ createUseReadContract({
+    abi: pineappleAccessControlAbi,
+    address: pineappleAccessControlAddress,
+    functionName: 'hasRole',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link pineappleAccessControlAbi}__ and `functionName` set to `"getRoleAdmin"`
+ *
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
+ */
+export const useReadPineappleAccessControlGetRoleAdmin =
+  /*#__PURE__*/ createUseReadContract({
+    abi: pineappleAccessControlAbi,
+    address: pineappleAccessControlAddress,
+    functionName: 'getRoleAdmin',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link pineappleAccessControlAbi}__
+ *
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
+ */
+export const useWritePineappleAccessControl =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: pineappleAccessControlAbi,
+    address: pineappleAccessControlAddress,
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link pineappleAccessControlAbi}__ and `functionName` set to `"grantRole"`
+ *
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
+ */
+export const useWritePineappleAccessControlGrantRole =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: pineappleAccessControlAbi,
+    address: pineappleAccessControlAddress,
+    functionName: 'grantRole',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link pineappleAccessControlAbi}__ and `functionName` set to `"revokeRole"`
+ *
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
+ */
+export const useWritePineappleAccessControlRevokeRole =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: pineappleAccessControlAbi,
+    address: pineappleAccessControlAddress,
+    functionName: 'revokeRole',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link pineappleAccessControlAbi}__
+ *
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
+ */
+export const useSimulatePineappleAccessControl =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: pineappleAccessControlAbi,
+    address: pineappleAccessControlAddress,
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link pineappleAccessControlAbi}__ and `functionName` set to `"grantRole"`
+ *
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
+ */
+export const useSimulatePineappleAccessControlGrantRole =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: pineappleAccessControlAbi,
+    address: pineappleAccessControlAddress,
+    functionName: 'grantRole',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link pineappleAccessControlAbi}__ and `functionName` set to `"revokeRole"`
+ *
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
+ */
+export const useSimulatePineappleAccessControlRevokeRole =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: pineappleAccessControlAbi,
+    address: pineappleAccessControlAddress,
+    functionName: 'revokeRole',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link pineappleAccessControlAbi}__
+ *
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
+ */
+export const useWatchPineappleAccessControlEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: pineappleAccessControlAbi,
+    address: pineappleAccessControlAddress,
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link pineappleAccessControlAbi}__ and `eventName` set to `"RoleGranted"`
+ *
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
+ */
+export const useWatchPineappleAccessControlRoleGrantedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: pineappleAccessControlAbi,
+    address: pineappleAccessControlAddress,
+    eventName: 'RoleGranted',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link pineappleAccessControlAbi}__ and `eventName` set to `"RoleRevoked"`
+ *
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
+ */
+export const useWatchPineappleAccessControlRoleRevokedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: pineappleAccessControlAbi,
+    address: pineappleAccessControlAddress,
+    eventName: 'RoleRevoked',
+  })
+
+/**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link routerAbi}__
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useReadRouter = /*#__PURE__*/ createUseReadContract({
   abi: routerAbi,
@@ -1082,7 +1340,7 @@ export const useReadRouter = /*#__PURE__*/ createUseReadContract({
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"getAddLiquidityMessageToSign"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useReadRouterGetAddLiquidityMessageToSign =
   /*#__PURE__*/ createUseReadContract({
@@ -1095,7 +1353,7 @@ export const useReadRouterGetAddLiquidityMessageToSign =
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"getCreateTokenMessageToSign"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useReadRouterGetCreateTokenMessageToSign =
   /*#__PURE__*/ createUseReadContract({
@@ -1108,7 +1366,7 @@ export const useReadRouterGetCreateTokenMessageToSign =
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"getToken"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useReadRouterGetToken = /*#__PURE__*/ createUseReadContract({
   abi: routerAbi,
@@ -1120,7 +1378,7 @@ export const useReadRouterGetToken = /*#__PURE__*/ createUseReadContract({
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"owner"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useReadRouterOwner = /*#__PURE__*/ createUseReadContract({
   abi: routerAbi,
@@ -1132,7 +1390,7 @@ export const useReadRouterOwner = /*#__PURE__*/ createUseReadContract({
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"systemContext"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useReadRouterSystemContext = /*#__PURE__*/ createUseReadContract({
   abi: routerAbi,
@@ -1144,7 +1402,7 @@ export const useReadRouterSystemContext = /*#__PURE__*/ createUseReadContract({
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link routerAbi}__
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useWriteRouter = /*#__PURE__*/ createUseWriteContract({
   abi: routerAbi,
@@ -1155,7 +1413,7 @@ export const useWriteRouter = /*#__PURE__*/ createUseWriteContract({
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"addLiquiditySigned"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useWriteRouterAddLiquiditySigned =
   /*#__PURE__*/ createUseWriteContract({
@@ -1168,7 +1426,7 @@ export const useWriteRouterAddLiquiditySigned =
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"deployToken"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useWriteRouterDeployToken = /*#__PURE__*/ createUseWriteContract({
   abi: routerAbi,
@@ -1180,7 +1438,7 @@ export const useWriteRouterDeployToken = /*#__PURE__*/ createUseWriteContract({
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"renounceOwnership"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useWriteRouterRenounceOwnership =
   /*#__PURE__*/ createUseWriteContract({
@@ -1193,7 +1451,7 @@ export const useWriteRouterRenounceOwnership =
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"transferOwnership"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useWriteRouterTransferOwnership =
   /*#__PURE__*/ createUseWriteContract({
@@ -1206,7 +1464,7 @@ export const useWriteRouterTransferOwnership =
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link routerAbi}__
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useSimulateRouter = /*#__PURE__*/ createUseSimulateContract({
   abi: routerAbi,
@@ -1217,7 +1475,7 @@ export const useSimulateRouter = /*#__PURE__*/ createUseSimulateContract({
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"addLiquiditySigned"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useSimulateRouterAddLiquiditySigned =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1230,7 +1488,7 @@ export const useSimulateRouterAddLiquiditySigned =
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"deployToken"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useSimulateRouterDeployToken =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1243,7 +1501,7 @@ export const useSimulateRouterDeployToken =
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"renounceOwnership"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useSimulateRouterRenounceOwnership =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1256,7 +1514,7 @@ export const useSimulateRouterRenounceOwnership =
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"transferOwnership"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useSimulateRouterTransferOwnership =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1269,7 +1527,7 @@ export const useSimulateRouterTransferOwnership =
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link routerAbi}__
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useWatchRouterEvent = /*#__PURE__*/ createUseWatchContractEvent({
   abi: routerAbi,
@@ -1280,7 +1538,7 @@ export const useWatchRouterEvent = /*#__PURE__*/ createUseWatchContractEvent({
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link routerAbi}__ and `eventName` set to `"LaunchTokenCreated"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useWatchRouterLaunchTokenCreatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -1293,7 +1551,7 @@ export const useWatchRouterLaunchTokenCreatedEvent =
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link routerAbi}__ and `eventName` set to `"LiquidityAdded"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useWatchRouterLiquidityAddedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -1306,7 +1564,7 @@ export const useWatchRouterLiquidityAddedEvent =
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link routerAbi}__ and `eventName` set to `"LiquidityLocked"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useWatchRouterLiquidityLockedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -1319,7 +1577,7 @@ export const useWatchRouterLiquidityLockedEvent =
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link routerAbi}__ and `eventName` set to `"OwnershipTransferred"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x4af082409f215f08ea214c154b5d6c7b922d8d40)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x934bc099c6589a2b7058edfbaf610e7dd767faaa)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd82a1760fdc7218263fa761958e1c40675c26728)
  */
 export const useWatchRouterOwnershipTransferredEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -1332,7 +1590,7 @@ export const useWatchRouterOwnershipTransferredEvent =
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link taxHandlerAbi}__
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useReadTaxHandler = /*#__PURE__*/ createUseReadContract({
   abi: taxHandlerAbi,
@@ -1343,7 +1601,7 @@ export const useReadTaxHandler = /*#__PURE__*/ createUseReadContract({
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"adminWallet"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useReadTaxHandlerAdminWallet = /*#__PURE__*/ createUseReadContract(
   {
@@ -1357,7 +1615,7 @@ export const useReadTaxHandlerAdminWallet = /*#__PURE__*/ createUseReadContract(
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"getCurrentTaxRates"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useReadTaxHandlerGetCurrentTaxRates =
   /*#__PURE__*/ createUseReadContract({
@@ -1370,7 +1628,7 @@ export const useReadTaxHandlerGetCurrentTaxRates =
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"systemContext"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useReadTaxHandlerSystemContext =
   /*#__PURE__*/ createUseReadContract({
@@ -1383,7 +1641,7 @@ export const useReadTaxHandlerSystemContext =
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useWriteTaxHandler = /*#__PURE__*/ createUseWriteContract({
   abi: taxHandlerAbi,
@@ -1394,7 +1652,7 @@ export const useWriteTaxHandler = /*#__PURE__*/ createUseWriteContract({
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"decreaseTaxes"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useWriteTaxHandlerDecreaseTaxes =
   /*#__PURE__*/ createUseWriteContract({
@@ -1407,7 +1665,7 @@ export const useWriteTaxHandlerDecreaseTaxes =
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"disableTaxes"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useWriteTaxHandlerDisableTaxes =
   /*#__PURE__*/ createUseWriteContract({
@@ -1420,7 +1678,7 @@ export const useWriteTaxHandlerDisableTaxes =
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"handleTax"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useWriteTaxHandlerHandleTax = /*#__PURE__*/ createUseWriteContract(
   { abi: taxHandlerAbi, address: taxHandlerAddress, functionName: 'handleTax' },
@@ -1430,7 +1688,7 @@ export const useWriteTaxHandlerHandleTax = /*#__PURE__*/ createUseWriteContract(
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"registerTaxConfig"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useWriteTaxHandlerRegisterTaxConfig =
   /*#__PURE__*/ createUseWriteContract({
@@ -1443,7 +1701,7 @@ export const useWriteTaxHandlerRegisterTaxConfig =
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setAdminWallet"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useWriteTaxHandlerSetAdminWallet =
   /*#__PURE__*/ createUseWriteContract({
@@ -1456,7 +1714,7 @@ export const useWriteTaxHandlerSetAdminWallet =
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setLiquidityAddedAt"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useWriteTaxHandlerSetLiquidityAddedAt =
   /*#__PURE__*/ createUseWriteContract({
@@ -1469,7 +1727,7 @@ export const useWriteTaxHandlerSetLiquidityAddedAt =
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setUser2Recipient"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useWriteTaxHandlerSetUser2Recipient =
   /*#__PURE__*/ createUseWriteContract({
@@ -1482,7 +1740,7 @@ export const useWriteTaxHandlerSetUser2Recipient =
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useSimulateTaxHandler = /*#__PURE__*/ createUseSimulateContract({
   abi: taxHandlerAbi,
@@ -1493,7 +1751,7 @@ export const useSimulateTaxHandler = /*#__PURE__*/ createUseSimulateContract({
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"decreaseTaxes"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useSimulateTaxHandlerDecreaseTaxes =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1506,7 +1764,7 @@ export const useSimulateTaxHandlerDecreaseTaxes =
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"disableTaxes"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useSimulateTaxHandlerDisableTaxes =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1519,7 +1777,7 @@ export const useSimulateTaxHandlerDisableTaxes =
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"handleTax"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useSimulateTaxHandlerHandleTax =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1532,7 +1790,7 @@ export const useSimulateTaxHandlerHandleTax =
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"registerTaxConfig"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useSimulateTaxHandlerRegisterTaxConfig =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1545,7 +1803,7 @@ export const useSimulateTaxHandlerRegisterTaxConfig =
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setAdminWallet"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useSimulateTaxHandlerSetAdminWallet =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1558,7 +1816,7 @@ export const useSimulateTaxHandlerSetAdminWallet =
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setLiquidityAddedAt"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useSimulateTaxHandlerSetLiquidityAddedAt =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1571,7 +1829,7 @@ export const useSimulateTaxHandlerSetLiquidityAddedAt =
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setUser2Recipient"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useSimulateTaxHandlerSetUser2Recipient =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1584,7 +1842,7 @@ export const useSimulateTaxHandlerSetUser2Recipient =
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useWatchTaxHandlerEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -1596,7 +1854,7 @@ export const useWatchTaxHandlerEvent =
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"AdminPhasesSet"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useWatchTaxHandlerAdminPhasesSetEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -1609,7 +1867,7 @@ export const useWatchTaxHandlerAdminPhasesSetEvent =
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"AdminWalletUpdated"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useWatchTaxHandlerAdminWalletUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -1622,7 +1880,7 @@ export const useWatchTaxHandlerAdminWalletUpdatedEvent =
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"ConfigRegistered"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useWatchTaxHandlerConfigRegisteredEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -1635,7 +1893,7 @@ export const useWatchTaxHandlerConfigRegisteredEvent =
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"LiquidityTimestampSet"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useWatchTaxHandlerLiquidityTimestampSetEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -1648,7 +1906,7 @@ export const useWatchTaxHandlerLiquidityTimestampSetEvent =
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"TaxConfigRegistered"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useWatchTaxHandlerTaxConfigRegisteredEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -1661,7 +1919,7 @@ export const useWatchTaxHandlerTaxConfigRegisteredEvent =
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"TaxPaid"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useWatchTaxHandlerTaxPaidEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -1674,7 +1932,7 @@ export const useWatchTaxHandlerTaxPaidEvent =
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"TaxesAdjusted"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useWatchTaxHandlerTaxesAdjustedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -1687,7 +1945,7 @@ export const useWatchTaxHandlerTaxesAdjustedEvent =
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"TaxesDisabled"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useWatchTaxHandlerTaxesDisabledEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -1700,7 +1958,7 @@ export const useWatchTaxHandlerTaxesDisabledEvent =
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"User2Set"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xca99786bc41a5cd004a29e3adbe992b3d879fef0)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x6cffb2372d66c039d129b7ef5f25fb86bc9de31a)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xd67c539c24b35da49c87655064fdc9f89ed64b13)
  */
 export const useWatchTaxHandlerUser2SetEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -1713,7 +1971,7 @@ export const useWatchTaxHandlerUser2SetEvent =
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link whitelistAbi}__
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useReadWhitelist = /*#__PURE__*/ createUseReadContract({
   abi: whitelistAbi,
@@ -1724,7 +1982,7 @@ export const useReadWhitelist = /*#__PURE__*/ createUseReadContract({
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"allowancePerUser"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useReadWhitelistAllowancePerUser =
   /*#__PURE__*/ createUseReadContract({
@@ -1737,7 +1995,7 @@ export const useReadWhitelistAllowancePerUser =
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"boughtAmount"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useReadWhitelistBoughtAmount = /*#__PURE__*/ createUseReadContract(
   {
@@ -1751,7 +2009,7 @@ export const useReadWhitelistBoughtAmount = /*#__PURE__*/ createUseReadContract(
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"isWhitelisted"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useReadWhitelistIsWhitelisted =
   /*#__PURE__*/ createUseReadContract({
@@ -1764,7 +2022,7 @@ export const useReadWhitelistIsWhitelisted =
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"remainingAllowance"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useReadWhitelistRemainingAllowance =
   /*#__PURE__*/ createUseReadContract({
@@ -1777,7 +2035,7 @@ export const useReadWhitelistRemainingAllowance =
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"systemContext"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useReadWhitelistSystemContext =
   /*#__PURE__*/ createUseReadContract({
@@ -1790,7 +2048,7 @@ export const useReadWhitelistSystemContext =
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"whitelistFinalized"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useReadWhitelistWhitelistFinalized =
   /*#__PURE__*/ createUseReadContract({
@@ -1803,7 +2061,7 @@ export const useReadWhitelistWhitelistFinalized =
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"whitelists"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useReadWhitelistWhitelists = /*#__PURE__*/ createUseReadContract({
   abi: whitelistAbi,
@@ -1815,7 +2073,7 @@ export const useReadWhitelistWhitelists = /*#__PURE__*/ createUseReadContract({
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link whitelistAbi}__
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useWriteWhitelist = /*#__PURE__*/ createUseWriteContract({
   abi: whitelistAbi,
@@ -1826,7 +2084,7 @@ export const useWriteWhitelist = /*#__PURE__*/ createUseWriteContract({
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"addManyToWhitelist"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useWriteWhitelistAddManyToWhitelist =
   /*#__PURE__*/ createUseWriteContract({
@@ -1839,7 +2097,7 @@ export const useWriteWhitelistAddManyToWhitelist =
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"addToWhitelist"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useWriteWhitelistAddToWhitelist =
   /*#__PURE__*/ createUseWriteContract({
@@ -1852,7 +2110,7 @@ export const useWriteWhitelistAddToWhitelist =
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"clearWhitelist"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useWriteWhitelistClearWhitelist =
   /*#__PURE__*/ createUseWriteContract({
@@ -1865,7 +2123,7 @@ export const useWriteWhitelistClearWhitelist =
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"finalizeWhitelist"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useWriteWhitelistFinalizeWhitelist =
   /*#__PURE__*/ createUseWriteContract({
@@ -1878,7 +2136,7 @@ export const useWriteWhitelistFinalizeWhitelist =
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"recordBuy"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useWriteWhitelistRecordBuy = /*#__PURE__*/ createUseWriteContract({
   abi: whitelistAbi,
@@ -1890,7 +2148,7 @@ export const useWriteWhitelistRecordBuy = /*#__PURE__*/ createUseWriteContract({
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"removeFromWhitelist"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useWriteWhitelistRemoveFromWhitelist =
   /*#__PURE__*/ createUseWriteContract({
@@ -1903,7 +2161,7 @@ export const useWriteWhitelistRemoveFromWhitelist =
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link whitelistAbi}__
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useSimulateWhitelist = /*#__PURE__*/ createUseSimulateContract({
   abi: whitelistAbi,
@@ -1914,7 +2172,7 @@ export const useSimulateWhitelist = /*#__PURE__*/ createUseSimulateContract({
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"addManyToWhitelist"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useSimulateWhitelistAddManyToWhitelist =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1927,7 +2185,7 @@ export const useSimulateWhitelistAddManyToWhitelist =
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"addToWhitelist"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useSimulateWhitelistAddToWhitelist =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1940,7 +2198,7 @@ export const useSimulateWhitelistAddToWhitelist =
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"clearWhitelist"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useSimulateWhitelistClearWhitelist =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1953,7 +2211,7 @@ export const useSimulateWhitelistClearWhitelist =
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"finalizeWhitelist"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useSimulateWhitelistFinalizeWhitelist =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1966,7 +2224,7 @@ export const useSimulateWhitelistFinalizeWhitelist =
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"recordBuy"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useSimulateWhitelistRecordBuy =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1979,7 +2237,7 @@ export const useSimulateWhitelistRecordBuy =
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"removeFromWhitelist"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useSimulateWhitelistRemoveFromWhitelist =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1992,7 +2250,7 @@ export const useSimulateWhitelistRemoveFromWhitelist =
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link whitelistAbi}__
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useWatchWhitelistEvent = /*#__PURE__*/ createUseWatchContractEvent(
   { abi: whitelistAbi, address: whitelistAddress },
@@ -2002,7 +2260,7 @@ export const useWatchWhitelistEvent = /*#__PURE__*/ createUseWatchContractEvent(
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link whitelistAbi}__ and `eventName` set to `"WhitelistBuyRecorded"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useWatchWhitelistWhitelistBuyRecordedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -2015,7 +2273,7 @@ export const useWatchWhitelistWhitelistBuyRecordedEvent =
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link whitelistAbi}__ and `eventName` set to `"WhitelistEntryAdded"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useWatchWhitelistWhitelistEntryAddedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -2028,7 +2286,7 @@ export const useWatchWhitelistWhitelistEntryAddedEvent =
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link whitelistAbi}__ and `eventName` set to `"WhitelistEntryRemoved"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useWatchWhitelistWhitelistEntryRemovedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -2041,7 +2299,7 @@ export const useWatchWhitelistWhitelistEntryRemovedEvent =
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link whitelistAbi}__ and `eventName` set to `"WhitelistFinalized"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x8243275253ea18b01441397188a03bf2c44c1790)
- * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x1c2d024794986c8c5e5e94e528b500f54433c4f3)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x18df68db5d41526034fe99cca0517dc12b4b29c4)
  */
 export const useWatchWhitelistWhitelistFinalizedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({

@@ -9,6 +9,8 @@ import { Alert, AlertDescription } from "@/app/components/ui/alert";
 import { toast } from "sonner";
 import { UserPlus, ShieldCheck, Loader2, AlertCircle } from "lucide-react";
 import { useSiwe } from '@/app/components/auth/siwe-provider';
+import { useWritePineappleAccessControlGrantRole } from '@/src/generated';
+import { keccak256, toBytes } from 'viem';
 
 interface UserManagementProps {
   isSuperAdmin?: boolean;
@@ -17,6 +19,9 @@ interface UserManagementProps {
 // Backend URL configuration
 // Note: API endpoints use /api/v1/ versioning
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://pineapple-be-83889045198.europe-west1.run.app';
+
+// Smart contract role constant
+const WHITELIST_ADMIN_ROLE = keccak256(toBytes('WHITELIST_ADMIN_ROLE'));
 
 // API response interfaces
 interface CreateUserResponse {
@@ -124,7 +129,7 @@ function UserDialog({
           </DialogTitle>
           <DialogDescription>
             {type === 'admin' 
-              ? 'Add a new admin user to the system. Only super admins can create new admins.'
+              ? 'Add a new admin user to the system. This is a 2-step process: 1) Create user account, 2) Grant WHITELIST_ADMIN_ROLE on smart contract. Only super admins can create new admins.'
               : 'Add a new user to the system. They will be able to create and manage tokens.'
             }
           </DialogDescription>
@@ -140,7 +145,7 @@ function UserDialog({
               value={walletAddress}
               onChange={(e) => setWalletAddress(e.target.value)}
               className="mt-1"
-              disabled={loading}
+              disabled={loading || isGrantingRole}
               pattern="^0x[a-fA-F0-9]{40}$"
               required
             />
@@ -161,12 +166,12 @@ function UserDialog({
               type="button"
               variant="outline"
               onClick={() => handleOpenChange(false)}
-              disabled={loading}
+              disabled={loading || isGrantingRole}
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={loading || !walletAddress}>
-              {loading ? (
+            <Button type="submit" disabled={loading || isGrantingRole || !walletAddress}>
+              {(loading || isGrantingRole) ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Creating...
@@ -199,6 +204,10 @@ export default function UserManagement({ isSuperAdmin = false }: UserManagementP
   const [adminDialogOpen, setAdminDialogOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { getAuthHeader } = useSiwe();
+  
+  // Smart contract hook for granting admin role
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { writeContractAsync: grantRole, isPending: isGrantingRole } = useWritePineappleAccessControlGrantRole();
 
   const handleCreateUser = async (walletAddress: string) => {
     setLoading(true);
@@ -230,9 +239,24 @@ export default function UserManagement({ isSuperAdmin = false }: UserManagementP
         throw new Error('Authentication required');
       }
 
+      // Step 1: Create admin user via API
+      toast.info('Creating Admin User...', {
+        description: 'Step 1: Creating admin user account'
+      });
+      
       await createAdmin(walletAddress, authHeader);
+      
+      // Step 2: Grant WHITELIST_ADMIN_ROLE via smart contract
+      toast.info('Granting Admin Role...', {
+        description: 'Step 2: Granting WHITELIST_ADMIN_ROLE on smart contract'
+      });
+      
+      const txHash = await grantRole({
+        args: [WHITELIST_ADMIN_ROLE, walletAddress as `0x${string}`]
+      });
+      
       toast.success('Admin Created Successfully', {
-        description: `Admin ${walletAddress.substring(0, 6)}...${walletAddress.substring(walletAddress.length - 4)} has been created.`
+        description: `Admin ${walletAddress.substring(0, 6)}...${walletAddress.substring(walletAddress.length - 4)} created and role granted. TX: ${txHash.substring(0, 10)}...`
       });
       setAdminDialogOpen(false);
     } catch (error) {
