@@ -1066,8 +1066,8 @@ Timestamp: ${new Date().toISOString()}
                         </div>
                         <div>
                             <Label htmlFor="taxWallet2Share">Secondary Wallet Share (%)</Label>
-                            <Input id="taxWallet2Share" type="number" placeholder="50" value={formData.taxWallet2Share || '50'} onChange={handleInputChange} min="0" max="100" disabled={isConfigurationDisabled || !formData.taxWallet2} className="mt-1.5"/>
-                            <p className="text-xs text-muted-foreground mt-1">Percentage of tax revenue for secondary wallet (0-100%). Primary wallet gets the remainder.</p>
+                            <Input id="taxWallet2Share" type="number" placeholder="50" value={formData.taxWallet2Share || '50'} onChange={handleInputChange} min="0" max="100" disabled={isConfigurationDisabled} className="mt-1.5"/>
+                            <p className="text-xs text-muted-foreground mt-1">Percentage of tax revenue for secondary wallet (0-100%). Only applies if secondary wallet is provided. Primary wallet gets the remainder.</p>
                         </div>
                         <div>
                             <Label htmlFor="whitelistDuration">Whitelist Only Duration (seconds)</Label>
