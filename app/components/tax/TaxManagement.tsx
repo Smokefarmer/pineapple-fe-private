@@ -330,59 +330,6 @@ export default function TaxManagement({
               </>
             )}
 
-            {/* Disable Taxes Section */}
-            {taxInfo.canDecrease && (
-              <>
-                <Separator />
-                
-                <div>
-                  <h3 className="text-lg font-medium mb-4 flex items-center gap-2">
-                    <Clock className="h-5 w-5" />
-                    Disable Creator Taxes
-                  </h3>
-                  
-                  {taxInfo.canDisable ? (
-                    <div>
-                      <Alert className="mb-4">
-                        <CheckCircle2 className="h-4 w-4" />
-                        <AlertDescription>
-                          Your token has been launched for over 30 days. You can now completely disable creator taxes.
-                        </AlertDescription>
-                      </Alert>
-                      
-                      <Button
-                        onClick={handleDisableTaxes}
-                        disabled={isDisablingTaxes}
-                        variant="destructive"
-                        className="w-full"
-                      >
-                        {isDisablingTaxes ? (
-                          <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Disabling Taxes...
-                          </>
-                        ) : (
-                          <>
-                            <Shield className="mr-2 h-4 w-4" />
-                            Disable All Creator Taxes
-                          </>
-                        )}
-                      </Button>
-                    </div>
-                  ) : (
-                    <Alert>
-                      <Clock className="h-4 w-4" />
-                      <AlertDescription>
-                        Creator taxes can be disabled 30 days after launch.
-                        {taxInfo.timeUntilDisable && taxInfo.timeUntilDisable > 0 && (
-                          <> Time remaining: <strong>{formatTimeUntilDisable(taxInfo.timeUntilDisable)}</strong></>
-                        )}
-                      </AlertDescription>
-                    </Alert>
-                  )}
-                </div>
-              </>
-            )}
 
             {/* Educational Content Toggle */}
             <Separator />
