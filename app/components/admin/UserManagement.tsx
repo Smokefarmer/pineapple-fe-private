@@ -14,6 +14,9 @@ interface UserManagementProps {
   isSuperAdmin?: boolean;
 }
 
+// Backend URL configuration
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://pineapple-be-83889045198.europe-west1.run.app';
+
 // API response interfaces
 interface CreateUserResponse {
   message: string;
@@ -29,7 +32,7 @@ interface CreateUserResponse {
 
 // API functions for user/admin creation
 async function createUserAsAdmin(walletAddress: string, authHeader: Record<string, string>): Promise<CreateUserResponse> {
-  const response = await fetch('/api/auth/create-user', {
+  const response = await fetch(`${BACKEND_URL}/api/auth/create-user`, {
     method: 'POST',
     headers: {
       ...authHeader,
@@ -47,7 +50,7 @@ async function createUserAsAdmin(walletAddress: string, authHeader: Record<strin
 }
 
 async function createAdmin(walletAddress: string, authHeader: Record<string, string>): Promise<CreateUserResponse> {
-  const response = await fetch('/api/auth/create-admin', {
+  const response = await fetch(`${BACKEND_URL}/api/auth/create-admin`, {
     method: 'POST',
     headers: {
       ...authHeader,
