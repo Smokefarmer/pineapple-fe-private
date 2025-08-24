@@ -8,6 +8,8 @@ import { Label } from "@/app/components/ui/label";
 import { Skeleton } from "@/app/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableCaption } from "@/app/components/ui/table";
 import DevWalletHelper from "@/app/components/admin/dev-wallet-helper";
+import UserManagement from "@/app/components/admin/UserManagement";
+import { useCanCreateAdmin } from "@/app/lib/hooks/useUserRole";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/app/components/ui/tooltip";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/app/components/ui/dialog";
@@ -36,6 +38,7 @@ export default function AdminPage() {
   const { address, isConnected } = useAccount();
   const queryClient = useQueryClient();
   const router = useRouter();
+  const canCreateAdmin = useCanCreateAdmin();
 
   const [newWalletAddress, setNewWalletAddress] = useState('');
   const [walletToRemove, setWalletToRemove] = useState<string | null>(null); // For confirmation dialog
@@ -105,8 +108,13 @@ export default function AdminPage() {
     <TooltipProvider delayDuration={100}>
      <div className="container py-8 space-y-8">
         <div className="flex justify-between items-center">
-            <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
-            <p className="text-sm text-muted-foreground">Connected: <code className="font-mono">{address?.substring(0, 6)}...{address?.substring(address.length-4)}</code></p>
+            <div>
+                <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
+                <p className="text-sm text-muted-foreground">Connected: <code className="font-mono">{address?.substring(0, 6)}...{address?.substring(address.length-4)}</code></p>
+            </div>
+            <div className="flex items-center gap-4">
+                <UserManagement isSuperAdmin={canCreateAdmin} />
+            </div>
         </div>
 
         {/* Token Management */}

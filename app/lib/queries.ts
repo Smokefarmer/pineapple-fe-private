@@ -83,6 +83,7 @@ export interface Token {
   whitelistOnlyDuration: number;
   taxRecipient: string;
   taxRecipient2?: string;
+  taxRecipient2Share?: number;
   imageUrl?: string;
   metaDataURI?: string;
   erc20Address?: string;
@@ -118,6 +119,7 @@ export interface TokenCreateRequest {
   whitelistOnlyDuration: number;
   taxRecipient: string;
   taxRecipient2?: string;
+  taxRecipient2Share?: number;
   metaDataURI: string;
   image?: string;
   // Admin configuration fields (individual fields as returned by backend)

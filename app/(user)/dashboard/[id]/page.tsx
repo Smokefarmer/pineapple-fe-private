@@ -33,6 +33,7 @@ interface ProjectDetails {
   startSellTax: string; // Initial sell tax percentage
   taxWallet1: string; // BEP-20 Address (tax recipient)
   taxWallet2: string; // Optional BEP-20 Address
+  taxWallet2Share: string; // Share percentage for second wallet (0-100)
   metadataURI: string; // Token metadata URI
   whitelistDuration: string; // Whitelist only duration in seconds
   isContractDeployed: boolean;
@@ -64,6 +65,7 @@ function mapTokenToProjectDetails(tokenData: Token | undefined): ProjectDetails 
         startSellTax: `${tokenData.startSellTax / 100}`, // Convert from basis points to percentage
         taxWallet1: tokenData.taxRecipient,
         taxWallet2: tokenData.taxRecipient2 || '',
+        taxWallet2Share: tokenData.taxRecipient2Share?.toString() || '50',
         metadataURI: tokenData.metaDataURI || '',
         whitelistDuration: `${tokenData.whitelistOnlyDuration}`,
         isContractDeployed: !!tokenData.isOnChain,
@@ -104,6 +106,7 @@ export default function UserDashboardPage() {
     startSellTax: '',
     taxWallet1: '',
     taxWallet2: '',
+    taxWallet2Share: '50',
     metadataURI: '',
     whitelistDuration: '0'
   });
@@ -207,6 +210,7 @@ export default function UserDashboardPage() {
             startSellTax: details.startSellTax || '',
             taxWallet1: details.taxWallet1 || '',
             taxWallet2: details.taxWallet2 || '',
+            taxWallet2Share: details.taxWallet2Share || '50',
             metadataURI: details.metadataURI || '',
             whitelistDuration: details.whitelistDuration || '0'
         };
@@ -277,6 +281,14 @@ export default function UserDashboardPage() {
     if (formData.taxWallet2 && !/^0x[a-fA-F0-9]{40}$/.test(formData.taxWallet2)) {
         errors.push("Secondary Tax Wallet must be a valid BEP-20 address if provided.");
     }
+    
+    // Validate share percentage
+    const sharePercentage = parseFloat(formData.taxWallet2Share || '0');
+    if (formData.taxWallet2) {
+        if (isNaN(sharePercentage) || sharePercentage < 0 || sharePercentage > 100) {
+            errors.push("Secondary Wallet Share must be between 0 and 100%.");
+        }
+    }
     if (!formData.whitelistDuration) errors.push("Whitelist Duration is required.");
     if (!imageFile) errors.push("Token Image is required.");
 
@@ -322,6 +334,7 @@ export default function UserDashboardPage() {
     submissionData.append('whitelistOnlyDuration', String(whitelistDurationNum)); // Use validated number
     submissionData.append('taxRecipient', formData.taxWallet1 || '');
     submissionData.append('taxRecipient2', formData.taxWallet2 || '');
+    submissionData.append('taxRecipient2Share', formData.taxWallet2 ? formData.taxWallet2Share || '50' : '0');
     submissionData.append('creator', address || ''); // Add creator address
     // Append file data
     if (imageFile) {
@@ -410,6 +423,8 @@ export default function UserDashboardPage() {
         BigInt(backendMessage.liquidityBackingETH), // liquidityBackingETH (uint256 -> BigInt)
         backendMessage.liquidityTokenPercent, // liquidityTokenPercent (uint256 but as number like in working script)
         backendMessage.whitelistOnlyDuration, // whitelistOnlyDuration (uint256 but as number like in working script)
+        backendMessage.taxRecipient2 || '0x0000000000000000000000000000000000000000', // user2Recipient (address)
+        backendMessage.taxRecipient2Share || 0, // user2Share (uint256)
         // Try both individual fields and array formats for admin data
         backendMessage.adminRatesBps || [backendMessage.adminPhaseARateBps || 0, backendMessage.adminPhaseBRateBps || 0, backendMessage.adminPhaseCRateBps || 0], // adminRatesBps (uint32[3])
         backendMessage.adminDurations || [backendMessage.adminPhaseADuration || 0, backendMessage.adminPhaseBDuration || 0, backendMessage.adminPhaseCDuration || 0], // adminDurations (uint32[3])
@@ -432,9 +447,11 @@ export default function UserDashboardPage() {
           liquidityBackingETH: tokenArgs[11].toString(),
           liquidityTokenPercent: tokenArgs[12], // number (not BigInt)
           whitelistOnlyDuration: tokenArgs[13], // number (not BigInt)
-          adminRatesBps: tokenArgs[14],
-          adminDurations: tokenArgs[15],
-          signature: tokenArgs[16]
+          user2Recipient: tokenArgs[14], // address
+          user2Share: tokenArgs[15], // number
+          adminRatesBps: tokenArgs[16],
+          adminDurations: tokenArgs[17],
+          signature: tokenArgs[18]
         }
       });
 
@@ -450,14 +467,22 @@ export default function UserDashboardPage() {
       if (tokenArgs[8] < 400 || tokenArgs[8] > 2000) validationIssues.push(`startBuyTax ${tokenArgs[8]} not in range 400-2000`);
       if (tokenArgs[9] < 400 || tokenArgs[9] > 2000) validationIssues.push(`startSellTax ${tokenArgs[9]} not in range 400-2000`);
       
+      // Check user2 parameters
+      const user2Recipient = tokenArgs[14] as string;
+      const user2Share = tokenArgs[15] as number;
+      if (user2Recipient !== '0x0000000000000000000000000000000000000000' && !user2Recipient.startsWith('0x')) {
+        validationIssues.push(`user2Recipient address ${user2Recipient} invalid`);
+      }
+      if (user2Share < 0 || user2Share > 100) validationIssues.push(`user2Share ${user2Share} not in range 0-100`);
+      
       // Check admin rates (should be reasonable basis points)
-      const adminRates = tokenArgs[14] as number[];
+      const adminRates = tokenArgs[16] as number[];
       if (adminRates[0] < 0 || adminRates[0] > 5000) validationIssues.push(`adminRateA ${adminRates[0]} not in range 0-5000`);
       if (adminRates[1] < 0 || adminRates[1] > 5000) validationIssues.push(`adminRateB ${adminRates[1]} not in range 0-5000`);
       if (adminRates[2] < 0 || adminRates[2] > 5000) validationIssues.push(`adminRateC ${adminRates[2]} not in range 0-5000`);
       
       // Check admin durations (should be reasonable)
-      const adminDurations = tokenArgs[15] as number[];
+      const adminDurations = tokenArgs[17] as number[];
       if (adminDurations[0] < 0) validationIssues.push(`adminDurationA ${adminDurations[0]} is negative`);
       if (adminDurations[1] < 0) validationIssues.push(`adminDurationB ${adminDurations[1]} is negative`);
       if (adminDurations[2] !== 0) validationIssues.push(`adminDurationC ${adminDurations[2]} should be 0 (infinite)`);
@@ -891,6 +916,7 @@ Timestamp: ${new Date().toISOString()}
          startSellTax: '',
          taxWallet1: '',
          taxWallet2: '',
+         taxWallet2Share: '50',
          metadataURI: '',
          whitelistDuration: '0',
          isContractDeployed: false,
@@ -1037,6 +1063,11 @@ Timestamp: ${new Date().toISOString()}
                             <Label htmlFor="taxWallet2">Secondary Tax Recipient Wallet (Optional)</Label>
                             <Input id="taxWallet2" placeholder="0x... (optional)" value={formData.taxWallet2 || ''} onChange={handleInputChange} pattern="^0x[a-fA-F0-9]{40}$" title="Enter a valid BEP-20 address (optional)" disabled={isConfigurationDisabled} className="mt-1.5"/>
                             <p className="text-xs text-muted-foreground mt-1">If provided, tax revenue will be split between primary and secondary wallets</p>
+                        </div>
+                        <div>
+                            <Label htmlFor="taxWallet2Share">Secondary Wallet Share (%)</Label>
+                            <Input id="taxWallet2Share" type="number" placeholder="50" value={formData.taxWallet2Share || '50'} onChange={handleInputChange} min="0" max="100" disabled={isConfigurationDisabled || !formData.taxWallet2} className="mt-1.5"/>
+                            <p className="text-xs text-muted-foreground mt-1">Percentage of tax revenue for secondary wallet (0-100%). Primary wallet gets the remainder.</p>
                         </div>
                         <div>
                             <Label htmlFor="whitelistDuration">Whitelist Only Duration (seconds)</Label>

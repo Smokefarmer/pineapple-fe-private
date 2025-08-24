@@ -490,6 +490,16 @@ export default [
         "type": "uint256"
       },
       {
+        "internalType": "address",
+        "name": "user2Recipient",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "user2Share",
+        "type": "uint256"
+      },
+      {
         "internalType": "uint32[3]",
         "name": "adminRatesBps",
         "type": "uint32[3]"

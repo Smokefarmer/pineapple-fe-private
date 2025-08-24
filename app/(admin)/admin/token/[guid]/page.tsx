@@ -608,6 +608,13 @@ export default function TokenDetailPage() {
                       <Copy className="h-4 w-4" />
                     </Button>
                   </div>
+                  <div className="mt-2">
+                    <span className="text-xs text-muted-foreground">Share: </span>
+                    <span className="text-sm font-medium">{token.taxRecipient2Share || 50}%</span>
+                    <span className="text-xs text-muted-foreground ml-2">
+                      (Primary gets {100 - (token.taxRecipient2Share || 50)}%)
+                    </span>
+                  </div>
                 </div>
               )}
 
