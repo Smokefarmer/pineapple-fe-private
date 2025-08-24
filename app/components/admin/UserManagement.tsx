@@ -78,13 +78,15 @@ function UserDialog({
   onOpenChange, 
   type, 
   onSubmit, 
-  loading 
+  loading,
+  isGrantingRole = false
 }: {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   type: 'user' | 'admin';
   onSubmit: (walletAddress: string) => void;
   loading: boolean;
+  isGrantingRole?: boolean;
 }) {
   const [walletAddress, setWalletAddress] = useState('');
   const [error, setError] = useState('');
@@ -206,7 +208,6 @@ export default function UserManagement({ isSuperAdmin = false }: UserManagementP
   const { getAuthHeader } = useSiwe();
   
   // Smart contract hook for granting admin role
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { writeContractAsync: grantRole, isPending: isGrantingRole } = useWritePineappleAccessControlGrantRole();
 
   const handleCreateUser = async (walletAddress: string) => {
@@ -299,6 +300,7 @@ export default function UserManagement({ isSuperAdmin = false }: UserManagementP
         type="user"
         onSubmit={handleCreateUser}
         loading={loading}
+        isGrantingRole={false}
       />
 
       {/* Admin Creation Dialog */}
@@ -308,6 +310,7 @@ export default function UserManagement({ isSuperAdmin = false }: UserManagementP
         type="admin"
         onSubmit={handleCreateAdmin}
         loading={loading}
+        isGrantingRole={isGrantingRole}
       />
     </div>
   );

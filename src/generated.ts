@@ -15,41 +15,29 @@ import {
  */
 export const pineappleAccessControlAbi = [
   {
-    type: 'function',
-    inputs: [
-      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
-      { name: 'account', internalType: 'address', type: 'address' },
-    ],
-    name: 'grantRole',
-    outputs: [],
+    type: 'constructor',
+    inputs: [{ name: 'admin', internalType: 'address', type: 'address' }],
     stateMutability: 'nonpayable',
   },
   {
-    type: 'function',
+    type: 'event',
+    anonymous: false,
     inputs: [
-      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
-      { name: 'account', internalType: 'address', type: 'address' },
+      { name: 'role', internalType: 'bytes32', type: 'bytes32', indexed: true },
+      {
+        name: 'previousAdminRole',
+        internalType: 'bytes32',
+        type: 'bytes32',
+        indexed: true,
+      },
+      {
+        name: 'newAdminRole',
+        internalType: 'bytes32',
+        type: 'bytes32',
+        indexed: true,
+      },
     ],
-    name: 'hasRole',
-    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
-      { name: 'account', internalType: 'address', type: 'address' },
-    ],
-    name: 'revokeRole',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: 'role', internalType: 'bytes32', type: 'bytes32' }],
-    name: 'getRoleAdmin',
-    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
-    stateMutability: 'view',
+    name: 'RoleAdminChanged',
   },
   {
     type: 'event',
@@ -90,6 +78,67 @@ export const pineappleAccessControlAbi = [
       },
     ],
     name: 'RoleRevoked',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'DEFAULT_ADMIN_ROLE',
+    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'role', internalType: 'bytes32', type: 'bytes32' }],
+    name: 'getRoleAdmin',
+    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'grantRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'hasRole',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'renounceRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'revokeRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'interfaceId', internalType: 'bytes4', type: 'bytes4' }],
+    name: 'supportsInterface',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'view',
   },
 ] as const
 
@@ -1186,16 +1235,16 @@ export const useReadPineappleAccessControl =
   })
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link pineappleAccessControlAbi}__ and `functionName` set to `"hasRole"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link pineappleAccessControlAbi}__ and `functionName` set to `"DEFAULT_ADMIN_ROLE"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
  */
-export const useReadPineappleAccessControlHasRole =
+export const useReadPineappleAccessControlDefaultAdminRole =
   /*#__PURE__*/ createUseReadContract({
     abi: pineappleAccessControlAbi,
     address: pineappleAccessControlAddress,
-    functionName: 'hasRole',
+    functionName: 'DEFAULT_ADMIN_ROLE',
   })
 
 /**
@@ -1209,6 +1258,32 @@ export const useReadPineappleAccessControlGetRoleAdmin =
     abi: pineappleAccessControlAbi,
     address: pineappleAccessControlAddress,
     functionName: 'getRoleAdmin',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link pineappleAccessControlAbi}__ and `functionName` set to `"hasRole"`
+ *
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
+ */
+export const useReadPineappleAccessControlHasRole =
+  /*#__PURE__*/ createUseReadContract({
+    abi: pineappleAccessControlAbi,
+    address: pineappleAccessControlAddress,
+    functionName: 'hasRole',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link pineappleAccessControlAbi}__ and `functionName` set to `"supportsInterface"`
+ *
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
+ */
+export const useReadPineappleAccessControlSupportsInterface =
+  /*#__PURE__*/ createUseReadContract({
+    abi: pineappleAccessControlAbi,
+    address: pineappleAccessControlAddress,
+    functionName: 'supportsInterface',
   })
 
 /**
@@ -1234,6 +1309,19 @@ export const useWritePineappleAccessControlGrantRole =
     abi: pineappleAccessControlAbi,
     address: pineappleAccessControlAddress,
     functionName: 'grantRole',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link pineappleAccessControlAbi}__ and `functionName` set to `"renounceRole"`
+ *
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
+ */
+export const useWritePineappleAccessControlRenounceRole =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: pineappleAccessControlAbi,
+    address: pineappleAccessControlAddress,
+    functionName: 'renounceRole',
   })
 
 /**
@@ -1275,6 +1363,19 @@ export const useSimulatePineappleAccessControlGrantRole =
   })
 
 /**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link pineappleAccessControlAbi}__ and `functionName` set to `"renounceRole"`
+ *
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
+ */
+export const useSimulatePineappleAccessControlRenounceRole =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: pineappleAccessControlAbi,
+    address: pineappleAccessControlAddress,
+    functionName: 'renounceRole',
+  })
+
+/**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link pineappleAccessControlAbi}__ and `functionName` set to `"revokeRole"`
  *
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
@@ -1297,6 +1398,19 @@ export const useWatchPineappleAccessControlEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
     abi: pineappleAccessControlAbi,
     address: pineappleAccessControlAddress,
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link pineappleAccessControlAbi}__ and `eventName` set to `"RoleAdminChanged"`
+ *
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x14e2ca2c31318a82ec71543d9c34daed655dff37)
+ * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x255843ce3cb2cd4c9ec82306da897ae434156866)
+ */
+export const useWatchPineappleAccessControlRoleAdminChangedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: pineappleAccessControlAbi,
+    address: pineappleAccessControlAddress,
+    eventName: 'RoleAdminChanged',
   })
 
 /**
