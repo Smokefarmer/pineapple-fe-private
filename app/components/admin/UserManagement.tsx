@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
@@ -46,8 +46,7 @@ interface CreateUserResponse {
 }
 
 // API functions for user/admin creation
-async function createUserAsAdmin(walletAddress: string, authHeader: Record<string, string>): Promise<CreateUserResponse> {
-  const chainId = useChainId();
+async function createUserAsAdmin(walletAddress: string, authHeader: Record<string, string>, chainId: number): Promise<CreateUserResponse> {
   const response = await fetch(`${getApiBaseUrl(chainId)}/api/v1/auth/create-user`, {
     method: 'POST',
     headers: {
@@ -65,8 +64,7 @@ async function createUserAsAdmin(walletAddress: string, authHeader: Record<strin
   return response.json();
 }
 
-async function createAdmin(walletAddress: string, authHeader: Record<string, string>): Promise<CreateUserResponse> {
-  const chainId = useChainId();
+async function createAdmin(walletAddress: string, authHeader: Record<string, string>, chainId: number): Promise<CreateUserResponse> {
   const response = await fetch(`${getApiBaseUrl(chainId)}/api/v1/auth/create-admin`, {
     method: 'POST',
     headers: {
@@ -217,6 +215,7 @@ export default function UserManagement({ isSuperAdmin = false }: UserManagementP
   const [adminDialogOpen, setAdminDialogOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { getAuthHeader } = useSiwe();
+  const chainId = useChainId();
   
   // Get ACL address from SystemContext
   const { data: aclAddress } = useReadSystemContextAcl();
@@ -232,7 +231,7 @@ export default function UserManagement({ isSuperAdmin = false }: UserManagementP
         throw new Error('Authentication required');
       }
 
-      await createUserAsAdmin(walletAddress, authHeader);
+      await createUserAsAdmin(walletAddress, authHeader, chainId);
       toast.success('User Created Successfully', {
         description: `User ${walletAddress.substring(0, 6)}...${walletAddress.substring(walletAddress.length - 4)} has been created.`
       });
@@ -263,7 +262,7 @@ export default function UserManagement({ isSuperAdmin = false }: UserManagementP
         description: 'Step 1: Creating admin user account'
       });
       
-      await createAdmin(walletAddress, authHeader);
+      await createAdmin(walletAddress, authHeader, chainId);
       
       // Step 2: Grant WHITELIST_ADMIN_ROLE via smart contract
       toast.info('Granting Admin Role...', {
