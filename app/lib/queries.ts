@@ -298,16 +298,12 @@ export function useApproveToken() {
       guid, 
       liquidityTokenPercent, 
       adminRatesBps, 
-      adminDurations,
-      taxRecipient2,
-      taxRecipient2Share
+      adminDurations
     }: { 
       guid: string; 
       liquidityTokenPercent: number;
       adminRatesBps: number[];
       adminDurations: number[];
-      taxRecipient2?: string;
-      taxRecipient2Share?: number;
     }) => {
       if (!address || !isSignedIn) {
         throw new Error('Authentication required');
@@ -325,9 +321,7 @@ export function useApproveToken() {
           guid,
           liquidityTokenPercent,
           adminRatesBps,
-          adminDurations,
-          taxRecipient2,
-          taxRecipient2Share
+          adminDurations
         })
       }, chainId);
     },

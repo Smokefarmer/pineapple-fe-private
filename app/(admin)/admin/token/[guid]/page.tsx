@@ -68,9 +68,7 @@ export default function TokenDetailPage() {
   const [adminPhaseB, setAdminPhaseB] = useState({ rate: 3, duration: 7200 }); // 3%, 2 hours  
   const [adminPhaseC, setAdminPhaseC] = useState({ rate: 1, duration: 0 }); // 1%, endless 
   
-  // Secondary tax recipient configuration state
-  const [secondaryTaxRecipient, setSecondaryTaxRecipient] = useState('');
-  const [secondaryTaxShare, setSecondaryTaxShare] = useState('50');
+
   
   const { chain } = useAccount(); 
 
@@ -82,13 +80,7 @@ export default function TokenDetailPage() {
     refetch 
   } = useToken(guid);
 
-  // Update secondary tax recipient state when token data loads
-  useEffect(() => {
-    if (token) {
-      setSecondaryTaxRecipient(token.taxRecipient2 || '');
-      setSecondaryTaxShare(token.taxRecipient2Share?.toString() || '50');
-    }
-  }, [token]);
+
 
   // Approve token mutation (pre-deployment)
   const { 
@@ -146,21 +138,7 @@ export default function TokenDetailPage() {
       return;
     }
 
-    // Validate secondary tax recipient if provided
-    if (secondaryTaxRecipient && !isAddress(secondaryTaxRecipient)) {
-      toast.error("Invalid Secondary Tax Recipient", { 
-        description: "Please enter a valid wallet address for the secondary tax recipient" 
-      });
-      return;
-    }
 
-    // Validate secondary tax share if secondary recipient is provided
-    if (secondaryTaxRecipient && (parseInt(secondaryTaxShare) < 0 || parseInt(secondaryTaxShare) > 100)) {
-      toast.error("Invalid Secondary Tax Share", { 
-        description: "Secondary tax share must be between 0 and 100" 
-      });
-      return;
-    }
     
     const adminRatesBps = [
       adminPhaseA.rate * 100, // Convert to basis points
@@ -178,9 +156,7 @@ export default function TokenDetailPage() {
       guid: token.guid, 
       liquidityTokenPercent: liquidityTokenPercent * 100,
       adminRatesBps,
-      adminDurations,
-      taxRecipient2: secondaryTaxRecipient || undefined,
-      taxRecipient2Share: secondaryTaxRecipient ? parseInt(secondaryTaxShare) || 50 : undefined
+      adminDurations
     }, {
       onSuccess: () => {
         toast.success("Token Approved", { 
@@ -624,64 +600,30 @@ export default function TokenDetailPage() {
                 </div>
               </div>
 
-              {!token.isTokenApproved ? (
-                <>
-                  <div>
-                    <Label htmlFor="secondaryTaxRecipient">Secondary Tax Recipient Wallet (Optional)</Label>
-                    <Input
-                      id="secondaryTaxRecipient"
-                      placeholder="0x... (optional)"
-                      value={secondaryTaxRecipient}
-                      onChange={(e) => setSecondaryTaxRecipient(e.target.value)}
-                      pattern="^0x[a-fA-F0-9]{40}$"
-                      title="Enter a valid BEP-20 address (optional)"
-                      disabled={isProcessing}
-                      className="mt-1.5"
-                    />
-                    <p className="text-xs text-muted-foreground mt-1">If provided, tax revenue will be split between primary and secondary wallets</p>
-                  </div>
-                  <div>
-                    <Label htmlFor="secondaryTaxShare">Secondary Wallet Share (%)</Label>
-                    <Input
-                      id="secondaryTaxShare"
-                      type="number"
-                      placeholder="50"
-                      value={secondaryTaxShare}
-                      onChange={(e) => setSecondaryTaxShare(e.target.value)}
-                      min="0"
-                      max="100"
-                      disabled={isProcessing}
-                      className="mt-1.5"
-                    />
-                    <p className="text-xs text-muted-foreground mt-1">Percentage of tax revenue for secondary wallet (0-100%). Only applies if secondary wallet is provided. Primary wallet gets the remainder.</p>
-                  </div>
-                </>
-              ) : (
-                token.taxRecipient2 && (
-                  <div>
-                    <Label>Secondary Tax Recipient</Label>
-                    <div className="flex items-center mt-1">
-                      <div className="bg-muted p-2 rounded text-sm flex-grow font-mono text-xs truncate">
-                        {token.taxRecipient2}
-                      </div>
-                      <Button 
-                        variant="ghost" 
-                        size="icon"
-                        className="ml-2"
-                        onClick={() => copyToClipboard(token.taxRecipient2, "Secondary tax recipient")}
-                      >
-                        <Copy className="h-4 w-4" />
-                      </Button>
+              {token.taxRecipient2 && (
+                <div>
+                  <Label>Secondary Tax Recipient</Label>
+                  <div className="flex items-center mt-1">
+                    <div className="bg-muted p-2 rounded text-sm flex-grow font-mono text-xs truncate">
+                      {token.taxRecipient2}
                     </div>
-                    <div className="mt-2">
-                      <span className="text-xs text-muted-foreground">Share: </span>
-                      <span className="text-sm font-medium">{token.taxRecipient2Share || 50}%</span>
-                      <span className="text-xs text-muted-foreground ml-2">
-                        (Primary gets {100 - (token.taxRecipient2Share || 50)}%)
-                      </span>
-                    </div>
+                    <Button 
+                      variant="ghost" 
+                      size="icon"
+                      className="ml-2"
+                      onClick={() => copyToClipboard(token.taxRecipient2, "Secondary tax recipient")}
+                    >
+                      <Copy className="h-4 w-4" />
+                    </Button>
                   </div>
-                )
+                  <div className="mt-2">
+                    <span className="text-xs text-muted-foreground">Share: </span>
+                    <span className="text-sm font-medium">{token.taxRecipient2Share || 50}%</span>
+                    <span className="text-xs text-muted-foreground ml-2">
+                      (Primary gets {100 - (token.taxRecipient2Share || 50)}%)
+                    </span>
+                  </div>
+                </div>
               )}
 
               <div>
