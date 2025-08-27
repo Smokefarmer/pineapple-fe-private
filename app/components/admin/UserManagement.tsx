@@ -10,18 +10,24 @@ import { toast } from "sonner";
 import { UserPlus, ShieldCheck, Loader2, AlertCircle } from "lucide-react";
 import { useSiwe } from '@/app/components/auth/siwe-provider';
 import { useReadSystemContextAcl } from '@/src/generated';
-import { useWriteContract } from 'wagmi';
+import { useChainId, useWriteContract } from 'wagmi';
 import { keccak256, toBytes } from 'viem';
 
 import PineappleAccessControl from '@/abis/PineappleAccessControl';
+import { bscTestnet } from 'wagmi/chains';
 
 interface UserManagementProps {
   isSuperAdmin?: boolean;
 }
 
-// Backend URL configuration
-// Note: API endpoints use /api/v1/ versioning
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://pineapple-be-83889045198.europe-west1.run.app';
+// Backend API URLs
+const MAINNET_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const TESTNET_API_BASE_URL = process.env.NEXT_PUBLIC_TESTNET_API_BASE_URL;
+
+// Function to get the appropriate API base URL based on the current network
+const getApiBaseUrl = (chainId: number) => {
+  return chainId === bscTestnet.id ? TESTNET_API_BASE_URL : MAINNET_API_BASE_URL;
+};
 
 // Smart contract role constant
 const WHITELIST_ADMIN_ROLE = keccak256(toBytes('WHITELIST_ADMIN_ROLE'));
@@ -41,7 +47,8 @@ interface CreateUserResponse {
 
 // API functions for user/admin creation
 async function createUserAsAdmin(walletAddress: string, authHeader: Record<string, string>): Promise<CreateUserResponse> {
-  const response = await fetch(`${BACKEND_URL}/api/v1/auth/create-user`, {
+  const chainId = useChainId();
+  const response = await fetch(`${getApiBaseUrl(chainId)}/api/v1/auth/create-user`, {
     method: 'POST',
     headers: {
       ...authHeader,
@@ -59,7 +66,8 @@ async function createUserAsAdmin(walletAddress: string, authHeader: Record<strin
 }
 
 async function createAdmin(walletAddress: string, authHeader: Record<string, string>): Promise<CreateUserResponse> {
-  const response = await fetch(`${BACKEND_URL}/api/v1/auth/create-admin`, {
+  const chainId = useChainId();
+  const response = await fetch(`${getApiBaseUrl(chainId)}/api/v1/auth/create-admin`, {
     method: 'POST',
     headers: {
       ...authHeader,
