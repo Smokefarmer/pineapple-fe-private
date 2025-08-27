@@ -47,7 +47,7 @@ interface CreateUserResponse {
 
 // API functions for user/admin creation
 async function createUserAsAdmin(walletAddress: string, authHeader: Record<string, string>, chainId: number): Promise<CreateUserResponse> {
-  const response = await fetch(`${getApiBaseUrl(chainId)}/api/v1/auth/create-user`, {
+  const response = await fetch(`${getApiBaseUrl(chainId)}/auth/create-user`, {
     method: 'POST',
     headers: {
       ...authHeader,
@@ -65,7 +65,7 @@ async function createUserAsAdmin(walletAddress: string, authHeader: Record<strin
 }
 
 async function createAdmin(walletAddress: string, authHeader: Record<string, string>, chainId: number): Promise<CreateUserResponse> {
-  const response = await fetch(`${getApiBaseUrl(chainId)}/api/v1/auth/create-admin`, {
+  const response = await fetch(`${getApiBaseUrl(chainId)}/auth/create-admin`, {
     method: 'POST',
     headers: {
       ...authHeader,
