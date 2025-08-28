@@ -4,6 +4,7 @@
 import { Button } from "@/app/components/ui/button";
 import { Skeleton } from "@/app/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableCaption } from "@/app/components/ui/table";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/app/components/ui/card";
 import DevWalletHelper from "@/app/components/admin/dev-wallet-helper";
 import UserManagement from "@/app/components/admin/UserManagement";
 import { useCanCreateAdmin } from "@/app/lib/hooks/useUserRole";
@@ -14,37 +15,20 @@ import { Alert, AlertDescription, AlertTitle } from "@/app/components/ui/alert";
 // Sonner toast function
 import { toast } from "sonner";
 import { useAccount } from 'wagmi';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
-import {  Eye, RefreshCw, Users, AlertCircle } from "lucide-react";
+import { Eye, RefreshCw, Users, AlertCircle } from "lucide-react";
 import { useRouter } from 'next/navigation';
 
 // Import token queries
 import { useTokens, Token } from '@/app/lib/queries';
 import { Badge } from "@/app/components/ui/badge";
 
-// --- Placeholder API & Mutation Functions ---
-async function fetchWhitelistedWallets(): Promise<string[]> { await new Promise(r => setTimeout(r, 800)); return ['0xUserA...', '0xUserB...', '0xPartnerX...', '0xd8b2a4901d769a5532c8e297d57698dcbae0633f']; }
-async function addWhitelistedWallet(walletAddress: string): Promise<void> { if (!walletAddress.match(/^0x[a-fA-F0-9]{40}$/)) throw new Error("Invalid address format."); await new Promise(r => setTimeout(r, 500)); console.log("Wallet Added:", walletAddress); }
-async function removeWhitelistedWallet(walletAddress: string): Promise<void> { await new Promise(r => setTimeout(r, 500)); console.log("Wallet Removed:", walletAddress); }
-// --- End Placeholder Functions ---
-
-
 export default function AdminPage() {
   const { address, isConnected } = useAccount();
-  const queryClient = useQueryClient();
   const router = useRouter();
   const canCreateAdmin = useCanCreateAdmin();
 
-  const [newWalletAddress, setNewWalletAddress] = useState('');
-  const [walletToRemove, setWalletToRemove] = useState<string | null>(null); // For confirmation dialog
-
   // --- Queries ---
   const { data: tokensData, isLoading: isLoadingTokens, error: tokensError, refetch: refetchTokens } = useTokens();
-  
-  const { data: whitelistedWalletsData, isLoading: isLoadingWallets, error: walletsError, refetch: refetchWallets } = useQuery({
-    queryKey: ['whitelistedWallets'], queryFn: fetchWhitelistedWallets, enabled: isConnected, staleTime: 60 * 1000,
-  });
   // --- End Queries ---
 
   // Function to navigate to token details
@@ -52,47 +36,11 @@ export default function AdminPage() {
     router.push(`/admin/token/${guid}`);
   };
 
-  const { mutate: addWalletMutate, isPending: isAddingWallet } = useMutation({
-    mutationFn: addWhitelistedWallet,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['whitelistedWallets'] });
-      setNewWalletAddress('');
-      toast.success("Wallet Added", { description: "Address added to whitelist." }); // Sonner
-    },
-    onError: (error: Error) => toast.error("Error Adding Wallet", { description: error.message }), // Sonner
-  });
-   const { mutate: removeWalletMutate, isPending: isRemovingWallet } = useMutation({
-    mutationFn: removeWhitelistedWallet,
-    onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ['whitelistedWallets'] });
-      toast.success("Wallet Removed", { description: `Address ${variables.substring(0,8)}... removed.` }); // Sonner
-      setWalletToRemove(null); // Close dialog on success
-    },
-    onError: (error: Error) => toast.error("Error Removing Wallet", { description: error.message }), // Sonner
-  });
-  // --- End Mutations ---
-
-
-  // --- Handlers ---
-  const handleAddWallet = () => {
-      if (!newWalletAddress) return;
-      // Basic validation before sending
-      if (!newWalletAddress.match(/^0x[a-fA-F0-9]{40}$/)) {
-          toast.error("Invalid Address Format", { description: "Please enter a valid Ethereum address starting with 0x."})
-          return;
-      }
-      addWalletMutate(newWalletAddress);
+  // Copy to clipboard helper
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast("Address copied to clipboard."); // Use Sonner simple toast
   }
-  const handleRemoveWalletConfirm = () => {
-      if (walletToRemove) {
-          removeWalletMutate(walletToRemove);
-      }
-  }
-   const copyToClipboard = (text: string) => {
-       navigator.clipboard.writeText(text);
-       toast("Address copied to clipboard."); // Use Sonner simple toast
-   }
-  // --- End Handlers ---
 
 
   // --- Render Logic ---
