@@ -2,9 +2,6 @@
 
 // Updated component imports
 import { Button } from "@/app/components/ui/button";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/app/components/ui/card";
-import { Input } from "@/app/components/ui/input";
-import { Label } from "@/app/components/ui/label";
 import { Skeleton } from "@/app/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableCaption } from "@/app/components/ui/table";
 import DevWalletHelper from "@/app/components/admin/dev-wallet-helper";
@@ -12,7 +9,6 @@ import UserManagement from "@/app/components/admin/UserManagement";
 import { useCanCreateAdmin } from "@/app/lib/hooks/useUserRole";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/app/components/ui/tooltip";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/app/components/ui/dialog";
 import { Alert, AlertDescription, AlertTitle } from "@/app/components/ui/alert";
 
 // Sonner toast function
@@ -20,7 +16,7 @@ import { toast } from "sonner";
 import { useAccount } from 'wagmi';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import {  Eye, Loader2, PlusCircle, RefreshCw, Trash2, UserCheck, Users, AlertCircle } from "lucide-react";
+import {  Eye, RefreshCw, Users, AlertCircle } from "lucide-react";
 import { useRouter } from 'next/navigation';
 
 // Import token queries
