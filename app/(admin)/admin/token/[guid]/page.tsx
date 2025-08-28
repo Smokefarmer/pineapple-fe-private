@@ -930,9 +930,7 @@ export default function TokenDetailPage() {
                   <TableRow>
                     <TableHead>Wallet Address</TableHead>
                     <TableHead className="text-right">Allowed Buy</TableHead>
-                    <TableHead className="text-right">Recorded Buy</TableHead>
                     <TableHead>Created At</TableHead>
-                    <TableHead>Updated At</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -950,9 +948,7 @@ export default function TokenDetailPage() {
                         </Button>
                       </TableCell>
                       <TableCell className="text-right">{ ((entry.allowedBuyAmount)/1e18 * 0.95).toFixed(6)}</TableCell>
-                      <TableCell className="text-right">{ (entry.recordedBuyAmount)/1e18}</TableCell>
                       <TableCell>{new Date(entry.createdAt).toLocaleString()}</TableCell>
-                      <TableCell>{new Date(entry.updatedAt).toLocaleString()}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
