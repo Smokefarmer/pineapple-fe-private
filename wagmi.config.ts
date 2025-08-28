@@ -11,16 +11,16 @@ import SystemContext from './abis/SystemContext';
 
 const addresses =  {
   "network": "mainnet",
-  "systemContext": "0x524091b0a431af72b305f7a0be336cb26bb4d05d",
-  "registry": "0x90ef3445b7296ad8d57bd6ddc7cb7a4c6787252b",
-  "factory": "0x3ca7b3f15a55ff29380376588db2eb13bfe43901",
-  "router": "0xb455e2bb78bae7d8cf20db076fb0cd1d13a21789",
-  "verifyTypedData": "0x0e4a498dc3fc5c5e4e3774cbc0c5eefbb51b0c8e",
-  "masterTaxHandler": "0xd645645ee16d3c8127ee46e8866be393f0ae2045",
-  "masterLaunchWhitelist": "0xfd1e575b55e2ef197a8db22f74daccb7185dd415",
+  "systemContext": "0xc3b77fdd9cbced4309052fb8f77b39853e2306cd",
+  "registry": "0xe3f6288f5f8c0032ab6452018af1c032b78fffca",
+  "factory": "0xb398cee9c9e8d98d15f03f0c12e411ad9c3e7530",
+  "router": "0x301e4d7a3da5eef64038190e4968c51d5c5b6c46",
+  "verifyTypedData": "0x66c61ebdc293a76c1d5063228f6da075906f0a6b",
+  "masterTaxHandler": "0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0",
+  "masterLaunchWhitelist": "0x3c979ba68662da5bcd7e42d69b88731d26bd4286",
   "pancakeRouter": "0x10ED43C718714eb63d5aA57B78B54704E256024E",
   "pancakeFactory": "0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73",
-  "teamFinanceLocker": "0xE2fE530C047f2d85298b07D9333C05737f1435fB"
+  "teamFinanceLocker": "0xda60847CCeb04ce00c072c7357677e908263317B"
 }
 
 const addressesTest = {
