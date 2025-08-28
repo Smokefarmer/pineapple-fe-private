@@ -185,63 +185,6 @@ export default function AdminPage() {
             </CardContent>
         </Card>
 
-        {/* User Access Management */}
-        <Card className="shadow-md">
-             <CardHeader>
-                <CardTitle className="flex items-center gap-2"><UserCheck className="h-5 w-5" /> User Access (dApp Whitelist)</CardTitle>
-                <CardDescription>Manage wallet addresses allowed to access and use the dApp.</CardDescription>
-            </CardHeader>
-             <CardContent>
-                 {isLoadingWallets ? ( <Skeleton className="h-40 w-full" /> )
-                 : walletsError ? ( <Alert variant="destructive"><AlertCircle className="h-4 w-4"/> <AlertTitle>Error Loading Whitelist</AlertTitle> <AlertDescription>{walletsError.message} <Button variant="ghost" size="sm" onClick={() => refetchWallets()}><RefreshCw className="h-3 w-3 ml-2"/></Button></AlertDescription></Alert> )
-                 : (<>
-                     <div className="flex items-end space-x-2 mb-6">
-                        <div className="flex-grow">
-                            <Label htmlFor="addWallet">Add Wallet Address</Label>
-                            <Input id="addWallet" placeholder="0x..." value={newWalletAddress} onChange={(e) => setNewWalletAddress(e.target.value)} disabled={isAddingWallet} />
-                        </div>
-                        <Button onClick={handleAddWallet} disabled={isAddingWallet || !newWalletAddress.match(/^0x[a-fA-F0-9]{40}$/)}>
-                             {isAddingWallet ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <PlusCircle className="mr-2 h-4 w-4"/> } Add
-                        </Button>
-                     </div>
-                     <h3 className="text-base font-medium mb-2">Current Whitelisted Wallets ({whitelistedWalletsData?.length || 0})</h3>
-                      <div className="max-h-60 overflow-y-auto border rounded-md p-2">
-                        {whitelistedWalletsData?.length === 0 ? (<p className="text-sm text-center text-muted-foreground py-4">No wallets whitelisted.</p>)
-                         : (<ul className="space-y-1">
-                             {(whitelistedWalletsData || []).map(w => (
-                                <li key={w} className="text-sm flex justify-between items-center pr-1 hover:bg-muted/50 rounded p-1">
-                                    <code className="font-mono text-xs truncate mr-2" title={w}>{w}</code>
-                                     <Dialog open={walletToRemove === w} onOpenChange={(open) => !open && setWalletToRemove(null)}>
-                                        <DialogTrigger asChild>
-                                            <Button variant="ghost" size="icon" className="h-6 w-6 text-red-500 hover:text-red-600 flex-shrink-0" onClick={() => setWalletToRemove(w)} disabled={isRemovingWallet && walletToRemove === w}>
-                                                 {(isRemovingWallet && walletToRemove === w) ? <Loader2 className="h-3 w-3 animate-spin"/> : <Trash2 className="h-3 w-3"/>}
-                                            </Button>
-                                        </DialogTrigger>
-                                         <DialogContent>
-                                            <DialogHeader>
-                                                <DialogTitle>Confirm Removal</DialogTitle>
-                                                <DialogDescription>
-                                                    Are you sure you want to remove this wallet from the whitelist?
-                                                    <code className="block text-xs mt-2 break-all">{w}</code>
-                                                </DialogDescription>
-                                            </DialogHeader>
-                                            <DialogFooter>
-                                                <DialogClose asChild><Button variant="outline">Cancel</Button></DialogClose>
-                                                <Button variant="destructive" onClick={handleRemoveWalletConfirm} disabled={isRemovingWallet}>
-                                                    {isRemovingWallet && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>} Remove Wallet
-                                                </Button>
-                                            </DialogFooter>
-                                         </DialogContent>
-                                    </Dialog>
-                                </li>
-                            ))}
-                         </ul>)}
-                      </div>
-                    </>
-                 )}
-            </CardContent>
-        </Card>
-
         {/* Dev helpers (visible only in development) */}
         <DevWalletHelper />
 
