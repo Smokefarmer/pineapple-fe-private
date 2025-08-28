@@ -901,6 +901,15 @@ export default function TokenDetailPage() {
           <Separator />
           <div>
             <h3 className="text-lg font-medium mb-4">Current Whitelist</h3>
+            
+            <Alert className="mb-4">
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Important Notice</AlertTitle>
+              <AlertDescription>
+                Actual amount can be lower because of slippage and taxes. If the transaction fails, try with lower amount multiple times.
+              </AlertDescription>
+            </Alert>
+            
             {isLoadingWhitelist ? (
               <div className="space-y-2">
                 <Skeleton className="h-8 w-full" />
@@ -940,7 +949,7 @@ export default function TokenDetailPage() {
                           <Copy className="h-3 w-3" />
                         </Button>
                       </TableCell>
-                      <TableCell className="text-right">{ (entry.allowedBuyAmount)/1e18}</TableCell>
+                      <TableCell className="text-right">{ ((entry.allowedBuyAmount)/1e18 * 0.95).toFixed(6)}</TableCell>
                       <TableCell className="text-right">{ (entry.recordedBuyAmount)/1e18}</TableCell>
                       <TableCell>{new Date(entry.createdAt).toLocaleString()}</TableCell>
                       <TableCell>{new Date(entry.updatedAt).toLocaleString()}</TableCell>
