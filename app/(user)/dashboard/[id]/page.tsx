@@ -243,14 +243,21 @@ export default function UserDashboardPage() {
     }
   }, [isLpConfirmed, tokenId, queryClient]);
   
+  // State to hold the contract address from blockchain
+  const [contractAddress, setContractAddress] = useState<string | undefined>();
+  
   // Effect to update token address if found from contract
   useEffect(() => {
     if (tokenAddress && tokenAddress !== '0x0000000000000000000000000000000000000000' && details?.originalToken) {
       // If we have a valid token address from the contract but it's not in our backend yet,
-      // we could update it in the backend here or just update the UI
+      // store it in local state to show in the UI
       console.log("Token address from contract:", tokenAddress);
+      setContractAddress(tokenAddress);
+      
+      // Also refetch token data to get the updated erc20Address from backend
+      refetchToken();
     }
-  }, [tokenAddress, details]);
+  }, [tokenAddress, details, refetchToken]);
 
 
   // --- Mutations with Sonner ---
@@ -925,7 +932,11 @@ Timestamp: ${new Date().toISOString()}
          isLiquidityApproved: false, // Add field
          
        } as ProjectDetails 
-     : details;
+     : details ? {
+         ...details,
+         // Use contract address from blockchain if available, otherwise use backend address
+         erc20Address: contractAddress || details.erc20Address
+       } : undefined;
    
    
    // Determine the token state
