@@ -252,6 +252,8 @@ export default function UserDashboardPage() {
       // If we have a valid token address from the contract but it's not in our backend yet,
       // store it in local state to show in the UI
       console.log("Token address from contract:", tokenAddress);
+      console.log("Current details.erc20Address:", details.erc20Address);
+      console.log("Current details.isContractDeployed:", details.isContractDeployed);
       setContractAddress(tokenAddress);
       
       // Also refetch token data to get the updated erc20Address from backend
@@ -935,9 +937,19 @@ Timestamp: ${new Date().toISOString()}
      : details ? {
          ...details,
          // Use contract address from blockchain if available, otherwise use backend address
-         erc20Address: contractAddress || details.erc20Address
+         erc20Address: contractAddress || details.erc20Address,
+         // If we have a contract address from blockchain, mark as deployed
+         isContractDeployed: contractAddress ? true : details.isContractDeployed
        } : undefined;
    
+   
+   // Debug logging
+   console.log("=== TOKEN STATE DEBUG ===");
+   console.log("contractAddress:", contractAddress);
+   console.log("details?.erc20Address:", details?.erc20Address);
+   console.log("details?.isContractDeployed:", details?.isContractDeployed);
+   console.log("tokenState?.erc20Address:", tokenState?.erc20Address);
+   console.log("tokenState?.isContractDeployed:", tokenState?.isContractDeployed);
    
    // Determine the token state
    const isNewToken = isNewTokenCreation || !tokenState?.isTokenApproved;
