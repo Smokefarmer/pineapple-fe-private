@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useChainId } from 'wagmi';
-import { bscTestnet } from 'wagmi/chains';
+import { bscTestnet, sepolia } from 'wagmi/chains';
 import { useSiwe } from '@/app/components/auth/siwe-provider';
 import { Button } from '@/app/components/ui/button';
 import { Input } from '@/app/components/ui/input';
@@ -15,7 +15,9 @@ export default function DevWalletHelper() {
 
   const MAINNET_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
   const TESTNET_API_BASE_URL = process.env.NEXT_PUBLIC_TESTNET_API_BASE_URL;
-  const API_BASE_URL = chainId === bscTestnet.id ? TESTNET_API_BASE_URL : MAINNET_API_BASE_URL;
+  // Use testnet API for testnet chains (BSC Testnet and Sepolia)
+  const isTestnet = chainId === bscTestnet.id || chainId === sepolia.id;
+  const API_BASE_URL = isTestnet ? TESTNET_API_BASE_URL : MAINNET_API_BASE_URL;
 
   const [walletInput, setWalletInput] = useState<string>(userAddress ?? '');
 

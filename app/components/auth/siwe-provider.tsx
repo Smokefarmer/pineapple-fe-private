@@ -5,7 +5,7 @@ import { useAccount, useSignMessage, useChainId } from 'wagmi';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { toast } from 'sonner';
 import { SiweMessage } from 'siwe';
-import { bscTestnet } from 'wagmi/chains';
+import { bscTestnet, sepolia } from 'wagmi/chains';
 import { useRouter } from 'next/navigation';
 
 // Backend API URLs
@@ -14,7 +14,9 @@ const TESTNET_API_BASE_URL = process.env.NEXT_PUBLIC_TESTNET_API_BASE_URL;
 
 // Function to get the appropriate API base URL based on the current network
 const getApiBaseUrl = (chainId: number) => {
-  return chainId === bscTestnet.id ? TESTNET_API_BASE_URL : MAINNET_API_BASE_URL;
+  // Use testnet API for testnet chains (BSC Testnet and Sepolia)
+  const isTestnet = chainId === bscTestnet.id || chainId === sepolia.id;
+  return isTestnet ? TESTNET_API_BASE_URL : MAINNET_API_BASE_URL;
 };
 
 interface SiweContextType {

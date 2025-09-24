@@ -9,8 +9,8 @@ import {
   lightTheme as rainbowLightTheme,
 } from '@rainbow-me/rainbowkit';
 import { http, WagmiProvider } from 'wagmi';
-// Import BNB chains
-import { bsc, bscTestnet } from 'wagmi/chains';
+// Import chains
+import { bsc, bscTestnet, mainnet, sepolia } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
 import { SessionProvider } from "next-auth/react";
@@ -24,10 +24,12 @@ if (!projectId) throw new Error("WalletConnect Project ID is not set");
 const ALCHEMY_API_KEY = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY;
 console.log('ALCHEMY_API_KEY', ALCHEMY_API_KEY);
 
-// Focus on BNB Chains
+// Supported chains
 const chains = [
   bsc,
   bscTestnet,
+  mainnet,
+  sepolia,
 ] as const;
 
 const { wallets } = getDefaultWallets();
@@ -40,6 +42,8 @@ const config = getDefaultConfig({
   transports: {
     [bsc.id]: http(`https://bnb-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`),
     [bscTestnet.id]: http(`https://bnb-testnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`),
+    [mainnet.id]: http(`https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`),
+    [sepolia.id]: http(`https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}`),
   },
 });
 

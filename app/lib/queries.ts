@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAccount, useChainId } from 'wagmi';
 import { useSiwe } from '@/app/components/auth/siwe-provider';
-import { bscTestnet } from 'wagmi/chains';
+import { bscTestnet, sepolia } from 'wagmi/chains';
 
 // API base URLs
 const MAINNET_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -9,7 +9,9 @@ const TESTNET_API_BASE_URL = process.env.NEXT_PUBLIC_TESTNET_API_BASE_URL;
 
 // Function to get the appropriate API base URL based on the current network
 const getApiBaseUrl = (chainId: number) => {
-  return chainId === bscTestnet.id ? TESTNET_API_BASE_URL : MAINNET_API_BASE_URL;
+  // Use testnet API for testnet chains (BSC Testnet and Sepolia)
+  const isTestnet = chainId === bscTestnet.id || chainId === sepolia.id;
+  return isTestnet ? TESTNET_API_BASE_URL : MAINNET_API_BASE_URL;
 };
 
 // API client with authentication handling

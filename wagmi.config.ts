@@ -1,7 +1,7 @@
 import { defineConfig } from '@wagmi/cli'
 import { Abi, Address, erc20Abi } from 'viem'
 
-import { bsc, bscTestnet } from 'wagmi/chains'
+import { bsc, bscTestnet, mainnet, sepolia } from 'wagmi/chains'
 import {  react } from '@wagmi/cli/plugins'
 import Router from './abis/Router';
 import WhitelistHandler from './abis/WhitelistHandler';
@@ -37,6 +37,38 @@ const addressesTest = {
   "teamFinanceLocker": "0xD7eaa812Ab150A8E9a82A5b4107A83BA1F228dfA"
 }
 
+// Ethereum Mainnet addresses - TODO: Replace with actual deployed contract addresses
+const addressesEthMainnet = {
+  "network": "ethereum",
+  "systemContext": "0x0000000000000000000000000000000000000000", // TODO: Replace with actual address
+  "registry": "0x0000000000000000000000000000000000000000", // TODO: Replace with actual address
+  "factory": "0x0000000000000000000000000000000000000000", // TODO: Replace with actual address
+  "router": "0x0000000000000000000000000000000000000000", // TODO: Replace with actual address
+  "verifyTypedData": "0x0000000000000000000000000000000000000000", // TODO: Replace with actual address
+  "masterTaxHandler": "0x0000000000000000000000000000000000000000", // TODO: Replace with actual address
+  "masterLaunchWhitelist": "0x0000000000000000000000000000000000000000", // TODO: Replace with actual address
+  "uniswapRouter": "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D", // Uniswap V2 Router
+  "uniswapFactory": "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f", // Uniswap V2 Factory
+  "teamFinanceLocker": "0x0000000000000000000000000000000000000000" // TODO: Replace with actual address
+}
+
+// Sepolia Testnet addresses - Latest deployed contract addresses
+const addressesSepoliaTestnet = {
+  "network": "sepoliaTestnet",
+  "systemContext": "0x3589eada2b23cb7c85ed0f7be62a8f3e8c1671ee",
+  "registry": "0x660d7c818de67cfaf33b37f827913081c0501e2d",
+  "factory": "0x72c3f78c1f056edd4faba0bb81226ccb952f1db8",
+  "router": "0x1646265b7ab16a7b6921f21119517941bd35abe9",
+  "verifyTypedData": "0x63269b929de49f5036f4daa47fff27405da0e95f",
+  "masterTaxHandler": "0x20c11ca62f43b487017ae44e4f98bd48f8926e04", // Updated 2025-09-23
+  "masterLaunchWhitelist": "0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca",
+  "uniswapRouter": "0xC532a74256D3Db42D0Bf7a0400fEFDbad7694008", // Uniswap V2 Router on Sepolia
+  "uniswapFactory": "0x7E0987E5b3a30e3f2828572Bb659A548460a3003", // Uniswap V2 Factory on Sepolia
+  "teamFinanceLocker": "0x4F0Fd563BE89ec8C3e7D595bf3639128C0a7C33A",
+  "backendSigner": "0xA58255dC711CD3A32004bbd5bDb1f76394D3d829",
+  // Previous masterTaxHandler: "0x366564536c7d4c5889217ca29e7a7430cd4478fb"
+}
+
 export default defineConfig({
   out: 'src/generated.ts',
   contracts: [
@@ -50,6 +82,8 @@ export default defineConfig({
       address: {
         [bscTestnet.id]: addressesTest.router as Address,
         [bsc.id]: addresses.router as Address,
+        [mainnet.id]: addressesEthMainnet.router as Address,
+        [sepolia.id]: addressesSepoliaTestnet.router as Address,
       },
     }, {
       name: 'Whitelist',
@@ -57,6 +91,8 @@ export default defineConfig({
       address: {
         [bscTestnet.id]: addressesTest.masterLaunchWhitelist as Address,
         [bsc.id]: addresses.masterLaunchWhitelist as Address,
+        [mainnet.id]: addressesEthMainnet.masterLaunchWhitelist as Address,
+        [sepolia.id]: addressesSepoliaTestnet.masterLaunchWhitelist as Address,
       },
     }, {
       name: 'TaxHandler',
@@ -64,6 +100,8 @@ export default defineConfig({
       address: {
         [bscTestnet.id]: addressesTest.masterTaxHandler as Address,
         [bsc.id]: addresses.masterTaxHandler as Address,
+        [mainnet.id]: addressesEthMainnet.masterTaxHandler as Address,
+        [sepolia.id]: addressesSepoliaTestnet.masterTaxHandler as Address,
       },
     }, {
       name: 'SystemContext',
@@ -71,6 +109,8 @@ export default defineConfig({
       address: {
         [bscTestnet.id]: addressesTest.systemContext as Address,
         [bsc.id]: addresses.systemContext as Address,
+        [mainnet.id]: addressesEthMainnet.systemContext as Address,
+        [sepolia.id]: addressesSepoliaTestnet.systemContext as Address,
       },
     }, {
       name: 'PineappleAccessControl',

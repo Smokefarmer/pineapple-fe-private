@@ -65,7 +65,7 @@ function mapTokenToProjectDetails(tokenData: Token | undefined): ProjectDetails 
         startSellTax: `${tokenData.startSellTax / 100}`, // Convert from basis points to percentage
         taxWallet1: tokenData.taxRecipient,
         taxWallet2: tokenData.taxRecipient2 || '',
-        taxWallet2Share: tokenData.taxRecipient2Share?.toString() || '50',
+        taxWallet2Share: tokenData.taxRecipient2Share ? (tokenData.taxRecipient2Share / 100).toString() : '',
         metadataURI: tokenData.metaDataURI || '',
         whitelistDuration: `${tokenData.whitelistOnlyDuration}`,
         isContractDeployed: !!tokenData.isOnChain,
@@ -106,9 +106,9 @@ export default function UserDashboardPage() {
     startSellTax: '',
     taxWallet1: '',
     taxWallet2: '',
-    taxWallet2Share: '50',
+    taxWallet2Share: '',
     metadataURI: '',
-    whitelistDuration: '0'
+    whitelistDuration: ''
   });
   const [imageFile, setImageFile] = useState<File | null>(null); // Add state for image file
   // Hydration guard to ensure consistent server/client markup
@@ -210,9 +210,9 @@ export default function UserDashboardPage() {
             startSellTax: details.startSellTax || '',
             taxWallet1: details.taxWallet1 || '',
             taxWallet2: details.taxWallet2 || '',
-            taxWallet2Share: details.taxWallet2Share || '50',
+            taxWallet2Share: details.taxWallet2Share || '',
             metadataURI: details.metadataURI || '',
-            whitelistDuration: details.whitelistDuration || '0'
+            whitelistDuration: details.whitelistDuration || ''
         };
         setFormData(formDataUpdate);
     }
@@ -343,7 +343,7 @@ export default function UserDashboardPage() {
     submissionData.append('whitelistOnlyDuration', String(whitelistDurationNum)); // Use validated number
     submissionData.append('taxRecipient', formData.taxWallet1 || '');
     submissionData.append('taxRecipient2', formData.taxWallet2 || '');
-    submissionData.append('taxRecipient2Share', formData.taxWallet2 ? formData.taxWallet2Share || '50' : '0');
+    submissionData.append('taxRecipient2Share', formData.taxWallet2 ? String(parseFloat(formData.taxWallet2Share || '0') * 100) : '0');
     submissionData.append('creator', address || ''); // Add creator address
     // Append file data
     if (imageFile) {
@@ -925,9 +925,9 @@ Timestamp: ${new Date().toISOString()}
          startSellTax: '',
          taxWallet1: '',
          taxWallet2: '',
-         taxWallet2Share: '50',
+         taxWallet2Share: '',
          metadataURI: '',
-         whitelistDuration: '0',
+         whitelistDuration: '',
          isContractDeployed: false,
          liquidityAdded: false,
          isTokenApproved: false,
@@ -1039,11 +1039,11 @@ Timestamp: ${new Date().toISOString()}
                         </div>
                         <div>
                             <Label htmlFor="supply">Total Supply <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
-                            <Input id="supply" type="number" placeholder="e.g., 100000000" value={formData.supply || ''} onChange={handleInputChange} required min="1" disabled={isConfigurationDisabled} className="mt-1.5"/>
+                            <Input id="supply" type="number" placeholder="e.g., 100000000" value={formData.supply || ''} onChange={handleInputChange} required disabled={isConfigurationDisabled} className="mt-1.5"/>
                         </div>
                         <div>
                             <Label htmlFor="liquidity">Initial Liquidity (BNB) <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
-                            <Input id="liquidity" type="number" placeholder="e.g., 50" value={formData.liquidity || ''} onChange={handleInputChange} required min="0.01" step="0.01" disabled={isConfigurationDisabled} className="mt-1.5"/>
+                            <Input id="liquidity" type="number" placeholder="e.g., 50" value={formData.liquidity || ''} onChange={handleInputChange} required disabled={isConfigurationDisabled} className="mt-1.5"/>
                         </div>
                     </div>
                     
@@ -1055,19 +1055,19 @@ Timestamp: ${new Date().toISOString()}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
                         <div>
                             <Label htmlFor="flatBuyTax">Flat Buy Tax (%) <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
-                            <Input id="flatBuyTax" type="number" placeholder="e.g., 2" value={formData.flatBuyTax || ''} onChange={handleInputChange} required max="7" min="4" step="0.1" disabled={isConfigurationDisabled} className="mt-1.5"/>
+                            <Input id="flatBuyTax" type="number" placeholder="e.g., 2" value={formData.flatBuyTax || ''} onChange={handleInputChange} required disabled={isConfigurationDisabled} className="mt-1.5"/>
                         </div>
                         <div>
                             <Label htmlFor="flatSellTax">Flat Sell Tax (%) <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
-                            <Input id="flatSellTax" type="number" placeholder="e.g., 2" value={formData.flatSellTax || ''} onChange={handleInputChange} required max="7" min="4" step="0.1" disabled={isConfigurationDisabled} className="mt-1.5"/>
+                            <Input id="flatSellTax" type="number" placeholder="e.g., 2" value={formData.flatSellTax || ''} onChange={handleInputChange} required disabled={isConfigurationDisabled} className="mt-1.5"/>
                         </div>
                         <div>
                             <Label htmlFor="startBuyTax">Initial Buy Tax (%) <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
-                            <Input id="startBuyTax" type="number" placeholder="e.g., 2" value={formData.startBuyTax || ''} onChange={handleInputChange} required max="20" min="4" step="0.1" disabled={isConfigurationDisabled} className="mt-1.5"/>
+                            <Input id="startBuyTax" type="number" placeholder="e.g., 2" value={formData.startBuyTax || ''} onChange={handleInputChange} required disabled={isConfigurationDisabled} className="mt-1.5"/>
                         </div>
                         <div>
                             <Label htmlFor="startSellTax">Initial Sell Tax (%) <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
-                            <Input id="startSellTax" type="number" placeholder="e.g., 2" value={formData.startSellTax || ''} onChange={handleInputChange} required max="20" min="4" step="0.1" disabled={isConfigurationDisabled} className="mt-1.5"/>
+                            <Input id="startSellTax" type="number" placeholder="e.g., 2" value={formData.startSellTax || ''} onChange={handleInputChange} required disabled={isConfigurationDisabled} className="mt-1.5"/>
                         </div>
                     </div>
 
@@ -1089,12 +1089,12 @@ Timestamp: ${new Date().toISOString()}
                         </div>
                         <div>
                             <Label htmlFor="taxWallet2Share">Secondary Wallet Share (%)</Label>
-                            <Input id="taxWallet2Share" type="number" placeholder="50" value={formData.taxWallet2Share || '50'} onChange={handleInputChange} min="0" max="100" disabled={isConfigurationDisabled} className="mt-1.5"/>
+                            <Input id="taxWallet2Share" type="number" placeholder="50" value={formData.taxWallet2Share || ''} onChange={handleInputChange} disabled={isConfigurationDisabled} className="mt-1.5"/>
                             <p className="text-xs text-muted-foreground mt-1">Percentage of tax revenue for secondary wallet (0-100%). Only applies if secondary wallet is provided. Primary wallet gets the remainder.</p>
                         </div>
                         <div>
                             <Label htmlFor="whitelistDuration">Whitelist Only Duration (seconds)</Label>
-                            <Input id="whitelistDuration" type="number" placeholder="max 180 seconds" value={formData.whitelistDuration} onChange={handleInputChange} min="0" max="180" disabled={isConfigurationDisabled} className="mt-1.5"/>
+                            <Input id="whitelistDuration" type="number" placeholder="max 180 seconds" value={formData.whitelistDuration} onChange={handleInputChange} disabled={isConfigurationDisabled} className="mt-1.5"/>
                         </div>
                         <div>
                             <Label htmlFor="token-image">Token Image <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>

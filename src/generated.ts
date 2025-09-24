@@ -143,8 +143,10 @@ export const pineappleAccessControlAbi = [
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const routerAbi = [
   {
@@ -449,17 +451,23 @@ export const routerAbi = [
 ] as const
 
 /**
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const routerAddress = {
+  1: '0x0000000000000000000000000000000000000000',
   56: '0x301e4D7a3dA5Eef64038190E4968C51D5c5b6c46',
   97: '0x072b4B787DDD8e6C78F416fCCD84f3a4dB591549',
+  11155111: '0x1646265b7Ab16A7b6921F21119517941Bd35abe9',
 } as const
 
 /**
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const routerConfig = { address: routerAddress, abi: routerAbi } as const
 
@@ -468,8 +476,10 @@ export const routerConfig = { address: routerAddress, abi: routerAbi } as const
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xc3b77fdd9cbced4309052fb8f77b39853e2306cd)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x2f33f8f62e0b34ce0e50ed3fa2156432c8e4ea11)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x3589eada2b23cb7c85ed0f7be62a8f3e8c1671ee)
  */
 export const systemContextAbi = [
   {
@@ -533,17 +543,23 @@ export const systemContextAbi = [
 ] as const
 
 /**
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xc3b77fdd9cbced4309052fb8f77b39853e2306cd)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x2f33f8f62e0b34ce0e50ed3fa2156432c8e4ea11)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x3589eada2b23cb7c85ed0f7be62a8f3e8c1671ee)
  */
 export const systemContextAddress = {
+  1: '0x0000000000000000000000000000000000000000',
   56: '0xC3b77fDD9CbCeD4309052FB8F77b39853e2306CD',
   97: '0x2f33f8f62e0b34ce0e50eD3fA2156432C8e4Ea11',
+  11155111: '0x3589eaDa2B23Cb7C85ed0f7BE62a8f3E8c1671Ee',
 } as const
 
 /**
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xc3b77fdd9cbced4309052fb8f77b39853e2306cd)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x2f33f8f62e0b34ce0e50ed3fa2156432c8e4ea11)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x3589eada2b23cb7c85ed0f7be62a8f3e8c1671ee)
  */
 export const systemContextConfig = {
   address: systemContextAddress,
@@ -555,8 +571,10 @@ export const systemContextConfig = {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const taxHandlerAbi = [
   {
@@ -945,17 +963,23 @@ export const taxHandlerAbi = [
 ] as const
 
 /**
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const taxHandlerAddress = {
+  1: '0x0000000000000000000000000000000000000000',
   56: '0x9C0225c1Cf39bd8c3cF679d8Dd2B449094c61CC0',
   97: '0xE3ca56e113D8A942932B891CBd99725d3950694B',
+  11155111: '0x20C11cA62F43B487017AE44E4f98BD48f8926E04',
 } as const
 
 /**
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const taxHandlerConfig = {
   address: taxHandlerAddress,
@@ -967,8 +991,10 @@ export const taxHandlerConfig = {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const whitelistAbi = [
   {
@@ -1165,17 +1191,23 @@ export const whitelistAbi = [
 ] as const
 
 /**
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const whitelistAddress = {
+  1: '0x0000000000000000000000000000000000000000',
   56: '0x3c979BA68662Da5BCd7e42D69b88731D26Bd4286',
   97: '0x32B3302f2f9e15a93864AB3085585afB8690d00d',
+  11155111: '0x41C735C9FD918E4ac18c09F7A33c36c49D20A7cA',
 } as const
 
 /**
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const whitelistConfig = {
   address: whitelistAddress,
@@ -1431,8 +1463,10 @@ export const useWatchPineappleAccessControlRoleRevokedEvent =
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link routerAbi}__
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useReadRouter = /*#__PURE__*/ createUseReadContract({
   abi: routerAbi,
@@ -1442,8 +1476,10 @@ export const useReadRouter = /*#__PURE__*/ createUseReadContract({
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"getAddLiquidityMessageToSign"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useReadRouterGetAddLiquidityMessageToSign =
   /*#__PURE__*/ createUseReadContract({
@@ -1455,8 +1491,10 @@ export const useReadRouterGetAddLiquidityMessageToSign =
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"getCreateTokenMessageToSign"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useReadRouterGetCreateTokenMessageToSign =
   /*#__PURE__*/ createUseReadContract({
@@ -1468,8 +1506,10 @@ export const useReadRouterGetCreateTokenMessageToSign =
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"getToken"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useReadRouterGetToken = /*#__PURE__*/ createUseReadContract({
   abi: routerAbi,
@@ -1480,8 +1520,10 @@ export const useReadRouterGetToken = /*#__PURE__*/ createUseReadContract({
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"owner"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useReadRouterOwner = /*#__PURE__*/ createUseReadContract({
   abi: routerAbi,
@@ -1492,8 +1534,10 @@ export const useReadRouterOwner = /*#__PURE__*/ createUseReadContract({
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"systemContext"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useReadRouterSystemContext = /*#__PURE__*/ createUseReadContract({
   abi: routerAbi,
@@ -1504,8 +1548,10 @@ export const useReadRouterSystemContext = /*#__PURE__*/ createUseReadContract({
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link routerAbi}__
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useWriteRouter = /*#__PURE__*/ createUseWriteContract({
   abi: routerAbi,
@@ -1515,8 +1561,10 @@ export const useWriteRouter = /*#__PURE__*/ createUseWriteContract({
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"addLiquiditySigned"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useWriteRouterAddLiquiditySigned =
   /*#__PURE__*/ createUseWriteContract({
@@ -1528,8 +1576,10 @@ export const useWriteRouterAddLiquiditySigned =
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"deployToken"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useWriteRouterDeployToken = /*#__PURE__*/ createUseWriteContract({
   abi: routerAbi,
@@ -1540,8 +1590,10 @@ export const useWriteRouterDeployToken = /*#__PURE__*/ createUseWriteContract({
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"renounceOwnership"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useWriteRouterRenounceOwnership =
   /*#__PURE__*/ createUseWriteContract({
@@ -1553,8 +1605,10 @@ export const useWriteRouterRenounceOwnership =
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"transferOwnership"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useWriteRouterTransferOwnership =
   /*#__PURE__*/ createUseWriteContract({
@@ -1566,8 +1620,10 @@ export const useWriteRouterTransferOwnership =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link routerAbi}__
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useSimulateRouter = /*#__PURE__*/ createUseSimulateContract({
   abi: routerAbi,
@@ -1577,8 +1633,10 @@ export const useSimulateRouter = /*#__PURE__*/ createUseSimulateContract({
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"addLiquiditySigned"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useSimulateRouterAddLiquiditySigned =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1590,8 +1648,10 @@ export const useSimulateRouterAddLiquiditySigned =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"deployToken"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useSimulateRouterDeployToken =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1603,8 +1663,10 @@ export const useSimulateRouterDeployToken =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"renounceOwnership"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useSimulateRouterRenounceOwnership =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1616,8 +1678,10 @@ export const useSimulateRouterRenounceOwnership =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link routerAbi}__ and `functionName` set to `"transferOwnership"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useSimulateRouterTransferOwnership =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1629,8 +1693,10 @@ export const useSimulateRouterTransferOwnership =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link routerAbi}__
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useWatchRouterEvent = /*#__PURE__*/ createUseWatchContractEvent({
   abi: routerAbi,
@@ -1640,8 +1706,10 @@ export const useWatchRouterEvent = /*#__PURE__*/ createUseWatchContractEvent({
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link routerAbi}__ and `eventName` set to `"LaunchTokenCreated"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useWatchRouterLaunchTokenCreatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -1653,8 +1721,10 @@ export const useWatchRouterLaunchTokenCreatedEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link routerAbi}__ and `eventName` set to `"LiquidityAdded"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useWatchRouterLiquidityAddedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -1666,8 +1736,10 @@ export const useWatchRouterLiquidityAddedEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link routerAbi}__ and `eventName` set to `"LiquidityLocked"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useWatchRouterLiquidityLockedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -1679,8 +1751,10 @@ export const useWatchRouterLiquidityLockedEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link routerAbi}__ and `eventName` set to `"OwnershipTransferred"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x301e4d7a3da5eef64038190e4968c51d5c5b6c46)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x072b4b787ddd8e6c78f416fccd84f3a4db591549)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1646265b7ab16a7b6921f21119517941bd35abe9)
  */
 export const useWatchRouterOwnershipTransferredEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -1692,8 +1766,10 @@ export const useWatchRouterOwnershipTransferredEvent =
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link systemContextAbi}__
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xc3b77fdd9cbced4309052fb8f77b39853e2306cd)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x2f33f8f62e0b34ce0e50ed3fa2156432c8e4ea11)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x3589eada2b23cb7c85ed0f7be62a8f3e8c1671ee)
  */
 export const useReadSystemContext = /*#__PURE__*/ createUseReadContract({
   abi: systemContextAbi,
@@ -1703,8 +1779,10 @@ export const useReadSystemContext = /*#__PURE__*/ createUseReadContract({
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link systemContextAbi}__ and `functionName` set to `"acl"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xc3b77fdd9cbced4309052fb8f77b39853e2306cd)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x2f33f8f62e0b34ce0e50ed3fa2156432c8e4ea11)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x3589eada2b23cb7c85ed0f7be62a8f3e8c1671ee)
  */
 export const useReadSystemContextAcl = /*#__PURE__*/ createUseReadContract({
   abi: systemContextAbi,
@@ -1715,8 +1793,10 @@ export const useReadSystemContextAcl = /*#__PURE__*/ createUseReadContract({
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link systemContextAbi}__ and `functionName` set to `"getContract"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xc3b77fdd9cbced4309052fb8f77b39853e2306cd)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x2f33f8f62e0b34ce0e50ed3fa2156432c8e4ea11)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x3589eada2b23cb7c85ed0f7be62a8f3e8c1671ee)
  */
 export const useReadSystemContextGetContract =
   /*#__PURE__*/ createUseReadContract({
@@ -1728,8 +1808,10 @@ export const useReadSystemContextGetContract =
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link systemContextAbi}__ and `functionName` set to `"getContractByName"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xc3b77fdd9cbced4309052fb8f77b39853e2306cd)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x2f33f8f62e0b34ce0e50ed3fa2156432c8e4ea11)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x3589eada2b23cb7c85ed0f7be62a8f3e8c1671ee)
  */
 export const useReadSystemContextGetContractByName =
   /*#__PURE__*/ createUseReadContract({
@@ -1741,8 +1823,10 @@ export const useReadSystemContextGetContractByName =
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link systemContextAbi}__
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xc3b77fdd9cbced4309052fb8f77b39853e2306cd)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x2f33f8f62e0b34ce0e50ed3fa2156432c8e4ea11)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x3589eada2b23cb7c85ed0f7be62a8f3e8c1671ee)
  */
 export const useWriteSystemContext = /*#__PURE__*/ createUseWriteContract({
   abi: systemContextAbi,
@@ -1752,8 +1836,10 @@ export const useWriteSystemContext = /*#__PURE__*/ createUseWriteContract({
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link systemContextAbi}__ and `functionName` set to `"setContract"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xc3b77fdd9cbced4309052fb8f77b39853e2306cd)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x2f33f8f62e0b34ce0e50ed3fa2156432c8e4ea11)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x3589eada2b23cb7c85ed0f7be62a8f3e8c1671ee)
  */
 export const useWriteSystemContextSetContract =
   /*#__PURE__*/ createUseWriteContract({
@@ -1765,8 +1851,10 @@ export const useWriteSystemContextSetContract =
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link systemContextAbi}__ and `functionName` set to `"setContractByName"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xc3b77fdd9cbced4309052fb8f77b39853e2306cd)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x2f33f8f62e0b34ce0e50ed3fa2156432c8e4ea11)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x3589eada2b23cb7c85ed0f7be62a8f3e8c1671ee)
  */
 export const useWriteSystemContextSetContractByName =
   /*#__PURE__*/ createUseWriteContract({
@@ -1778,8 +1866,10 @@ export const useWriteSystemContextSetContractByName =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link systemContextAbi}__
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xc3b77fdd9cbced4309052fb8f77b39853e2306cd)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x2f33f8f62e0b34ce0e50ed3fa2156432c8e4ea11)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x3589eada2b23cb7c85ed0f7be62a8f3e8c1671ee)
  */
 export const useSimulateSystemContext = /*#__PURE__*/ createUseSimulateContract(
   { abi: systemContextAbi, address: systemContextAddress },
@@ -1788,8 +1878,10 @@ export const useSimulateSystemContext = /*#__PURE__*/ createUseSimulateContract(
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link systemContextAbi}__ and `functionName` set to `"setContract"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xc3b77fdd9cbced4309052fb8f77b39853e2306cd)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x2f33f8f62e0b34ce0e50ed3fa2156432c8e4ea11)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x3589eada2b23cb7c85ed0f7be62a8f3e8c1671ee)
  */
 export const useSimulateSystemContextSetContract =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1801,8 +1893,10 @@ export const useSimulateSystemContextSetContract =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link systemContextAbi}__ and `functionName` set to `"setContractByName"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0xc3b77fdd9cbced4309052fb8f77b39853e2306cd)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x2f33f8f62e0b34ce0e50ed3fa2156432c8e4ea11)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x3589eada2b23cb7c85ed0f7be62a8f3e8c1671ee)
  */
 export const useSimulateSystemContextSetContractByName =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1814,8 +1908,10 @@ export const useSimulateSystemContextSetContractByName =
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link taxHandlerAbi}__
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useReadTaxHandler = /*#__PURE__*/ createUseReadContract({
   abi: taxHandlerAbi,
@@ -1825,8 +1921,10 @@ export const useReadTaxHandler = /*#__PURE__*/ createUseReadContract({
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"adminWallet"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useReadTaxHandlerAdminWallet = /*#__PURE__*/ createUseReadContract(
   {
@@ -1839,8 +1937,10 @@ export const useReadTaxHandlerAdminWallet = /*#__PURE__*/ createUseReadContract(
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"getCurrentTaxRates"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useReadTaxHandlerGetCurrentTaxRates =
   /*#__PURE__*/ createUseReadContract({
@@ -1852,8 +1952,10 @@ export const useReadTaxHandlerGetCurrentTaxRates =
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"systemContext"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useReadTaxHandlerSystemContext =
   /*#__PURE__*/ createUseReadContract({
@@ -1865,8 +1967,10 @@ export const useReadTaxHandlerSystemContext =
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useWriteTaxHandler = /*#__PURE__*/ createUseWriteContract({
   abi: taxHandlerAbi,
@@ -1876,8 +1980,10 @@ export const useWriteTaxHandler = /*#__PURE__*/ createUseWriteContract({
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"decreaseTaxes"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useWriteTaxHandlerDecreaseTaxes =
   /*#__PURE__*/ createUseWriteContract({
@@ -1889,8 +1995,10 @@ export const useWriteTaxHandlerDecreaseTaxes =
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"disableTaxes"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useWriteTaxHandlerDisableTaxes =
   /*#__PURE__*/ createUseWriteContract({
@@ -1902,8 +2010,10 @@ export const useWriteTaxHandlerDisableTaxes =
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"handleTax"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useWriteTaxHandlerHandleTax = /*#__PURE__*/ createUseWriteContract(
   { abi: taxHandlerAbi, address: taxHandlerAddress, functionName: 'handleTax' },
@@ -1912,8 +2022,10 @@ export const useWriteTaxHandlerHandleTax = /*#__PURE__*/ createUseWriteContract(
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"registerTaxConfig"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useWriteTaxHandlerRegisterTaxConfig =
   /*#__PURE__*/ createUseWriteContract({
@@ -1925,8 +2037,10 @@ export const useWriteTaxHandlerRegisterTaxConfig =
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setAdminWallet"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useWriteTaxHandlerSetAdminWallet =
   /*#__PURE__*/ createUseWriteContract({
@@ -1938,8 +2052,10 @@ export const useWriteTaxHandlerSetAdminWallet =
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setLiquidityAddedAt"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useWriteTaxHandlerSetLiquidityAddedAt =
   /*#__PURE__*/ createUseWriteContract({
@@ -1951,8 +2067,10 @@ export const useWriteTaxHandlerSetLiquidityAddedAt =
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setUser2Recipient"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useWriteTaxHandlerSetUser2Recipient =
   /*#__PURE__*/ createUseWriteContract({
@@ -1964,8 +2082,10 @@ export const useWriteTaxHandlerSetUser2Recipient =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useSimulateTaxHandler = /*#__PURE__*/ createUseSimulateContract({
   abi: taxHandlerAbi,
@@ -1975,8 +2095,10 @@ export const useSimulateTaxHandler = /*#__PURE__*/ createUseSimulateContract({
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"decreaseTaxes"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useSimulateTaxHandlerDecreaseTaxes =
   /*#__PURE__*/ createUseSimulateContract({
@@ -1988,8 +2110,10 @@ export const useSimulateTaxHandlerDecreaseTaxes =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"disableTaxes"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useSimulateTaxHandlerDisableTaxes =
   /*#__PURE__*/ createUseSimulateContract({
@@ -2001,8 +2125,10 @@ export const useSimulateTaxHandlerDisableTaxes =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"handleTax"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useSimulateTaxHandlerHandleTax =
   /*#__PURE__*/ createUseSimulateContract({
@@ -2014,8 +2140,10 @@ export const useSimulateTaxHandlerHandleTax =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"registerTaxConfig"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useSimulateTaxHandlerRegisterTaxConfig =
   /*#__PURE__*/ createUseSimulateContract({
@@ -2027,8 +2155,10 @@ export const useSimulateTaxHandlerRegisterTaxConfig =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setAdminWallet"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useSimulateTaxHandlerSetAdminWallet =
   /*#__PURE__*/ createUseSimulateContract({
@@ -2040,8 +2170,10 @@ export const useSimulateTaxHandlerSetAdminWallet =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setLiquidityAddedAt"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useSimulateTaxHandlerSetLiquidityAddedAt =
   /*#__PURE__*/ createUseSimulateContract({
@@ -2053,8 +2185,10 @@ export const useSimulateTaxHandlerSetLiquidityAddedAt =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setUser2Recipient"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useSimulateTaxHandlerSetUser2Recipient =
   /*#__PURE__*/ createUseSimulateContract({
@@ -2066,8 +2200,10 @@ export const useSimulateTaxHandlerSetUser2Recipient =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useWatchTaxHandlerEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -2078,8 +2214,10 @@ export const useWatchTaxHandlerEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"AdminPhasesSet"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useWatchTaxHandlerAdminPhasesSetEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -2091,8 +2229,10 @@ export const useWatchTaxHandlerAdminPhasesSetEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"AdminWalletUpdated"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useWatchTaxHandlerAdminWalletUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -2104,8 +2244,10 @@ export const useWatchTaxHandlerAdminWalletUpdatedEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"ConfigRegistered"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useWatchTaxHandlerConfigRegisteredEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -2117,8 +2259,10 @@ export const useWatchTaxHandlerConfigRegisteredEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"LiquidityTimestampSet"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useWatchTaxHandlerLiquidityTimestampSetEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -2130,8 +2274,10 @@ export const useWatchTaxHandlerLiquidityTimestampSetEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"TaxConfigRegistered"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useWatchTaxHandlerTaxConfigRegisteredEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -2143,8 +2289,10 @@ export const useWatchTaxHandlerTaxConfigRegisteredEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"TaxPaid"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useWatchTaxHandlerTaxPaidEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -2156,8 +2304,10 @@ export const useWatchTaxHandlerTaxPaidEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"TaxesAdjusted"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useWatchTaxHandlerTaxesAdjustedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -2169,8 +2319,10 @@ export const useWatchTaxHandlerTaxesAdjustedEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"TaxesDisabled"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useWatchTaxHandlerTaxesDisabledEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -2182,8 +2334,10 @@ export const useWatchTaxHandlerTaxesDisabledEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"User2Set"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x20c11ca62f43b487017ae44e4f98bd48f8926e04)
  */
 export const useWatchTaxHandlerUser2SetEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -2195,8 +2349,10 @@ export const useWatchTaxHandlerUser2SetEvent =
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link whitelistAbi}__
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useReadWhitelist = /*#__PURE__*/ createUseReadContract({
   abi: whitelistAbi,
@@ -2206,8 +2362,10 @@ export const useReadWhitelist = /*#__PURE__*/ createUseReadContract({
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"allowancePerUser"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useReadWhitelistAllowancePerUser =
   /*#__PURE__*/ createUseReadContract({
@@ -2219,8 +2377,10 @@ export const useReadWhitelistAllowancePerUser =
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"boughtAmount"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useReadWhitelistBoughtAmount = /*#__PURE__*/ createUseReadContract(
   {
@@ -2233,8 +2393,10 @@ export const useReadWhitelistBoughtAmount = /*#__PURE__*/ createUseReadContract(
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"isWhitelisted"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useReadWhitelistIsWhitelisted =
   /*#__PURE__*/ createUseReadContract({
@@ -2246,8 +2408,10 @@ export const useReadWhitelistIsWhitelisted =
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"remainingAllowance"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useReadWhitelistRemainingAllowance =
   /*#__PURE__*/ createUseReadContract({
@@ -2259,8 +2423,10 @@ export const useReadWhitelistRemainingAllowance =
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"systemContext"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useReadWhitelistSystemContext =
   /*#__PURE__*/ createUseReadContract({
@@ -2272,8 +2438,10 @@ export const useReadWhitelistSystemContext =
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"whitelistFinalized"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useReadWhitelistWhitelistFinalized =
   /*#__PURE__*/ createUseReadContract({
@@ -2285,8 +2453,10 @@ export const useReadWhitelistWhitelistFinalized =
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"whitelists"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useReadWhitelistWhitelists = /*#__PURE__*/ createUseReadContract({
   abi: whitelistAbi,
@@ -2297,8 +2467,10 @@ export const useReadWhitelistWhitelists = /*#__PURE__*/ createUseReadContract({
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link whitelistAbi}__
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useWriteWhitelist = /*#__PURE__*/ createUseWriteContract({
   abi: whitelistAbi,
@@ -2308,8 +2480,10 @@ export const useWriteWhitelist = /*#__PURE__*/ createUseWriteContract({
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"addManyToWhitelist"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useWriteWhitelistAddManyToWhitelist =
   /*#__PURE__*/ createUseWriteContract({
@@ -2321,8 +2495,10 @@ export const useWriteWhitelistAddManyToWhitelist =
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"addToWhitelist"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useWriteWhitelistAddToWhitelist =
   /*#__PURE__*/ createUseWriteContract({
@@ -2334,8 +2510,10 @@ export const useWriteWhitelistAddToWhitelist =
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"clearWhitelist"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useWriteWhitelistClearWhitelist =
   /*#__PURE__*/ createUseWriteContract({
@@ -2347,8 +2525,10 @@ export const useWriteWhitelistClearWhitelist =
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"finalizeWhitelist"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useWriteWhitelistFinalizeWhitelist =
   /*#__PURE__*/ createUseWriteContract({
@@ -2360,8 +2540,10 @@ export const useWriteWhitelistFinalizeWhitelist =
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"recordBuy"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useWriteWhitelistRecordBuy = /*#__PURE__*/ createUseWriteContract({
   abi: whitelistAbi,
@@ -2372,8 +2554,10 @@ export const useWriteWhitelistRecordBuy = /*#__PURE__*/ createUseWriteContract({
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"removeFromWhitelist"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useWriteWhitelistRemoveFromWhitelist =
   /*#__PURE__*/ createUseWriteContract({
@@ -2385,8 +2569,10 @@ export const useWriteWhitelistRemoveFromWhitelist =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link whitelistAbi}__
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useSimulateWhitelist = /*#__PURE__*/ createUseSimulateContract({
   abi: whitelistAbi,
@@ -2396,8 +2582,10 @@ export const useSimulateWhitelist = /*#__PURE__*/ createUseSimulateContract({
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"addManyToWhitelist"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useSimulateWhitelistAddManyToWhitelist =
   /*#__PURE__*/ createUseSimulateContract({
@@ -2409,8 +2597,10 @@ export const useSimulateWhitelistAddManyToWhitelist =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"addToWhitelist"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useSimulateWhitelistAddToWhitelist =
   /*#__PURE__*/ createUseSimulateContract({
@@ -2422,8 +2612,10 @@ export const useSimulateWhitelistAddToWhitelist =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"clearWhitelist"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useSimulateWhitelistClearWhitelist =
   /*#__PURE__*/ createUseSimulateContract({
@@ -2435,8 +2627,10 @@ export const useSimulateWhitelistClearWhitelist =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"finalizeWhitelist"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useSimulateWhitelistFinalizeWhitelist =
   /*#__PURE__*/ createUseSimulateContract({
@@ -2448,8 +2642,10 @@ export const useSimulateWhitelistFinalizeWhitelist =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"recordBuy"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useSimulateWhitelistRecordBuy =
   /*#__PURE__*/ createUseSimulateContract({
@@ -2461,8 +2657,10 @@ export const useSimulateWhitelistRecordBuy =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link whitelistAbi}__ and `functionName` set to `"removeFromWhitelist"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useSimulateWhitelistRemoveFromWhitelist =
   /*#__PURE__*/ createUseSimulateContract({
@@ -2474,8 +2672,10 @@ export const useSimulateWhitelistRemoveFromWhitelist =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link whitelistAbi}__
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useWatchWhitelistEvent = /*#__PURE__*/ createUseWatchContractEvent(
   { abi: whitelistAbi, address: whitelistAddress },
@@ -2484,8 +2684,10 @@ export const useWatchWhitelistEvent = /*#__PURE__*/ createUseWatchContractEvent(
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link whitelistAbi}__ and `eventName` set to `"WhitelistBuyRecorded"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useWatchWhitelistWhitelistBuyRecordedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -2497,8 +2699,10 @@ export const useWatchWhitelistWhitelistBuyRecordedEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link whitelistAbi}__ and `eventName` set to `"WhitelistEntryAdded"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useWatchWhitelistWhitelistEntryAddedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -2510,8 +2714,10 @@ export const useWatchWhitelistWhitelistEntryAddedEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link whitelistAbi}__ and `eventName` set to `"WhitelistEntryRemoved"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useWatchWhitelistWhitelistEntryRemovedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -2523,8 +2729,10 @@ export const useWatchWhitelistWhitelistEntryRemovedEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link whitelistAbi}__ and `eventName` set to `"WhitelistFinalized"`
  *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x3c979ba68662da5bcd7e42d69b88731d26bd4286)
  * - [__View Contract on Binance Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0x32b3302f2f9e15a93864ab3085585afb8690d00d)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca)
  */
 export const useWatchWhitelistWhitelistFinalizedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({

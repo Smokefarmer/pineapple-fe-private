@@ -12,9 +12,9 @@ import { useSiwe } from '@/app/components/auth/siwe-provider';
 import { useReadSystemContextAcl } from '@/src/generated';
 import { useChainId, useWriteContract } from 'wagmi';
 import { keccak256, toBytes } from 'viem';
+import { bscTestnet, sepolia } from 'wagmi/chains';
 
 import PineappleAccessControl from '@/abis/PineappleAccessControl';
-import { bscTestnet } from 'wagmi/chains';
 
 interface UserManagementProps {
   isSuperAdmin?: boolean;
@@ -26,7 +26,9 @@ const TESTNET_API_BASE_URL = process.env.NEXT_PUBLIC_TESTNET_API_BASE_URL;
 
 // Function to get the appropriate API base URL based on the current network
 const getApiBaseUrl = (chainId: number) => {
-  return chainId === bscTestnet.id ? TESTNET_API_BASE_URL : MAINNET_API_BASE_URL;
+  // Use testnet API for testnet chains (BSC Testnet and Sepolia)
+  const isTestnet = chainId === bscTestnet.id || chainId === sepolia.id;
+  return isTestnet ? TESTNET_API_BASE_URL : MAINNET_API_BASE_URL;
 };
 
 // Smart contract role constant

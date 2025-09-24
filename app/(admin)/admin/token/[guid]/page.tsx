@@ -59,13 +59,13 @@ export default function TokenDetailPage() {
   const params = useParams();
   const router = useRouter();
   const guid = params.guid as string;
-  const [liquidityTokenPercent, setLiquidityTokenPercent] = useState(50); 
+  const [liquidityTokenPercent, setLiquidityTokenPercent] = useState(''); 
   const [whitelistFile, setWhitelistFile] = useState<File | null>(null);
   
   // Admin phase configuration state
-  const [adminPhaseA, setAdminPhaseA] = useState({ rate: 5, duration: 3600 }); // 5%, 1 hour
-  const [adminPhaseB, setAdminPhaseB] = useState({ rate: 3, duration: 7200 }); // 3%, 2 hours  
-  const [adminPhaseC, setAdminPhaseC] = useState({ rate: 1, duration: 0 }); // 1%, endless 
+  const [adminPhaseA, setAdminPhaseA] = useState({ rate: '', duration: '' }); // Admin phase A
+  const [adminPhaseB, setAdminPhaseB] = useState({ rate: '', duration: '' }); // Admin phase B
+  const [adminPhaseC, setAdminPhaseC] = useState({ rate: '', duration: '' }); // Admin phase C 
   
 
   
@@ -122,15 +122,19 @@ export default function TokenDetailPage() {
     const flatBuyTaxPercent = token.flatBuyTax / 100; // Convert from basis points to percentage
     const flatSellTaxPercent = token.flatSellTax / 100; // Convert from basis points to percentage
     
-    if (adminPhaseC.rate > flatBuyTaxPercent || adminPhaseC.rate > flatSellTaxPercent) {
+    const rateA = adminPhaseA.rate === '' ? 0 : parseFloat(adminPhaseA.rate);
+    const rateB = adminPhaseB.rate === '' ? 0 : parseFloat(adminPhaseB.rate);
+    const rateC = adminPhaseC.rate === '' ? 0 : parseFloat(adminPhaseC.rate);
+    
+    if (rateC > flatBuyTaxPercent || rateC > flatSellTaxPercent) {
       toast.error("Invalid Admin Configuration", { 
-        description: `Admin Phase C rate (${adminPhaseC.rate}%) cannot exceed the creator's flat tax rates (Buy: ${flatBuyTaxPercent}%, Sell: ${flatSellTaxPercent}%)` 
+        description: `Admin Phase C rate (${rateC}%) cannot exceed the creator's flat tax rates (Buy: ${flatBuyTaxPercent}%, Sell: ${flatSellTaxPercent}%)` 
       });
       return;
     }
     
     // Validate that rates decrease over time
-    if (adminPhaseA.rate < adminPhaseB.rate || adminPhaseB.rate < adminPhaseC.rate) {
+    if (rateA < rateB || rateB < rateC) {
       toast.error("Invalid Admin Configuration", { 
         description: "Admin tax rates must decrease over time (Phase A ≥ Phase B ≥ Phase C)" 
       });
@@ -140,20 +144,20 @@ export default function TokenDetailPage() {
 
     
     const adminRatesBps = [
-      adminPhaseA.rate * 100, // Convert to basis points
-      adminPhaseB.rate * 100, 
-      adminPhaseC.rate * 100
+      rateA * 100, // Convert to basis points
+      rateB * 100, 
+      rateC * 100
     ];
     
     const adminDurations = [
-      adminPhaseA.duration,
-      adminPhaseB.duration, 
-      adminPhaseC.duration // Always 0 for endless
+      adminPhaseA.duration === '' ? 0 : parseInt(adminPhaseA.duration),
+      adminPhaseB.duration === '' ? 0 : parseInt(adminPhaseB.duration), 
+      adminPhaseC.duration === '' ? 0 : parseInt(adminPhaseC.duration) // Always 0 for endless
     ];
     
     approveToken({ 
       guid: token.guid, 
-      liquidityTokenPercent: liquidityTokenPercent * 100,
+      liquidityTokenPercent: (liquidityTokenPercent === '' ? 0 : parseInt(liquidityTokenPercent)) * 100,
       adminRatesBps,
       adminDurations
     }, {
@@ -651,11 +655,10 @@ export default function TokenDetailPage() {
                       <Input
                         id="adminPhaseARate"
                         type="number"
-                        min={0}
-                        max={50}
                         step={0.1}
-                        value={adminPhaseA.rate}
-                        onChange={(e) => setAdminPhaseA(prev => ({ ...prev, rate: parseFloat(e.target.value) || 0 }))}
+                        placeholder="e.g., 5"
+                        value={adminPhaseA.rate || ''}
+                        onChange={(e) => setAdminPhaseA(prev => ({ ...prev, rate: e.target.value === '' ? '' : e.target.value }))}
                         disabled={isProcessing}
                         className="mt-1"
                       />
@@ -667,9 +670,9 @@ export default function TokenDetailPage() {
                       <Input
                         id="adminPhaseADuration"
                         type="number"
-                        min={0}
-                        value={adminPhaseA.duration}
-                        onChange={(e) => setAdminPhaseA(prev => ({ ...prev, duration: parseInt(e.target.value) || 0 }))}
+                        placeholder="e.g., 3600"
+                        value={adminPhaseA.duration || ''}
+                        onChange={(e) => setAdminPhaseA(prev => ({ ...prev, duration: e.target.value === '' ? '' : e.target.value }))}
                         disabled={isProcessing}
                         className="mt-1"
                       />
@@ -681,11 +684,10 @@ export default function TokenDetailPage() {
                       <Input
                         id="adminPhaseBRate"
                         type="number"
-                        min={0}
-                        max={50}
                         step={0.1}
-                        value={adminPhaseB.rate}
-                        onChange={(e) => setAdminPhaseB(prev => ({ ...prev, rate: parseFloat(e.target.value) || 0 }))}
+                        placeholder="e.g., 3"
+                        value={adminPhaseB.rate || ''}
+                        onChange={(e) => setAdminPhaseB(prev => ({ ...prev, rate: e.target.value === '' ? '' : e.target.value }))}
                         disabled={isProcessing}
                         className="mt-1"
                       />
@@ -697,9 +699,9 @@ export default function TokenDetailPage() {
                       <Input
                         id="adminPhaseBDuration"
                         type="number"
-                        min={0}
-                        value={adminPhaseB.duration}
-                        onChange={(e) => setAdminPhaseB(prev => ({ ...prev, duration: parseInt(e.target.value) || 0 }))}
+                        placeholder="e.g., 7200"
+                        value={adminPhaseB.duration || ''}
+                        onChange={(e) => setAdminPhaseB(prev => ({ ...prev, duration: e.target.value === '' ? '' : e.target.value }))}
                         disabled={isProcessing}
                         className="mt-1"
                       />
@@ -711,11 +713,10 @@ export default function TokenDetailPage() {
                       <Input
                         id="adminPhaseCRate"
                         type="number"
-                        min={0}
-                        max={Math.min(token.flatBuyTax/100, token.flatSellTax/100)}
                         step={0.1}
-                        value={adminPhaseC.rate}
-                        onChange={(e) => setAdminPhaseC(prev => ({ ...prev, rate: parseFloat(e.target.value) || 0 }))}
+                        placeholder="e.g., 1"
+                        value={adminPhaseC.rate || ''}
+                        onChange={(e) => setAdminPhaseC(prev => ({ ...prev, rate: e.target.value === '' ? '' : e.target.value }))}
                         disabled={isProcessing}
                         className="mt-1"
                       />
@@ -805,10 +806,9 @@ export default function TokenDetailPage() {
                      <Input
                        id="liquidityTokenPercent"
                        type="number"
-                       min={1}
-                       max={100}
-                       value={liquidityTokenPercent}
-                       onChange={(e) => setLiquidityTokenPercent(parseInt(e.target.value))}
+                       placeholder="e.g., 50"
+                       value={liquidityTokenPercent || ''}
+                       onChange={(e) => setLiquidityTokenPercent(e.target.value === '' ? '' : e.target.value)}
                        disabled={isProcessing}
                      />
                      <span>%</span>
@@ -929,6 +929,7 @@ export default function TokenDetailPage() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Wallet Address</TableHead>
+                    <TableHead className="text-right">Exact Amount</TableHead>
                     <TableHead className="text-right">Allowed Buy</TableHead>
                     <TableHead>Created At</TableHead>
                   </TableRow>
@@ -947,6 +948,7 @@ export default function TokenDetailPage() {
                           <Copy className="h-3 w-3" />
                         </Button>
                       </TableCell>
+                      <TableCell className="text-right">{((entry.allowedBuyAmount)/1e18).toFixed(6)}</TableCell>
                       <TableCell className="text-right">{ ((entry.allowedBuyAmount)/1e18 * 0.95).toFixed(6)}</TableCell>
                       <TableCell>{new Date(entry.createdAt).toLocaleString()}</TableCell>
                     </TableRow>

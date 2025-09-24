@@ -236,8 +236,6 @@ export default function TaxManagement({
                         <Input
                           id="newBuyRate"
                           type="number"
-                          step="0.01"
-                          min="0"
                           max={convertBasisPointsToPercentage(taxInfo.currentBuyRate)}
                           value={form.newBuyRate.toString()}
                           onChange={(e) => handleFormChange('newBuyRate', e.target.value)}
@@ -261,8 +259,6 @@ export default function TaxManagement({
                         <Input
                           id="newSellRate"
                           type="number"
-                          step="0.01"
-                          min="0"
                           max={convertBasisPointsToPercentage(taxInfo.currentSellRate)}
                           value={form.newSellRate.toString()}
                           onChange={(e) => handleFormChange('newSellRate', e.target.value)}
