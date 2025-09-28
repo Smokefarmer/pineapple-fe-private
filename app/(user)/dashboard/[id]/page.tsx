@@ -20,13 +20,14 @@ import { toast } from "sonner";
 import { CheckCircle2, Info, Loader2, XCircle, Settings, Rocket, HelpCircle, Coins, CopyIcon, RefreshCw } from "lucide-react";
 import { parseEther } from 'viem'; // Import parseEther and getContract from viem
 import TaxManagement from '@/app/components/tax/TaxManagement';
+import { getNativeCurrencySymbol, getNativeCurrencyName, getDexName } from '@/app/lib/chain-utils';
 
 // --- Placeholder Types ---
 interface ProjectDetails {
   name: string; // Token name
   ticker: string; // Token symbol
   supply: string; // Total supply
-  liquidity: string; // Represents BNB amount
+  liquidity: string; // Represents native currency amount (BNB/ETH)
   flatBuyTax: string; // Flat buy tax percentage
   flatSellTax: string; // Flat sell tax percentage
   startBuyTax: string; // Initial buy tax percentage
@@ -88,6 +89,10 @@ export default function UserDashboardPage() {
   const chainId = useChainId();
   const { id: tokenId } = useParams<{ id: string }>();
   const { address, isConnected } = useAccount();
+  
+  // Get dynamic currency symbols based on current chain
+  const nativeCurrency = getNativeCurrencySymbol(chainId);
+  const chainName = getNativeCurrencyName(chainId);
   const publicClient = usePublicClient();
   const queryClient = useQueryClient();
   
@@ -279,7 +284,7 @@ export default function UserDashboardPage() {
     if (!formData.name) errors.push("Token Name is required.");
     if (!formData.ticker) errors.push("Token Ticker is required.");
     if (!formData.supply) errors.push("Total Supply is required.");
-    if (!formData.liquidity) errors.push("Initial Liquidity (BNB) is required.");
+    if (!formData.liquidity) errors.push(`Initial Liquidity (${nativeCurrency}) is required.`);
     if (!formData.flatBuyTax) errors.push("Flat Buy Tax is required.");
     if (!formData.flatSellTax) errors.push("Flat Sell Tax is required.");
     if (!formData.startBuyTax) errors.push("Start Buy Tax is required.");
@@ -313,7 +318,7 @@ export default function UserDashboardPage() {
     if (formData.flatSellTax && (flatSellTaxNum < 4 || flatSellTaxNum > 7)) errors.push("Flat Sell Tax must be between 4% and 7%.");
     if (formData.startBuyTax && (startBuyTaxNum < 4 || startBuyTaxNum > 20)) errors.push("Start Buy Tax must be between 4% and 20%.");
     if (formData.startSellTax && (startSellTaxNum < 4 || startSellTaxNum > 20)) errors.push("Start Sell Tax must be between 4% and 20%.");
-    if (formData.liquidity && liquidityNum <= 0) errors.push("Initial Liquidity (BNB) must be greater than 0.");
+    if (formData.liquidity && liquidityNum <= 0) errors.push(`Initial Liquidity (${nativeCurrency}) must be greater than 0.`);
     if (formData.whitelistDuration && (whitelistDurationNum < 0 || whitelistDurationNum > 180)) errors.push("Whitelist Duration must be between 0 and 180 seconds.");
         
     // Add more specific checks if needed (e.g., supply format, address format)
@@ -1024,7 +1029,7 @@ Timestamp: ${new Date().toISOString()}
                     <Settings className="h-5 w-5 text-primary" />
                     1. Project Configuration
                 </CardTitle>
-                <CardDescription className="mt-1">Define the parameters for your new token on BNB Chain.</CardDescription>
+                <CardDescription className="mt-1">Define the parameters for your new token on {chainName}.</CardDescription>
             </CardHeader>
             <form onSubmit={handleCreateTokenSubmit}>
                 <CardContent className="px-6 pt-2 pb-6 space-y-6">
@@ -1042,7 +1047,7 @@ Timestamp: ${new Date().toISOString()}
                             <Input id="supply" type="number" placeholder="e.g., 100000000" value={formData.supply || ''} onChange={handleInputChange} required disabled={isConfigurationDisabled} className="mt-1.5"/>
                         </div>
                         <div>
-                            <Label htmlFor="liquidity">Initial Liquidity (BNB) <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
+                            <Label htmlFor="liquidity">Initial Liquidity ({nativeCurrency}) <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
                             <Input id="liquidity" type="number" placeholder="e.g., 50" value={formData.liquidity || ''} onChange={handleInputChange} required disabled={isConfigurationDisabled} className="mt-1.5"/>
                         </div>
                     </div>
@@ -1124,7 +1129,7 @@ Timestamp: ${new Date().toISOString()}
         <Card className={`bg-card shadow-xl border border-border/40 rounded-lg ${isApprovedNotOnchain ? 'ring-2 ring-blue-500/20' : ''}`}>
             <CardHeader className="px-6 pt-6 pb-4">
                 <CardTitle className="flex items-center gap-2 text-lg font-semibold"> <Rocket className="h-5 w-5 text-primary" /> 2. Deploy Smart Contract </CardTitle>
-                 <CardDescription className="mt-1">Deploy the token contract to the BNB Chain. Requires gas fees (BNB).</CardDescription>
+                 <CardDescription className="mt-1">Deploy the token contract to {chainName}. Requires gas fees ({nativeCurrency}).</CardDescription>
             </CardHeader>
             <CardContent className="px-6 pb-6">
                 <Button onClick={handleDeploy} disabled={!canDeploy || isDeployingContract || isConfirmingDeploy} size="lg" className="px-6">
@@ -1153,7 +1158,7 @@ Timestamp: ${new Date().toISOString()}
                      </div>
                  )}
                  {isNewToken && <p className="mt-3 text-xs text-yellow-400 flex items-center gap-1"><Info size={14}/> Token awaiting admin approval.</p>}
-                 {isApprovedNotOnchain && <p className="mt-3 text-xs text-yellow-400 flex items-center gap-1"><Info size={14}/> Deploying requires gas fees (BNB) in your wallet.</p>}
+                 {isApprovedNotOnchain && <p className="mt-3 text-xs text-yellow-400 flex items-center gap-1"><Info size={14}/> Deploying requires gas fees ({nativeCurrency}) in your wallet.</p>}
                  {isOnchainNoLiquidity && <p className="mt-3 text-xs text-yellow-400 flex items-center gap-1"><Info size={14}/> Contract successfully deployed. Proceed to add liquidity.</p>}
             </CardContent>
         </Card>
@@ -1162,7 +1167,7 @@ Timestamp: ${new Date().toISOString()}
         <Card className={`bg-card shadow-xl border border-border/40 rounded-lg ${isOnchainNoLiquidity ? 'ring-2 ring-green-500/20' : ''}`}>
             <CardHeader className="px-6 pt-6 pb-4">
                 <CardTitle className="flex items-center gap-2 text-lg font-semibold"> <Coins className="h-5 w-5 text-primary" /> 3. Create Liquidity Pool </CardTitle>
-                <CardDescription className="mt-1">Add liquidity to enable trading on PancakeSwap.</CardDescription>
+                <CardDescription className="mt-1">Add liquidity to enable trading on {getDexName(chainId)}.</CardDescription>
             </CardHeader>
             <CardContent className="px-6 pb-6">
                 <Button onClick={()=>handleCreateLP()}

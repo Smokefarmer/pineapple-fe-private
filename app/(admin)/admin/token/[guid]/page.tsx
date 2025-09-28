@@ -1,6 +1,7 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
+import { useChainId } from 'wagmi';
 import { 
   useToken, 
   useApproveToken, 
@@ -17,7 +18,8 @@ import {
   whitelistAddress as generatedWhitelistAddress, 
 } from '@/src/generated'; 
 import { useAccount } from 'wagmi'; 
-import { isAddress, BaseError, parseEther } from 'viem'; 
+import { isAddress, BaseError, parseEther } from 'viem';
+import { getNativeCurrencySymbol } from '@/app/lib/chain-utils'; 
 
 import { 
   Card, 
@@ -59,6 +61,10 @@ export default function TokenDetailPage() {
   const params = useParams();
   const router = useRouter();
   const guid = params.guid as string;
+  const chainId = useChainId();
+  
+  // Get dynamic currency symbol based on current chain
+  const nativeCurrency = getNativeCurrencySymbol(chainId);
   const [liquidityTokenPercent, setLiquidityTokenPercent] = useState(''); 
   const [whitelistFile, setWhitelistFile] = useState<File | null>(null);
   
@@ -113,7 +119,7 @@ export default function TokenDetailPage() {
 
   // Handle approve token (for non-deployed tokens)
   const handleApproveToken = () => {
-    if (!token || token.erc20Address || liquidityTokenPercent < 1 || liquidityTokenPercent > 100) {
+    if (!token || token.erc20Address || parseFloat(liquidityTokenPercent) < 1 || parseFloat(liquidityTokenPercent) > 100) {
       toast.warning("Cannot Approve", { description: "This action is only for tokens not yet deployed." });
       return;
     }
@@ -793,9 +799,9 @@ export default function TokenDetailPage() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <Label>Liquidity Backing BNB</Label>
+                <Label>Liquidity Backing {nativeCurrency}</Label>
                 <div className="bg-muted p-2 rounded text-sm mt-1">
-                  {token.liquidityBackingETH} BNB
+                  {token.liquidityBackingETH} {nativeCurrency}
                 </div>
               </div>
 

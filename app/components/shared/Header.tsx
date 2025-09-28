@@ -85,7 +85,7 @@ export const Header: React.FC = () => { // Removed props, simplified
             <ConnectButton
                 accountStatus={{ smallScreen: 'avatar', largeScreen: 'full' }}
                 showBalance={true} // Show balance as per image hint
-                chainStatus="icon" // Only show chain icon, name is implicit (BNB)
+                chainStatus="icon" // Only show chain icon, name is implicit
              />
             
             {/* Sign Out Button (only shown when signed in with SIWE) */}

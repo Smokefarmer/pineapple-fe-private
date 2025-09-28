@@ -6,6 +6,7 @@ import { useAccount } from 'wagmi';
 import { ConnectButton } from '@rainbow-me/rainbowkit'; // Import RainbowKit Button
 import { useSiwe } from '@/app/components/auth/siwe-provider';
 import { useSession } from 'next-auth/react';
+import ClientOnly from '@/app/components/client-only';
 
 // Updated component imports
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/app/components/ui/card";
@@ -130,17 +131,29 @@ export default function LoginPage() {
           </CardHeader>
           <CardContent className="flex flex-col items-center space-y-4">
             {/* --- RainbowKit Connect Button --- */}
-            <ConnectButton
-                // Optional: customize appearance or behavior
-                // showBalance={false}
-                // chainStatus="icon"
-                // accountStatus="address"
-            />
+            <ClientOnly fallback={
+              <div className="h-10 w-full flex items-center justify-center">
+                <div className="text-sm text-muted-foreground">Loading wallet...</div>
+              </div>
+            }>
+              <ConnectButton
+                  // Optional: customize appearance or behavior
+                  // showBalance={false}
+                  // chainStatus="icon"
+                  // accountStatus="address"
+              />
+            </ClientOnly>
 
             {/* --- Status Message Area --- */}
             {/* This div ensures consistent height whether a message is present or not */}
             <div className='mt-4 min-h-[4rem] w-full flex flex-col items-center justify-center'>
-                {getStatusDisplay()}
+                <ClientOnly fallback={
+                  <div className="text-sm text-muted-foreground text-center">
+                    Connect your wallet to continue
+                  </div>
+                }>
+                  {getStatusDisplay()}
+                </ClientOnly>
             </div>
 
           </CardContent>

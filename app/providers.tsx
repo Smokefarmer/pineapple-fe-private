@@ -15,6 +15,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
 import { SessionProvider } from "next-auth/react";
 import { SiweProvider } from "./components/auth/siwe-provider";
+import ClientOnly from "./components/client-only";
 
 // --- Config ---
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!;
@@ -58,10 +59,20 @@ function getQueryClient() {
 // --- RainbowKit Theme Wrapper ---
 function RainbowThemeWrapper({ children }: { children: React.ReactNode }) {
   const { resolvedTheme } = useTheme();
-  
-  // Wait for theme to be resolved to avoid hydration mismatch
-  if (!resolvedTheme) {
-    return <>{children}</>;
+  const [mounted, setMounted] = React.useState(false);
+
+  // Only render after mounting to avoid hydration mismatch
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // During SSR and before mounting, render without theme
+  if (!mounted) {
+    return (
+      <RainbowKitProvider modalSize="compact">
+        {children}
+      </RainbowKitProvider>
+    );
   }
 
   const isDarkMode = resolvedTheme === 'dark';
@@ -97,9 +108,15 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <QueryClientProvider client={queryClient}>
           <SessionProvider>
             <SiweProvider>
-              <RainbowThemeWrapper>
-                {children}
-              </RainbowThemeWrapper>
+              <ClientOnly fallback={
+                <RainbowKitProvider modalSize="compact">
+                  {children}
+                </RainbowKitProvider>
+              }>
+                <RainbowThemeWrapper>
+                  {children}
+                </RainbowThemeWrapper>
+              </ClientOnly>
             </SiweProvider>
           </SessionProvider>
           {/* <ReactQueryDevtools initialIsOpen={false} /> */}

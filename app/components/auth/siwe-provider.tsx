@@ -76,11 +76,27 @@ export function SiweProvider({ children }: { children: ReactNode }) {
       // Get the appropriate API URL based on the current chain
       const API_BASE_URL = getApiBaseUrl(chainId);
 
-      // Step 1: Get the challenge from the backend
-      const challengeResponse = await fetch(`${API_BASE_URL}/auth/web3?address=${address}`);
+      // Step 1: Get the challenge from the backend with aggressive CORS handling
+      const challengeResponse = await fetch(`${API_BASE_URL}/auth/web3?address=${address}`, {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Origin': window.location.origin,
+        },
+      });
       
       if (!challengeResponse.ok) {
-        throw new Error("Failed to get authentication challenge");
+        const errorText = await challengeResponse.text();
+        console.error('Challenge request failed:', {
+          status: challengeResponse.status,
+          statusText: challengeResponse.statusText,
+          error: errorText,
+          url: `${API_BASE_URL}/auth/web3?address=${address}`
+        });
+        throw new Error(`Failed to get authentication challenge: ${challengeResponse.status} ${challengeResponse.statusText}`);
       }
       
       // Get the challenge as text instead of trying to parse JSON
@@ -103,11 +119,15 @@ export function SiweProvider({ children }: { children: ReactNode }) {
       // Step 2: Sign the challenge message
       const signature = await signMessageAsync({ message: messageToSign });
       
-      // Step 3: Send the signature to the backend to verify
+      // Step 3: Send the signature to the backend to verify with aggressive CORS handling
       const verifyResponse = await fetch(`${API_BASE_URL}/auth/web3`, {
         method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Origin': window.location.origin,
         },
         body: JSON.stringify({
           signature,
@@ -116,7 +136,14 @@ export function SiweProvider({ children }: { children: ReactNode }) {
       });
       
       if (!verifyResponse.ok) {
-        throw new Error("Signature verification failed");
+        const errorText = await verifyResponse.text();
+        console.error('Verification request failed:', {
+          status: verifyResponse.status,
+          statusText: verifyResponse.statusText,
+          error: errorText,
+          url: `${API_BASE_URL}/auth/web3`
+        });
+        throw new Error(`Signature verification failed: ${verifyResponse.status} ${verifyResponse.statusText}`);
       }
       
       // Parse the response to get user info and token
