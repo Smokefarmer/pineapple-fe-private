@@ -636,9 +636,9 @@ export default function TokenDetailPage() {
                   </div>
                   <div className="mt-2">
                     <span className="text-xs text-muted-foreground">Share: </span>
-                    <span className="text-sm font-medium">{token.taxRecipient2Share || 50}%</span>
+                    <span className="text-sm font-medium">{((token.taxRecipient2Share || 0) / 100).toFixed(0)}%</span>
                     <span className="text-xs text-muted-foreground ml-2">
-                      (Primary gets {100 - (token.taxRecipient2Share || 50)}%)
+                      (Primary gets {(100 - ((token.taxRecipient2Share || 0) / 100)).toFixed(0)}%)
                     </span>
                   </div>
                 </div>
