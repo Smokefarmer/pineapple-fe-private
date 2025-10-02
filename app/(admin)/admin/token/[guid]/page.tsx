@@ -85,7 +85,15 @@ export default function TokenDetailPage() {
     refetch 
   } = useToken(guid);
 
-
+  // Debug: Log token state to help identify visibility issues
+  if (token) {
+    console.log('=== ADMIN TOKEN PAGE DEBUG ===');
+    console.log('isTokenApproved:', token.isTokenApproved);
+    console.log('isLiquidityApproved:', token.isLiquidityApproved);
+    console.log('erc20Address:', token.erc20Address);
+    console.log('Should show admin config section:', !token.isTokenApproved);
+    console.log('==============================');
+  }
 
   // Approve token mutation (pre-deployment)
   const { 
@@ -119,8 +127,9 @@ export default function TokenDetailPage() {
 
   // Handle approve token (for non-deployed tokens)
   const handleApproveToken = () => {
-    if (!token || token.erc20Address || parseFloat(liquidityTokenPercent) < 1 || parseFloat(liquidityTokenPercent) > 100) {
-      toast.warning("Cannot Approve", { description: "This action is only for tokens not yet deployed." });
+    const liquidityPercent = parseFloat(liquidityTokenPercent);
+    if (!token || token.erc20Address || isNaN(liquidityPercent) || liquidityPercent < 10 || liquidityPercent > 90) {
+      toast.warning("Cannot Approve", { description: "Liquidity Token Percent must be between 10% and 90%." });
       return;
     }
     
@@ -813,14 +822,17 @@ export default function TokenDetailPage() {
                        id="liquidityTokenPercent"
                        type="number"
                        placeholder="e.g., 50"
+                       min="10"
+                       max="90"
                        value={liquidityTokenPercent || ''}
                        onChange={(e) => setLiquidityTokenPercent(e.target.value === '' ? '' : e.target.value)}
+                       onWheel={(e) => e.currentTarget.blur()}
                        disabled={isProcessing}
                      />
                      <span>%</span>
                    </div>
                    <p className="text-xs text-muted-foreground mt-1">
-                     Percentage of tokens to allocate to liquidity pool.
+                     Percentage of tokens to be locked for liquidity (10%-90%).
                    </p>
                  </div>
               )}

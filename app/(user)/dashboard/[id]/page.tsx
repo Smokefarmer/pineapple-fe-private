@@ -487,7 +487,7 @@ export default function UserDashboardPage() {
       if (user2Recipient !== '0x0000000000000000000000000000000000000000' && !user2Recipient.startsWith('0x')) {
         validationIssues.push(`user2Recipient address ${user2Recipient} invalid`);
       }
-      if (user2Share < 0 || user2Share > 100) validationIssues.push(`user2Share ${user2Share} not in range 0-100`);
+      if (user2Share < 0 || user2Share > 10000) validationIssues.push(`user2Share ${user2Share} not in range 0-10000 basis points`);
       
       // Check admin rates (should be reasonable basis points)
       const adminRates = tokenArgs[16] as number[];
@@ -1044,11 +1044,11 @@ Timestamp: ${new Date().toISOString()}
                         </div>
                         <div>
                             <Label htmlFor="supply">Total Supply <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
-                            <Input id="supply" type="number" placeholder="e.g., 100000000" value={formData.supply || ''} onChange={handleInputChange} required disabled={isConfigurationDisabled} className="mt-1.5"/>
+                            <Input id="supply" type="number" placeholder="e.g., 100000000" value={formData.supply || ''} onChange={handleInputChange} onWheel={(e) => e.currentTarget.blur()} required disabled={isConfigurationDisabled} className="mt-1.5"/>
                         </div>
                         <div>
                             <Label htmlFor="liquidity">Initial Liquidity ({nativeCurrency}) <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
-                            <Input id="liquidity" type="number" placeholder="e.g., 50" value={formData.liquidity || ''} onChange={handleInputChange} required disabled={isConfigurationDisabled} className="mt-1.5"/>
+                            <Input id="liquidity" type="number" placeholder="e.g., 50" value={formData.liquidity || ''} onChange={handleInputChange} onWheel={(e) => e.currentTarget.blur()} required disabled={isConfigurationDisabled} className="mt-1.5"/>
                         </div>
                     </div>
                     
@@ -1060,19 +1060,19 @@ Timestamp: ${new Date().toISOString()}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
                         <div>
                             <Label htmlFor="flatBuyTax">Flat Buy Tax (%) <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
-                            <Input id="flatBuyTax" type="number" placeholder="e.g., 2" value={formData.flatBuyTax || ''} onChange={handleInputChange} required disabled={isConfigurationDisabled} className="mt-1.5"/>
+                            <Input id="flatBuyTax" type="number" placeholder="e.g., 2" value={formData.flatBuyTax || ''} onChange={handleInputChange} onWheel={(e) => e.currentTarget.blur()} required disabled={isConfigurationDisabled} className="mt-1.5"/>
                         </div>
                         <div>
                             <Label htmlFor="flatSellTax">Flat Sell Tax (%) <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
-                            <Input id="flatSellTax" type="number" placeholder="e.g., 2" value={formData.flatSellTax || ''} onChange={handleInputChange} required disabled={isConfigurationDisabled} className="mt-1.5"/>
+                            <Input id="flatSellTax" type="number" placeholder="e.g., 2" value={formData.flatSellTax || ''} onChange={handleInputChange} onWheel={(e) => e.currentTarget.blur()} required disabled={isConfigurationDisabled} className="mt-1.5"/>
                         </div>
                         <div>
                             <Label htmlFor="startBuyTax">Initial Buy Tax (%) <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
-                            <Input id="startBuyTax" type="number" placeholder="e.g., 2" value={formData.startBuyTax || ''} onChange={handleInputChange} required disabled={isConfigurationDisabled} className="mt-1.5"/>
+                            <Input id="startBuyTax" type="number" placeholder="e.g., 2" value={formData.startBuyTax || ''} onChange={handleInputChange} onWheel={(e) => e.currentTarget.blur()} required disabled={isConfigurationDisabled} className="mt-1.5"/>
                         </div>
                         <div>
                             <Label htmlFor="startSellTax">Initial Sell Tax (%) <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
-                            <Input id="startSellTax" type="number" placeholder="e.g., 2" value={formData.startSellTax || ''} onChange={handleInputChange} required disabled={isConfigurationDisabled} className="mt-1.5"/>
+                            <Input id="startSellTax" type="number" placeholder="e.g., 2" value={formData.startSellTax || ''} onChange={handleInputChange} onWheel={(e) => e.currentTarget.blur()} required disabled={isConfigurationDisabled} className="mt-1.5"/>
                         </div>
                     </div>
 
@@ -1094,12 +1094,21 @@ Timestamp: ${new Date().toISOString()}
                         </div>
                         <div>
                             <Label htmlFor="taxWallet2Share">Secondary Wallet Share (%)</Label>
-                            <Input id="taxWallet2Share" type="number" placeholder="50" value={formData.taxWallet2Share || ''} onChange={handleInputChange} disabled={isConfigurationDisabled} className="mt-1.5"/>
+                            <Input 
+                              id="taxWallet2Share" 
+                              type="number" 
+                              placeholder="50" 
+                              value={formData.taxWallet2Share || ''} 
+                              onChange={handleInputChange} 
+                              onWheel={(e) => e.currentTarget.blur()} 
+                              disabled={isConfigurationDisabled} 
+                              className="mt-1.5"
+                            />
                             <p className="text-xs text-muted-foreground mt-1">Percentage of tax revenue for secondary wallet (0-100%). Only applies if secondary wallet is provided. Primary wallet gets the remainder.</p>
                         </div>
                         <div>
                             <Label htmlFor="whitelistDuration">Whitelist Only Duration (seconds)</Label>
-                            <Input id="whitelistDuration" type="number" placeholder="max 180 seconds" value={formData.whitelistDuration} onChange={handleInputChange} disabled={isConfigurationDisabled} className="mt-1.5"/>
+                            <Input id="whitelistDuration" type="number" placeholder="max 180 seconds" value={formData.whitelistDuration} onChange={handleInputChange} onWheel={(e) => e.currentTarget.blur()} disabled={isConfigurationDisabled} className="mt-1.5"/>
                         </div>
                         <div>
                             <Label htmlFor="token-image">Token Image <span className="text-destructive dark:text-red-500 ml-0.5">*</span></Label>
