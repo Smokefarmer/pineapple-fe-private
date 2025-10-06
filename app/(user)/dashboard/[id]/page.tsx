@@ -730,6 +730,9 @@ Timestamp: ${new Date().toISOString()}
     }
 
     try {
+      // Invalidate cached signature to ensure we get fresh data from updated backend
+      await queryClient.invalidateQueries({ queryKey: ['token', tokenId, 'signature', 'liquidity'] });
+      
       // First fetch the liquidity signature
       toast.info("Fetching signature", { id: "lp-toast", description: "Getting liquidity signature..." });
       const signatureResult = await fetchLiquiditySignature();
@@ -745,18 +748,21 @@ Timestamp: ${new Date().toISOString()}
       const liquidityTokenPercent = BigInt(
         details.originalToken.liquidityTokenPercent!
       ); // e.g. 5000 = 50%
-      // Calculate raw token amount first
-      const rawLiquidityTokenAmount =
-        (BigInt(details.originalToken.totalSupply) * liquidityTokenPercent) / 10000n;
       
-      // Adjust for 18 decimal places (multiply by 10^18)
-      const liquidityTokenAmount = rawLiquidityTokenAmount * 10n ** 18n;
+      // Backend returns totalSupply as plain number (e.g., "100000000"), convert to wei first
+      const totalSupplyInWei = BigInt(details.originalToken.totalSupply) * 10n ** 18n;
+      const liquidityTokenAmount = (totalSupplyInWei * liquidityTokenPercent) / 10000n;
 
       // Define router address from your constants
       // Type assertion to handle the index signature issue
       const ROUTER_ADDRESS = routerAddress[chainId as keyof typeof routerAddress] as `0x${string}`;
 
-      const totalEth = parseEther(signatureResult.data?.message?.totalETH);
+      // Backend returns totalETH as wei value (not ETH), so convert string to BigInt directly
+      const totalEth = BigInt(signatureResult.data?.message?.totalETH);
+      console.log('BACKEND RESPONSE:', signatureResult.data?.message);
+      console.log('totalETH:', signatureResult.data?.message?.totalETH);
+      console.log('ethAmount:', signatureResult.data?.message?.ethAmount);
+      console.log('fees:', signatureResult.data?.message?.fees);
       // Check current allowance
       toast.info("Checking allowance", { id: "lp-toast", description: "Checking token allowance for router..." });
       const currentAllowance = (await getTokenAllowance())?.data // Default to 0n if undefined
