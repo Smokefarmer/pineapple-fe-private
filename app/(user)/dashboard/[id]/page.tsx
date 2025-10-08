@@ -1192,6 +1192,7 @@ Timestamp: ${new Date().toISOString()}
         {/* Tax Management Section */}
         {tokenState && tokenState.erc20Address && (
           <TaxManagement
+            tokenId={tokenId}
             tokenAddress={tokenState.erc20Address}
             creatorAddress={tokenState.creator}
             isTokenLaunched={tokenState.liquidityAdded || false}

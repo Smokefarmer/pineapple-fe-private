@@ -1,7 +1,8 @@
 // Custom hooks for tax management operations
 
 import { useState, useEffect } from 'react';
-import { useAccount } from 'wagmi';
+import { useAccount, useReadContract } from 'wagmi';
+import { useToken } from '../queries';
 // Note: Tax management functions are not available in current TaxHandler ABI
 // The TaxHandler contract only provides basic contract registry functions
 // import { 
@@ -13,6 +14,7 @@ import { TaxInfo, TaxDecreaseForm } from '../types/tax';
 import { toast } from 'sonner';
 
 export interface UseTaxManagementProps {
+  tokenId?: string;
   tokenAddress?: string;
   creatorAddress?: string;
   launchTime?: number; // Unix timestamp of when liquidity was added
@@ -30,6 +32,7 @@ export interface UseTaxManagementReturn {
 }
 
 export const useTaxManagement = ({
+  tokenId,
   tokenAddress,
   creatorAddress,
   launchTime
@@ -50,13 +53,52 @@ export const useTaxManagement = ({
     return () => clearInterval(interval);
   }, []);
   
-  // Temporary placeholder - tax functions not available in current ABI
-  const taxRatesData = null;
-  const isLoadingTaxRates = false;
-  const taxRatesError = null;
+  // Fetch token details to get tax configuration
+  const { data: tokenData, isLoading: isLoadingToken } = useToken(tokenId || '', {
+    enabled: !!tokenId
+  });
+  
+  // Calculate current tax rates based on time since launch
+  const calculateCurrentTaxRates = () => {
+    if (!tokenData || !currentTime || !launchTime) {
+      return { buyRate: 0, sellRate: 0 };
+    }
+
+    const timeSinceLaunch = currentTime - launchTime;
+    const daysSinceLaunch = timeSinceLaunch / (24 * 60 * 60);
+
+    // Tax rates are in basis points in the database (e.g., 500 = 5%)
+    const flatBuyTax = Number(tokenData.flatBuyTax) || 0;
+    const flatSellTax = Number(tokenData.flatSellTax) || 0;
+    const startBuyTax = Number(tokenData.startBuyTax) || 0;
+    const startSellTax = Number(tokenData.startSellTax) || 0;
+
+    // Tax decreases linearly over 30 days
+    if (daysSinceLaunch >= 30) {
+      return { buyRate: flatBuyTax, sellRate: flatSellTax };
+    }
+
+    // Linear interpolation from start to flat over 30 days
+    const progress = daysSinceLaunch / 30;
+    const currentBuyRate = Math.round(startBuyTax - (startBuyTax - flatBuyTax) * progress);
+    const currentSellRate = Math.round(startSellTax - (startSellTax - flatSellTax) * progress);
+
+    return { buyRate: currentBuyRate, sellRate: currentSellRate };
+  };
+
+  const currentRates = calculateCurrentTaxRates();
+  const isLoadingTaxRates = isLoadingToken;
   const refetchTaxRates = () => {};
 
-  // Placeholder write operations
+  // Check if user can decrease taxes (must be creator)
+  const canDecrease = userAddress && creatorAddress && 
+    userAddress.toLowerCase() === creatorAddress.toLowerCase();
+
+  // Check if user can disable taxes (30 days after launch)
+  const canDisable = canDecrease && currentTime && launchTime && 
+    (currentTime - launchTime) >= (30 * 24 * 60 * 60);
+
+  // Placeholder write operations (until MasterTaxHandler ABI is available)
   const writeDecreaseTaxes = () => {};
   const decreaseTaxesHash = null;
   const isDecreasingTaxes = false;
@@ -71,13 +113,13 @@ export const useTaxManagement = ({
   const isConfirmingDecrease = false;
   const isConfirmingDisable = false;
 
-  // Process tax info - placeholder since tax functions are not available
-  const taxInfo: TaxInfo | null = currentTime ? {
-    currentBuyRate: 0, // Placeholder values
-    currentSellRate: 0,
-    adminMinimum: 0,
-    canDecrease: false, // Disabled until proper tax contract is available
-    canDisable: false,
+  // Process tax info
+  const taxInfo: TaxInfo | null = currentTime && tokenData ? {
+    currentBuyRate: currentRates.buyRate,
+    currentSellRate: currentRates.sellRate,
+    adminMinimum: Number(tokenData.flatBuyTax) || 0, // Minimum is the flat tax
+    canDecrease: canDecrease || false,
+    canDisable: canDisable || false,
     timeUntilDisable: launchTime ? 
       Math.max(0, (30 * 24 * 60 * 60) - (currentTime - launchTime)) : 
       undefined

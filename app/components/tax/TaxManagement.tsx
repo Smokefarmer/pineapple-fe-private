@@ -28,12 +28,14 @@ import {
 import { toast } from 'sonner';
 
 interface TaxManagementProps {
+  tokenId?: string;
   tokenAddress?: string;
   creatorAddress?: string;
   isTokenLaunched?: boolean;
 }
 
 export default function TaxManagement({
+  tokenId,
   tokenAddress,
   creatorAddress,
   isTokenLaunched = false
@@ -63,6 +65,7 @@ export default function TaxManagement({
     decreaseTaxes,
     isDecreasingTaxes
   } = useTaxManagement({
+    tokenId,
     tokenAddress,
     creatorAddress,
     launchTime: clientLaunchTime
