@@ -9,6 +9,10 @@ import {
   useWhitelistEntries
 } from '@/app/lib/queries';
 import { 
+  useTokenFromBlockchain, 
+  convertBlockchainTokenToToken 
+} from '@/app/lib/blockchain-hooks';
+import { 
   useState, 
   ChangeEvent,
 } from 'react';
@@ -77,20 +81,47 @@ export default function TokenDetailPage() {
   
   const { chain } = useAccount(); 
 
-  // Fetch token details
+  // Fetch token details from backend (for metadata)
   const { 
-    data: token, 
-    isLoading, 
+    data: backendToken, 
+    isLoading: backendLoading, 
     error, 
     refetch 
   } = useToken(guid);
 
+  // Fetch token details from blockchain (for deployment status)
+  // This bypasses the indexer and queries Router contract events directly
+  const { 
+    data: blockchainToken, 
+    isLoading: blockchainLoading 
+  } = useTokenFromBlockchain(guid, {
+    enabled: !!guid // Only query if we have a GUID
+  });
+
+  // Merge backend and blockchain data
+  // Use blockchain data for deployment status (isOnChain, erc20Address, liquidityAdded)
+  // Use backend data for metadata (name, symbol, image, etc.)
+  const token = backendToken ? {
+    ...backendToken,
+    // Override with blockchain data if available
+    erc20Address: blockchainToken?.tokenAddress || backendToken.erc20Address,
+    isOnChain: !!blockchainToken || backendToken.isOnChain,
+    liquidityAdded: blockchainToken?.liquidityAdded || backendToken.liquidityAdded,
+  } : blockchainToken ? convertBlockchainTokenToToken(blockchainToken) : null;
+
+  const isLoading = backendLoading || blockchainLoading;
+
   // Debug: Log token state to help identify visibility issues
   if (token) {
     console.log('=== ADMIN TOKEN PAGE DEBUG ===');
+    console.log('Backend token:', backendToken);
+    console.log('Blockchain token:', blockchainToken);
+    console.log('Merged token:', token);
     console.log('isTokenApproved:', token.isTokenApproved);
     console.log('isLiquidityApproved:', token.isLiquidityApproved);
     console.log('erc20Address:', token.erc20Address);
+    console.log('isOnChain (from blockchain):', !!blockchainToken);
+    console.log('liquidityAdded (from blockchain):', blockchainToken?.liquidityAdded);
     console.log('Should show admin config section:', !token.isTokenApproved);
     console.log('==============================');
   }

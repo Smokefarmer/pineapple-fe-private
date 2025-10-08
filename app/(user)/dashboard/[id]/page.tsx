@@ -7,6 +7,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useWriteRouterDeployToken, useReadRouterGetToken, useWriteRouterAddLiquiditySigned, routerAddress, useReadErc20Allowance, useWriteErc20Approve } from '@/src/generated';
 // Import query functions
 import { useToken, useTokenDeploySignature, useTokenLiquiditySignature, useCreateToken, Token } from '@/app/lib/queries';
+import { useTokenFromBlockchain } from '@/app/lib/blockchain-hooks';
 // Corrected component imports
 import { Button } from "@/app/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/app/components/ui/card";
@@ -122,7 +123,22 @@ export default function UserDashboardPage() {
   
   // --- Queries ---
   // Only fetch token data if it's not a new token creation
-  const { data: tokenData, isLoading, isError, error, refetch: refetchToken } = useToken(tokenId, {enabled: !!tokenId && !isNewTokenCreation});
+  const { data: backendTokenData, isLoading: backendLoading, isError, error, refetch: refetchToken } = useToken(tokenId, {enabled: !!tokenId && !isNewTokenCreation});
+  
+  // Fetch token from blockchain (bypasses indexer)
+  const { data: blockchainToken, isLoading: blockchainLoading } = useTokenFromBlockchain(tokenId, {
+    enabled: !!tokenId && !isNewTokenCreation
+  });
+  
+  // Merge backend and blockchain data
+  const tokenData = backendTokenData ? {
+    ...backendTokenData,
+    erc20Address: blockchainToken?.tokenAddress || backendTokenData.erc20Address,
+    isOnChain: !!blockchainToken || backendTokenData.isOnChain,
+    liquidityAdded: blockchainToken?.liquidityAdded || backendTokenData.liquidityAdded,
+  } : null;
+  
+  const isLoading = backendLoading || blockchainLoading;
   
   // Map fetched token data to project details for the UI
   const details = useMemo(() => mapTokenToProjectDetails(tokenData), [tokenData]);
