@@ -10,6 +10,11 @@ export default [
         "internalType": "address",
         "name": "_adminWallet",
         "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_uniswapV2Router",
+        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",
@@ -26,15 +31,15 @@ export default [
       },
       {
         "indexed": false,
-        "internalType": "uint32[3]",
+        "internalType": "uint256[3]",
         "name": "rates",
-        "type": "uint32[3]"
+        "type": "uint256[3]"
       },
       {
         "indexed": false,
-        "internalType": "uint32[3]",
+        "internalType": "uint256[3]",
         "name": "durations",
-        "type": "uint32[3]"
+        "type": "uint256[3]"
       }
     ],
     "name": "AdminPhasesSet",
@@ -82,6 +87,32 @@ export default [
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "newThresholdBps",
+        "type": "uint256"
+      }
+    ],
+    "name": "DefaultSwapThresholdUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "enabled",
+        "type": "bool"
+      }
+    ],
+    "name": "GlobalSwapAndLiquifyEnabledUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "token",
@@ -95,6 +126,125 @@ export default [
       }
     ],
     "name": "LiquidityTimestampSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "pair",
+        "type": "address"
+      }
+    ],
+    "name": "PairAddressSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "oldRouter",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "newRouter",
+        "type": "address"
+      }
+    ],
+    "name": "RouterUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "tokensSwapped",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "ethReceived",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "adminAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "user1Amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "user2Amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "SwapAndLiquify",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "enabled",
+        "type": "bool"
+      }
+    ],
+    "name": "SwapAndLiquifyEnabledUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "newThreshold",
+        "type": "uint256"
+      }
+    ],
+    "name": "SwapThresholdUpdated",
     "type": "event"
   },
   {
@@ -316,6 +466,60 @@ export default [
   {
     "inputs": [
       {
+        "internalType": "bytes32",
+        "name": "guid",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "pairAddress",
+        "type": "address"
+      }
+    ],
+    "name": "calculateTaxAmounts",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "taxAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "adminAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "user1Amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "user2Amount",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "token",
         "type": "address"
@@ -337,6 +541,19 @@ export default [
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "defaultSwapThresholdParts",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -345,6 +562,37 @@ export default [
       }
     ],
     "name": "disableTaxes",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "emergencyWithdrawETH",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "emergencyWithdrawTokens",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -381,6 +629,105 @@ export default [
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "getSwapConfig",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "accumulatedTotalTokens",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "accumulatedAdminTokens",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "accumulatedUser1Tokens",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "accumulatedUser2Tokens",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "swapThreshold",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "swapAndLiquifyEnabled",
+        "type": "bool"
+      },
+      {
+        "internalType": "address",
+        "name": "pairAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "effectiveThreshold",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "globalSwapAndLiquifyEnabled",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "isTokenSwapLocked",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "manualSwapAndLiquify",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bytes32",
         "name": "guid",
         "type": "bytes32"
@@ -397,36 +744,8 @@ export default [
       },
       {
         "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "pairAddress",
-        "type": "address"
-      }
-    ],
-    "name": "handleTax",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "taxAmount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "adminRecipient",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
         "name": "adminAmount",
         "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "user1Recipient",
-        "type": "address"
       },
       {
         "internalType": "uint256",
@@ -434,16 +753,18 @@ export default [
         "type": "uint256"
       },
       {
-        "internalType": "address",
-        "name": "user2Recipient",
-        "type": "address"
-      },
-      {
         "internalType": "uint256",
         "name": "user2Amount",
         "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "isBuy",
+        "type": "bool"
       }
     ],
+    "name": "recordTaxAndSwap",
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -500,17 +821,30 @@ export default [
         "type": "uint256"
       },
       {
-        "internalType": "uint32[3]",
+        "internalType": "uint256[3]",
         "name": "adminRatesBps",
-        "type": "uint32[3]"
+        "type": "uint256[3]"
       },
       {
-        "internalType": "uint32[3]",
+        "internalType": "uint256[3]",
         "name": "adminDurations",
-        "type": "uint32[3]"
+        "type": "uint256[3]"
       }
     ],
     "name": "registerTaxConfig",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "resetAccumulator",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -524,6 +858,32 @@ export default [
       }
     ],
     "name": "setAdminWallet",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "newThresholdParts",
+        "type": "uint256"
+      }
+    ],
+    "name": "setDefaultSwapThreshold",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bool",
+        "name": "enabled",
+        "type": "bool"
+      }
+    ],
+    "name": "setGlobalSwapAndLiquifyEnabled",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -555,6 +915,73 @@ export default [
       },
       {
         "internalType": "address",
+        "name": "pair",
+        "type": "address"
+      }
+    ],
+    "name": "setPairAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newRouter",
+        "type": "address"
+      }
+    ],
+    "name": "setRouter",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "enabled",
+        "type": "bool"
+      }
+    ],
+    "name": "setTokenSwapAndLiquifyEnabled",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "newThreshold",
+        "type": "uint256"
+      }
+    ],
+    "name": "setTokenSwapThreshold",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
         "name": "user2",
         "type": "address"
       },
@@ -570,6 +997,74 @@ export default [
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "shouldTriggerSwap",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "swapConfigs",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "accumulatedTotalTokens",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "accumulatedAdminTokens",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "accumulatedUser1Tokens",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "accumulatedUser2Tokens",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "swapThreshold",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "swapAndLiquifyEnabled",
+        "type": "bool"
+      },
+      {
+        "internalType": "address",
+        "name": "pairAddress",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "systemContext",
     "outputs": [
@@ -581,5 +1076,22 @@ export default [
     ],
     "stateMutability": "view",
     "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "uniswapV2Router",
+    "outputs": [
+      {
+        "internalType": "contract IUniswapV2Router02",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "stateMutability": "payable",
+    "type": "receive"
   }
 ] as const;

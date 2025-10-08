@@ -594,6 +594,7 @@ export const taxHandlerAbi = [
         type: 'address',
       },
       { name: '_adminWallet', internalType: 'address', type: 'address' },
+      { name: '_uniswapV2Router', internalType: 'address', type: 'address' },
     ],
     stateMutability: 'nonpayable',
   },
@@ -609,14 +610,14 @@ export const taxHandlerAbi = [
       },
       {
         name: 'rates',
-        internalType: 'uint32[3]',
-        type: 'uint32[3]',
+        internalType: 'uint256[3]',
+        type: 'uint256[3]',
         indexed: false,
       },
       {
         name: 'durations',
-        internalType: 'uint32[3]',
-        type: 'uint32[3]',
+        internalType: 'uint256[3]',
+        type: 'uint256[3]',
         indexed: false,
       },
     ],
@@ -665,6 +666,27 @@ export const taxHandlerAbi = [
     anonymous: false,
     inputs: [
       {
+        name: 'newThresholdBps',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'DefaultSwapThresholdUpdated',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'enabled', internalType: 'bool', type: 'bool', indexed: false },
+    ],
+    name: 'GlobalSwapAndLiquifyEnabledUpdated',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
         name: 'token',
         internalType: 'address',
         type: 'address',
@@ -678,6 +700,115 @@ export const taxHandlerAbi = [
       },
     ],
     name: 'LiquidityTimestampSet',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'token',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      { name: 'pair', internalType: 'address', type: 'address', indexed: true },
+    ],
+    name: 'PairAddressSet',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'oldRouter',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+      {
+        name: 'newRouter',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+    ],
+    name: 'RouterUpdated',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'token',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'tokensSwapped',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'ethReceived',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'adminAmount',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'user1Amount',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'user2Amount',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'SwapAndLiquify',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'token',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      { name: 'enabled', internalType: 'bool', type: 'bool', indexed: false },
+    ],
+    name: 'SwapAndLiquifyEnabledUpdated',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'token',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'newThreshold',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'SwapThresholdUpdated',
   },
   {
     type: 'event',
@@ -864,6 +995,24 @@ export const taxHandlerAbi = [
   {
     type: 'function',
     inputs: [
+      { name: 'guid', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+      { name: 'pairAddress', internalType: 'address', type: 'address' },
+    ],
+    name: 'calculateTaxAmounts',
+    outputs: [
+      { name: 'taxAmount', internalType: 'uint256', type: 'uint256' },
+      { name: 'adminAmount', internalType: 'uint256', type: 'uint256' },
+      { name: 'user1Amount', internalType: 'uint256', type: 'uint256' },
+      { name: 'user2Amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
       { name: 'token', internalType: 'address', type: 'address' },
       { name: 'newBuyRate', internalType: 'uint256', type: 'uint256' },
       { name: 'newSellRate', internalType: 'uint256', type: 'uint256' },
@@ -874,8 +1023,32 @@ export const taxHandlerAbi = [
   },
   {
     type: 'function',
+    inputs: [],
+    name: 'defaultSwapThresholdParts',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
     inputs: [{ name: 'token', internalType: 'address', type: 'address' }],
     name: 'disableTaxes',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'amount', internalType: 'uint256', type: 'uint256' }],
+    name: 'emergencyWithdrawETH',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'token', internalType: 'address', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'emergencyWithdrawTokens',
     outputs: [],
     stateMutability: 'nonpayable',
   },
@@ -892,23 +1065,70 @@ export const taxHandlerAbi = [
   },
   {
     type: 'function',
+    inputs: [{ name: 'token', internalType: 'address', type: 'address' }],
+    name: 'getSwapConfig',
+    outputs: [
+      {
+        name: 'accumulatedTotalTokens',
+        internalType: 'uint256',
+        type: 'uint256',
+      },
+      {
+        name: 'accumulatedAdminTokens',
+        internalType: 'uint256',
+        type: 'uint256',
+      },
+      {
+        name: 'accumulatedUser1Tokens',
+        internalType: 'uint256',
+        type: 'uint256',
+      },
+      {
+        name: 'accumulatedUser2Tokens',
+        internalType: 'uint256',
+        type: 'uint256',
+      },
+      { name: 'swapThreshold', internalType: 'uint256', type: 'uint256' },
+      { name: 'swapAndLiquifyEnabled', internalType: 'bool', type: 'bool' },
+      { name: 'pairAddress', internalType: 'address', type: 'address' },
+      { name: 'effectiveThreshold', internalType: 'uint256', type: 'uint256' },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'globalSwapAndLiquifyEnabled',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'token', internalType: 'address', type: 'address' }],
+    name: 'isTokenSwapLocked',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'token', internalType: 'address', type: 'address' }],
+    name: 'manualSwapAndLiquify',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
     inputs: [
       { name: 'guid', internalType: 'bytes32', type: 'bytes32' },
       { name: 'from', internalType: 'address', type: 'address' },
       { name: 'to', internalType: 'address', type: 'address' },
-      { name: 'amount', internalType: 'uint256', type: 'uint256' },
-      { name: 'pairAddress', internalType: 'address', type: 'address' },
-    ],
-    name: 'handleTax',
-    outputs: [
-      { name: 'taxAmount', internalType: 'uint256', type: 'uint256' },
-      { name: 'adminRecipient', internalType: 'address', type: 'address' },
       { name: 'adminAmount', internalType: 'uint256', type: 'uint256' },
-      { name: 'user1Recipient', internalType: 'address', type: 'address' },
       { name: 'user1Amount', internalType: 'uint256', type: 'uint256' },
-      { name: 'user2Recipient', internalType: 'address', type: 'address' },
       { name: 'user2Amount', internalType: 'uint256', type: 'uint256' },
+      { name: 'isBuy', internalType: 'bool', type: 'bool' },
     ],
+    name: 'recordTaxAndSwap',
+    outputs: [],
     stateMutability: 'nonpayable',
   },
   {
@@ -924,8 +1144,12 @@ export const taxHandlerAbi = [
       { name: 'startSellTax', internalType: 'uint256', type: 'uint256' },
       { name: 'user2Recipient', internalType: 'address', type: 'address' },
       { name: 'user2Share', internalType: 'uint256', type: 'uint256' },
-      { name: 'adminRatesBps', internalType: 'uint32[3]', type: 'uint32[3]' },
-      { name: 'adminDurations', internalType: 'uint32[3]', type: 'uint32[3]' },
+      { name: 'adminRatesBps', internalType: 'uint256[3]', type: 'uint256[3]' },
+      {
+        name: 'adminDurations',
+        internalType: 'uint256[3]',
+        type: 'uint256[3]',
+      },
     ],
     name: 'registerTaxConfig',
     outputs: [],
@@ -933,8 +1157,31 @@ export const taxHandlerAbi = [
   },
   {
     type: 'function',
+    inputs: [{ name: 'token', internalType: 'address', type: 'address' }],
+    name: 'resetAccumulator',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
     inputs: [{ name: 'newWallet', internalType: 'address', type: 'address' }],
     name: 'setAdminWallet',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'newThresholdParts', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'setDefaultSwapThreshold',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'enabled', internalType: 'bool', type: 'bool' }],
+    name: 'setGlobalSwapAndLiquifyEnabled',
     outputs: [],
     stateMutability: 'nonpayable',
   },
@@ -952,12 +1199,87 @@ export const taxHandlerAbi = [
     type: 'function',
     inputs: [
       { name: 'token', internalType: 'address', type: 'address' },
+      { name: 'pair', internalType: 'address', type: 'address' },
+    ],
+    name: 'setPairAddress',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'newRouter', internalType: 'address', type: 'address' }],
+    name: 'setRouter',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'token', internalType: 'address', type: 'address' },
+      { name: 'enabled', internalType: 'bool', type: 'bool' },
+    ],
+    name: 'setTokenSwapAndLiquifyEnabled',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'token', internalType: 'address', type: 'address' },
+      { name: 'newThreshold', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'setTokenSwapThreshold',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'token', internalType: 'address', type: 'address' },
       { name: 'user2', internalType: 'address', type: 'address' },
       { name: 'user2Share', internalType: 'uint256', type: 'uint256' },
     ],
     name: 'setUser2Recipient',
     outputs: [],
     stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'token', internalType: 'address', type: 'address' }],
+    name: 'shouldTriggerSwap',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: '', internalType: 'address', type: 'address' }],
+    name: 'swapConfigs',
+    outputs: [
+      {
+        name: 'accumulatedTotalTokens',
+        internalType: 'uint256',
+        type: 'uint256',
+      },
+      {
+        name: 'accumulatedAdminTokens',
+        internalType: 'uint256',
+        type: 'uint256',
+      },
+      {
+        name: 'accumulatedUser1Tokens',
+        internalType: 'uint256',
+        type: 'uint256',
+      },
+      {
+        name: 'accumulatedUser2Tokens',
+        internalType: 'uint256',
+        type: 'uint256',
+      },
+      { name: 'swapThreshold', internalType: 'uint256', type: 'uint256' },
+      { name: 'swapAndLiquifyEnabled', internalType: 'bool', type: 'bool' },
+      { name: 'pairAddress', internalType: 'address', type: 'address' },
+    ],
+    stateMutability: 'view',
   },
   {
     type: 'function',
@@ -968,6 +1290,20 @@ export const taxHandlerAbi = [
     ],
     stateMutability: 'view',
   },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'uniswapV2Router',
+    outputs: [
+      {
+        name: '',
+        internalType: 'contract IUniswapV2Router02',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+  },
+  { type: 'receive', stateMutability: 'payable' },
 ] as const
 
 /**
@@ -1943,6 +2279,36 @@ export const useReadTaxHandlerAdminWallet = /*#__PURE__*/ createUseReadContract(
 )
 
 /**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"calculateTaxAmounts"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useReadTaxHandlerCalculateTaxAmounts =
+  /*#__PURE__*/ createUseReadContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'calculateTaxAmounts',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"defaultSwapThresholdParts"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useReadTaxHandlerDefaultSwapThresholdParts =
+  /*#__PURE__*/ createUseReadContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'defaultSwapThresholdParts',
+  })
+
+/**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"getCurrentTaxRates"`
  *
  * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
@@ -1958,6 +2324,82 @@ export const useReadTaxHandlerGetCurrentTaxRates =
   })
 
 /**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"getSwapConfig"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useReadTaxHandlerGetSwapConfig =
+  /*#__PURE__*/ createUseReadContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'getSwapConfig',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"globalSwapAndLiquifyEnabled"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useReadTaxHandlerGlobalSwapAndLiquifyEnabled =
+  /*#__PURE__*/ createUseReadContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'globalSwapAndLiquifyEnabled',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"isTokenSwapLocked"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useReadTaxHandlerIsTokenSwapLocked =
+  /*#__PURE__*/ createUseReadContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'isTokenSwapLocked',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"shouldTriggerSwap"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useReadTaxHandlerShouldTriggerSwap =
+  /*#__PURE__*/ createUseReadContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'shouldTriggerSwap',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"swapConfigs"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useReadTaxHandlerSwapConfigs = /*#__PURE__*/ createUseReadContract(
+  {
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'swapConfigs',
+  },
+)
+
+/**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"systemContext"`
  *
  * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
@@ -1970,6 +2412,21 @@ export const useReadTaxHandlerSystemContext =
     abi: taxHandlerAbi,
     address: taxHandlerAddress,
     functionName: 'systemContext',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"uniswapV2Router"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useReadTaxHandlerUniswapV2Router =
+  /*#__PURE__*/ createUseReadContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'uniswapV2Router',
   })
 
 /**
@@ -2016,16 +2473,64 @@ export const useWriteTaxHandlerDisableTaxes =
   })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"handleTax"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"emergencyWithdrawETH"`
  *
  * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
  */
-export const useWriteTaxHandlerHandleTax = /*#__PURE__*/ createUseWriteContract(
-  { abi: taxHandlerAbi, address: taxHandlerAddress, functionName: 'handleTax' },
-)
+export const useWriteTaxHandlerEmergencyWithdrawEth =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'emergencyWithdrawETH',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"emergencyWithdrawTokens"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useWriteTaxHandlerEmergencyWithdrawTokens =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'emergencyWithdrawTokens',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"manualSwapAndLiquify"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useWriteTaxHandlerManualSwapAndLiquify =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'manualSwapAndLiquify',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"recordTaxAndSwap"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useWriteTaxHandlerRecordTaxAndSwap =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'recordTaxAndSwap',
+  })
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"registerTaxConfig"`
@@ -2040,6 +2545,21 @@ export const useWriteTaxHandlerRegisterTaxConfig =
     abi: taxHandlerAbi,
     address: taxHandlerAddress,
     functionName: 'registerTaxConfig',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"resetAccumulator"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useWriteTaxHandlerResetAccumulator =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'resetAccumulator',
   })
 
 /**
@@ -2058,6 +2578,36 @@ export const useWriteTaxHandlerSetAdminWallet =
   })
 
 /**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setDefaultSwapThreshold"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useWriteTaxHandlerSetDefaultSwapThreshold =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'setDefaultSwapThreshold',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setGlobalSwapAndLiquifyEnabled"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useWriteTaxHandlerSetGlobalSwapAndLiquifyEnabled =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'setGlobalSwapAndLiquifyEnabled',
+  })
+
+/**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setLiquidityAddedAt"`
  *
  * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
@@ -2070,6 +2620,63 @@ export const useWriteTaxHandlerSetLiquidityAddedAt =
     abi: taxHandlerAbi,
     address: taxHandlerAddress,
     functionName: 'setLiquidityAddedAt',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setPairAddress"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useWriteTaxHandlerSetPairAddress =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'setPairAddress',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setRouter"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useWriteTaxHandlerSetRouter = /*#__PURE__*/ createUseWriteContract(
+  { abi: taxHandlerAbi, address: taxHandlerAddress, functionName: 'setRouter' },
+)
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setTokenSwapAndLiquifyEnabled"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useWriteTaxHandlerSetTokenSwapAndLiquifyEnabled =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'setTokenSwapAndLiquifyEnabled',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setTokenSwapThreshold"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useWriteTaxHandlerSetTokenSwapThreshold =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'setTokenSwapThreshold',
   })
 
 /**
@@ -2131,18 +2738,63 @@ export const useSimulateTaxHandlerDisableTaxes =
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"handleTax"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"emergencyWithdrawETH"`
  *
  * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
  * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
  * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
  */
-export const useSimulateTaxHandlerHandleTax =
+export const useSimulateTaxHandlerEmergencyWithdrawEth =
   /*#__PURE__*/ createUseSimulateContract({
     abi: taxHandlerAbi,
     address: taxHandlerAddress,
-    functionName: 'handleTax',
+    functionName: 'emergencyWithdrawETH',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"emergencyWithdrawTokens"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useSimulateTaxHandlerEmergencyWithdrawTokens =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'emergencyWithdrawTokens',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"manualSwapAndLiquify"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useSimulateTaxHandlerManualSwapAndLiquify =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'manualSwapAndLiquify',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"recordTaxAndSwap"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useSimulateTaxHandlerRecordTaxAndSwap =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'recordTaxAndSwap',
   })
 
 /**
@@ -2161,6 +2813,21 @@ export const useSimulateTaxHandlerRegisterTaxConfig =
   })
 
 /**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"resetAccumulator"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useSimulateTaxHandlerResetAccumulator =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'resetAccumulator',
+  })
+
+/**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setAdminWallet"`
  *
  * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
@@ -2176,6 +2843,36 @@ export const useSimulateTaxHandlerSetAdminWallet =
   })
 
 /**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setDefaultSwapThreshold"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useSimulateTaxHandlerSetDefaultSwapThreshold =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'setDefaultSwapThreshold',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setGlobalSwapAndLiquifyEnabled"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useSimulateTaxHandlerSetGlobalSwapAndLiquifyEnabled =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'setGlobalSwapAndLiquifyEnabled',
+  })
+
+/**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setLiquidityAddedAt"`
  *
  * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
@@ -2188,6 +2885,66 @@ export const useSimulateTaxHandlerSetLiquidityAddedAt =
     abi: taxHandlerAbi,
     address: taxHandlerAddress,
     functionName: 'setLiquidityAddedAt',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setPairAddress"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useSimulateTaxHandlerSetPairAddress =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'setPairAddress',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setRouter"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useSimulateTaxHandlerSetRouter =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'setRouter',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setTokenSwapAndLiquifyEnabled"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useSimulateTaxHandlerSetTokenSwapAndLiquifyEnabled =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'setTokenSwapAndLiquifyEnabled',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link taxHandlerAbi}__ and `functionName` set to `"setTokenSwapThreshold"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useSimulateTaxHandlerSetTokenSwapThreshold =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    functionName: 'setTokenSwapThreshold',
   })
 
 /**
@@ -2265,6 +3022,36 @@ export const useWatchTaxHandlerConfigRegisteredEvent =
   })
 
 /**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"DefaultSwapThresholdUpdated"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useWatchTaxHandlerDefaultSwapThresholdUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    eventName: 'DefaultSwapThresholdUpdated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"GlobalSwapAndLiquifyEnabledUpdated"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useWatchTaxHandlerGlobalSwapAndLiquifyEnabledUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    eventName: 'GlobalSwapAndLiquifyEnabledUpdated',
+  })
+
+/**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"LiquidityTimestampSet"`
  *
  * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
@@ -2277,6 +3064,81 @@ export const useWatchTaxHandlerLiquidityTimestampSetEvent =
     abi: taxHandlerAbi,
     address: taxHandlerAddress,
     eventName: 'LiquidityTimestampSet',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"PairAddressSet"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useWatchTaxHandlerPairAddressSetEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    eventName: 'PairAddressSet',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"RouterUpdated"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useWatchTaxHandlerRouterUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    eventName: 'RouterUpdated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"SwapAndLiquify"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useWatchTaxHandlerSwapAndLiquifyEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    eventName: 'SwapAndLiquify',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"SwapAndLiquifyEnabledUpdated"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useWatchTaxHandlerSwapAndLiquifyEnabledUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    eventName: 'SwapAndLiquifyEnabledUpdated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link taxHandlerAbi}__ and `eventName` set to `"SwapThresholdUpdated"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x0000000000000000000000000000000000000000)
+ * - [__View Contract on Bnb Smart Chain Bsc Scan__](https://bscscan.com/address/0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0)
+ * - [__View Contract on Bnb Smart Chain Testnet Bsc Scan__](https://testnet.bscscan.com/address/0xe3ca56e113d8a942932b891cbd99725d3950694b)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3)
+ */
+export const useWatchTaxHandlerSwapThresholdUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: taxHandlerAbi,
+    address: taxHandlerAddress,
+    eventName: 'SwapThresholdUpdated',
   })
 
 /**
