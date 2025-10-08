@@ -1,6 +1,7 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
+import { useChainId } from 'wagmi';
 import { 
   useToken, 
   useApproveToken, 
@@ -17,7 +18,8 @@ import {
   whitelistAddress as generatedWhitelistAddress, 
 } from '@/src/generated'; 
 import { useAccount } from 'wagmi'; 
-import { isAddress, BaseError, parseEther } from 'viem'; 
+import { isAddress, BaseError, parseEther } from 'viem';
+import { getNativeCurrencySymbol } from '@/app/lib/chain-utils'; 
 
 import { 
   Card, 
@@ -59,6 +61,10 @@ export default function TokenDetailPage() {
   const params = useParams();
   const router = useRouter();
   const guid = params.guid as string;
+  const chainId = useChainId();
+  
+  // Get dynamic currency symbol based on current chain
+  const nativeCurrency = getNativeCurrencySymbol(chainId);
   const [liquidityTokenPercent, setLiquidityTokenPercent] = useState(''); 
   const [whitelistFile, setWhitelistFile] = useState<File | null>(null);
   
@@ -79,7 +85,15 @@ export default function TokenDetailPage() {
     refetch 
   } = useToken(guid);
 
-
+  // Debug: Log token state to help identify visibility issues
+  if (token) {
+    console.log('=== ADMIN TOKEN PAGE DEBUG ===');
+    console.log('isTokenApproved:', token.isTokenApproved);
+    console.log('isLiquidityApproved:', token.isLiquidityApproved);
+    console.log('erc20Address:', token.erc20Address);
+    console.log('Should show admin config section:', !token.isTokenApproved);
+    console.log('==============================');
+  }
 
   // Approve token mutation (pre-deployment)
   const { 
@@ -113,8 +127,9 @@ export default function TokenDetailPage() {
 
   // Handle approve token (for non-deployed tokens)
   const handleApproveToken = () => {
-    if (!token || token.erc20Address || liquidityTokenPercent < 1 || liquidityTokenPercent > 100) {
-      toast.warning("Cannot Approve", { description: "This action is only for tokens not yet deployed." });
+    const liquidityPercent = parseFloat(liquidityTokenPercent);
+    if (!token || token.erc20Address || isNaN(liquidityPercent) || liquidityPercent < 10 || liquidityPercent > 90) {
+      toast.warning("Cannot Approve", { description: "Liquidity Token Percent must be between 10% and 90%." });
       return;
     }
     
@@ -621,9 +636,9 @@ export default function TokenDetailPage() {
                   </div>
                   <div className="mt-2">
                     <span className="text-xs text-muted-foreground">Share: </span>
-                    <span className="text-sm font-medium">{token.taxRecipient2Share || 50}%</span>
+                    <span className="text-sm font-medium">{((token.taxRecipient2Share || 0) / 100).toFixed(0)}%</span>
                     <span className="text-xs text-muted-foreground ml-2">
-                      (Primary gets {100 - (token.taxRecipient2Share || 50)}%)
+                      (Primary gets {(100 - ((token.taxRecipient2Share || 0) / 100)).toFixed(0)}%)
                     </span>
                   </div>
                 </div>
@@ -793,9 +808,9 @@ export default function TokenDetailPage() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <Label>Liquidity Backing BNB</Label>
+                <Label>Liquidity Backing {nativeCurrency}</Label>
                 <div className="bg-muted p-2 rounded text-sm mt-1">
-                  {token.liquidityBackingETH} BNB
+                  {token.liquidityBackingETH} {nativeCurrency}
                 </div>
               </div>
 
@@ -807,14 +822,17 @@ export default function TokenDetailPage() {
                        id="liquidityTokenPercent"
                        type="number"
                        placeholder="e.g., 50"
+                       min="10"
+                       max="90"
                        value={liquidityTokenPercent || ''}
                        onChange={(e) => setLiquidityTokenPercent(e.target.value === '' ? '' : e.target.value)}
+                       onWheel={(e) => e.currentTarget.blur()}
                        disabled={isProcessing}
                      />
                      <span>%</span>
                    </div>
                    <p className="text-xs text-muted-foreground mt-1">
-                     Percentage of tokens to allocate to liquidity pool.
+                     Percentage of tokens to be locked for liquidity (10%-90%).
                    </p>
                  </div>
               )}
