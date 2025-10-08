@@ -55,18 +55,17 @@ const addressesEthMainnet = {
 // Sepolia Testnet addresses - Latest deployed contract addresses
 const addressesSepoliaTestnet = {
   "network": "sepoliaTestnet",
-  "systemContext": "0x3589eada2b23cb7c85ed0f7be62a8f3e8c1671ee",
-  "registry": "0x660d7c818de67cfaf33b37f827913081c0501e2d",
-  "factory": "0x72c3f78c1f056edd4faba0bb81226ccb952f1db8",
-  "router": "0x1646265b7ab16a7b6921f21119517941bd35abe9",
-  "verifyTypedData": "0x63269b929de49f5036f4daa47fff27405da0e95f",
-  "masterTaxHandler": "0x20c11ca62f43b487017ae44e4f98bd48f8926e04", // Updated 2025-09-23
-  "masterLaunchWhitelist": "0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca",
+  "systemContext": "0x1a5575fbf905c8d37d2698da98656f60ee07e2c0",
+  "registry": "0xe5e20d0d58163e54ec1b722e26020888ec7c2d1e",
+  "factory": "0x8cfa6db94468a35ca1df8f6f928454a70ba601d1",
+  "router": "0x8d01f620e9ce74bd2f30027bc94e5ccb17f2dad1",
+  "verifyTypedData": "0x05e79bb3a8ebf5993580e5a72d112125a229f550",
+  "masterTaxHandler": "0xaf1be58f1c820a2bfe87edf60d90bb682a9d55b3",
+  "masterLaunchWhitelist": "0xb9412e3a43531053e7d3694ea7f9ee44660944ad",
   "uniswapRouter": "0xC532a74256D3Db42D0Bf7a0400fEFDbad7694008", // Uniswap V2 Router on Sepolia
   "uniswapFactory": "0x7E0987E5b3a30e3f2828572Bb659A548460a3003", // Uniswap V2 Factory on Sepolia
-  "teamFinanceLocker": "0x4F0Fd563BE89ec8C3e7D595bf3639128C0a7C33A",
-  "backendSigner": "0xA58255dC711CD3A32004bbd5bDb1f76394D3d829",
-  // Previous masterTaxHandler: "0x366564536c7d4c5889217ca29e7a7430cd4478fb"
+  "teamFinanceLocker": "0xdB4581Ad615fA2B93fC6205b9a9Dd4234724A4A5",
+  "backendSigner": "0xA58255dC711CD3A32004bbd5bDb1f76394D3d829"
 }
 
 export default defineConfig({
