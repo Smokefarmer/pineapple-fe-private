@@ -1,13 +1,15 @@
 // Custom hooks for tax management operations
 
-import { useState, useEffect, useCallback } from 'react';
-import { useAccount, useWaitForTransactionReceipt } from 'wagmi';
-import { 
-  useReadTaxHandlerGetCurrentTaxRates, 
-  useWriteTaxHandlerDecreaseTaxes,
-  useWriteTaxHandlerDisableTaxes
-} from '@/src/generated';
-import { TaxInfo, TaxDecreaseForm, convertPercentageToBasisPoints } from '../types/tax';
+import { useState, useEffect } from 'react';
+import { useAccount } from 'wagmi';
+// Note: Tax management functions are not available in current TaxHandler ABI
+// The TaxHandler contract only provides basic contract registry functions
+// import { 
+//   useReadTaxHandlerGetCurrentTaxRates, 
+//   useWriteTaxHandlerDecreaseTaxes,
+//   useWriteTaxHandlerDisableTaxes
+// } from '@/src/generated';
+import { TaxInfo, TaxDecreaseForm } from '../types/tax';
 import { toast } from 'sonner';
 
 export interface UseTaxManagementProps {
@@ -48,139 +50,54 @@ export const useTaxManagement = ({
     return () => clearInterval(interval);
   }, []);
   
-  // Read current tax rates
-  const {
-    data: taxRatesData,
-    isLoading: isLoadingTaxRates,
-    error: taxRatesError,
-    refetch: refetchTaxRates
-  } = useReadTaxHandlerGetCurrentTaxRates({
-    args: tokenAddress ? [tokenAddress as `0x${string}`] : undefined,
-    query: {
-      enabled: !!tokenAddress,
-    }
-  });
+  // Temporary placeholder - tax functions not available in current ABI
+  const taxRatesData = null;
+  const isLoadingTaxRates = false;
+  const taxRatesError = null;
+  const refetchTaxRates = () => {};
 
-  // Write operations
-  const {
-    writeContract: writeDecreaseTaxes,
-    data: decreaseTaxesHash,
-    isPending: isDecreasingTaxes,
-    error: decreaseTaxesError
-  } = useWriteTaxHandlerDecreaseTaxes();
+  // Placeholder write operations
+  const writeDecreaseTaxes = () => {};
+  const decreaseTaxesHash = null;
+  const isDecreasingTaxes = false;
+  const decreaseTaxesError = null;
 
-  const {
-    writeContract: writeDisableTaxes,
-    data: disableTaxesHash,
-    isPending: isDisablingTaxes,
-    error: disableTaxesError
-  } = useWriteTaxHandlerDisableTaxes();
+  const writeDisableTaxes = () => {};
+  const disableTaxesHash = null;
+  const isDisablingTaxes = false;
+  const disableTaxesError = null;
 
-  // Wait for transaction receipts
-  const { isLoading: isConfirmingDecrease } = useWaitForTransactionReceipt({
-    hash: decreaseTaxesHash,
-  });
+  // Placeholder transaction receipts
+  const isConfirmingDecrease = false;
+  const isConfirmingDisable = false;
 
-  const { isLoading: isConfirmingDisable } = useWaitForTransactionReceipt({
-    hash: disableTaxesHash,
-  });
-
-  // Process tax info
-  const taxInfo: TaxInfo | null = taxRatesData && currentTime ? {
-    currentBuyRate: Number(taxRatesData[0]),
-    currentSellRate: Number(taxRatesData[1]),
-    adminMinimum: Number(taxRatesData[2]),
-    canDecrease: userAddress === creatorAddress && !!tokenAddress,
-    canDisable: userAddress === creatorAddress && 
-                !!launchTime && 
-                (currentTime - launchTime) >= (30 * 24 * 60 * 60), // 30 days
+  // Process tax info - placeholder since tax functions are not available
+  const taxInfo: TaxInfo | null = currentTime ? {
+    currentBuyRate: 0, // Placeholder values
+    currentSellRate: 0,
+    adminMinimum: 0,
+    canDecrease: false, // Disabled until proper tax contract is available
+    canDisable: false,
     timeUntilDisable: launchTime ? 
       Math.max(0, (30 * 24 * 60 * 60) - (currentTime - launchTime)) : 
       undefined
   } : null;
 
-  // Handle errors
+  // Handle errors - placeholder since tax functions are not available
   useEffect(() => {
-    if (taxRatesError) {
-      setError('Failed to load tax information');
-    } else if (decreaseTaxesError) {
-      setError('Failed to decrease taxes: ' + decreaseTaxesError.message);
-      toast.error('Failed to decrease taxes', {
-        description: decreaseTaxesError.message
-      });
-    } else if (disableTaxesError) {
-      setError('Failed to disable taxes: ' + disableTaxesError.message);
-      toast.error('Failed to disable taxes', {
-        description: disableTaxesError.message
-      });
-    } else {
-      setError(null);
-    }
-  }, [taxRatesError, decreaseTaxesError, disableTaxesError]);
-
-  // Memoize refetch function to prevent infinite re-renders
-  const memoizedRefetch = useCallback(() => {
-    refetchTaxRates();
-  }, [refetchTaxRates]);
-
-  // Success notifications
-  useEffect(() => {
-    if (decreaseTaxesHash && !isConfirmingDecrease) {
-      toast.success('Taxes decreased successfully!');
-      memoizedRefetch();
-    }
-  }, [decreaseTaxesHash, isConfirmingDecrease, memoizedRefetch]);
-
-  useEffect(() => {
-    if (disableTaxesHash && !isConfirmingDisable) {
-      toast.success('Taxes disabled successfully!');
-      memoizedRefetch();
-    }
-  }, [disableTaxesHash, isConfirmingDisable, memoizedRefetch]);
+    setError(null); // No errors since functions are disabled
+  }, []);
 
   const decreaseTaxes = async (form: TaxDecreaseForm) => {
-    if (!tokenAddress) {
-      throw new Error('Token address is required');
-    }
-
-    if (!taxInfo?.canDecrease) {
-      throw new Error('You are not authorized to decrease taxes for this token');
-    }
-
-    try {
-      const newBuyRateBps = convertPercentageToBasisPoints(form.newBuyRate);
-      const newSellRateBps = convertPercentageToBasisPoints(form.newSellRate);
-
-      await writeDecreaseTaxes({
-        args: [
-          tokenAddress as `0x${string}`,
-          BigInt(newBuyRateBps),
-          BigInt(newSellRateBps)
-        ]
-      });
-    } catch (error) {
-      console.error('Error decreasing taxes:', error);
-      throw error;
-    }
+    toast.error("Feature Not Available", { 
+      description: "Tax management functions are not available in the current contract version" 
+    });
   };
 
   const disableTaxes = async () => {
-    if (!tokenAddress) {
-      throw new Error('Token address is required');
-    }
-
-    if (!taxInfo?.canDisable) {
-      throw new Error('Taxes cannot be disabled yet. Wait 30 days after launch.');
-    }
-
-    try {
-      await writeDisableTaxes({
-        args: [tokenAddress as `0x${string}`]
-      });
-    } catch (error) {
-      console.error('Error disabling taxes:', error);
-      throw error;
-    }
+    toast.error("Feature Not Available", { 
+      description: "Tax management functions are not available in the current contract version" 
+    });
   };
 
   return {
@@ -191,6 +108,6 @@ export const useTaxManagement = ({
     disableTaxes,
     isDecreasingTaxes: isDecreasingTaxes || isConfirmingDecrease,
     isDisablingTaxes: isDisablingTaxes || isConfirmingDisable,
-    refetchTaxInfo: memoizedRefetch
+    refetchTaxInfo: refetchTaxRates
   };
 };

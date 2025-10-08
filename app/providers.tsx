@@ -58,10 +58,20 @@ function getQueryClient() {
 // --- RainbowKit Theme Wrapper ---
 function RainbowThemeWrapper({ children }: { children: React.ReactNode }) {
   const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
   
-  // Wait for theme to be resolved to avoid hydration mismatch
-  if (!resolvedTheme) {
-    return <>{children}</>;
+  // Wait for client-side hydration to complete
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+  
+  // Prevent hydration mismatch by not rendering theme-dependent content on server
+  if (!mounted) {
+    return (
+      <RainbowKitProvider modalSize="compact">
+        {children}
+      </RainbowKitProvider>
+    );
   }
 
   const isDarkMode = resolvedTheme === 'dark';

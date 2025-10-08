@@ -418,9 +418,9 @@ export default function UserDashboardPage() {
       console.log("Signature received:", signatureResult.data?.signature);
       console.log("=== END BACKEND MESSAGE ANALYSIS ===");
       const tokenArgs = [
-        backendMessage.guid,
-        backendMessage.name,
-        backendMessage.symbol,
+        backendMessage.guid, // guid (bytes32)
+        backendMessage.name, // name (string)
+        backendMessage.symbol, // symbol (string)
         BigInt(backendMessage.totalSupply), // totalSupply (uint256 -> BigInt)
         backendMessage.creator, // creator (address)
         backendMessage.taxRecipient, // taxRecipient (address)
@@ -432,11 +432,11 @@ export default function UserDashboardPage() {
         BigInt(backendMessage.liquidityBackingETH), // liquidityBackingETH (uint256 -> BigInt)
         backendMessage.liquidityTokenPercent, // liquidityTokenPercent (uint256 but as number like in working script)
         backendMessage.whitelistOnlyDuration, // whitelistOnlyDuration (uint256 but as number like in working script)
+        // Try both individual fields and array formats for admin data
+        backendMessage.adminRatesBps || [backendMessage.adminPhaseARateBps || 0, backendMessage.adminPhaseBRateBps || 0, backendMessage.adminPhaseCRateBps || 0], // adminRatesBps (uint256[3])
+        backendMessage.adminDurations || [backendMessage.adminPhaseADuration || 0, backendMessage.adminPhaseBDuration || 0, backendMessage.adminPhaseCDuration || 0], // adminDurations (uint256[3])
         backendMessage.taxRecipient2 || '0x0000000000000000000000000000000000000000', // user2Recipient (address)
         backendMessage.taxRecipient2Share || 0, // user2Share (uint256)
-        // Try both individual fields and array formats for admin data
-        backendMessage.adminRatesBps || [backendMessage.adminPhaseARateBps || 0, backendMessage.adminPhaseBRateBps || 0, backendMessage.adminPhaseCRateBps || 0], // adminRatesBps (uint32[3])
-        backendMessage.adminDurations || [backendMessage.adminPhaseADuration || 0, backendMessage.adminPhaseBDuration || 0, backendMessage.adminPhaseCDuration || 0], // adminDurations (uint32[3])
         signature, // signature (bytes)
       ] as const;
       console.log("Token deployment arguments (matching working script format):", {
@@ -456,10 +456,10 @@ export default function UserDashboardPage() {
           liquidityBackingETH: tokenArgs[11].toString(),
           liquidityTokenPercent: tokenArgs[12], // number (not BigInt)
           whitelistOnlyDuration: tokenArgs[13], // number (not BigInt)
-          user2Recipient: tokenArgs[14], // address
-          user2Share: tokenArgs[15], // number
-          adminRatesBps: tokenArgs[16],
-          adminDurations: tokenArgs[17],
+          adminRatesBps: tokenArgs[14],
+          adminDurations: tokenArgs[15],
+          user2Recipient: tokenArgs[16], // address
+          user2Share: tokenArgs[17], // number
           signature: tokenArgs[18]
         }
       });
@@ -477,21 +477,21 @@ export default function UserDashboardPage() {
       if (tokenArgs[9] < 400 || tokenArgs[9] > 2000) validationIssues.push(`startSellTax ${tokenArgs[9]} not in range 400-2000`);
       
       // Check user2 parameters
-      const user2Recipient = tokenArgs[14] as string;
-      const user2Share = tokenArgs[15] as number;
+      const user2Recipient = tokenArgs[16] as string;
+      const user2Share = tokenArgs[17] as number;
       if (user2Recipient !== '0x0000000000000000000000000000000000000000' && !user2Recipient.startsWith('0x')) {
         validationIssues.push(`user2Recipient address ${user2Recipient} invalid`);
       }
-      if (user2Share < 0 || user2Share > 100) validationIssues.push(`user2Share ${user2Share} not in range 0-100`);
+      // Removed user2Share validation as requested
       
       // Check admin rates (should be reasonable basis points)
-      const adminRates = tokenArgs[16] as number[];
+      const adminRates = tokenArgs[14] as number[];
       if (adminRates[0] < 0 || adminRates[0] > 5000) validationIssues.push(`adminRateA ${adminRates[0]} not in range 0-5000`);
       if (adminRates[1] < 0 || adminRates[1] > 5000) validationIssues.push(`adminRateB ${adminRates[1]} not in range 0-5000`);
       if (adminRates[2] < 0 || adminRates[2] > 5000) validationIssues.push(`adminRateC ${adminRates[2]} not in range 0-5000`);
       
       // Check admin durations (should be reasonable)
-      const adminDurations = tokenArgs[17] as number[];
+      const adminDurations = tokenArgs[15] as number[];
       if (adminDurations[0] < 0) validationIssues.push(`adminDurationA ${adminDurations[0]} is negative`);
       if (adminDurations[1] < 0) validationIssues.push(`adminDurationB ${adminDurations[1]} is negative`);
       if (adminDurations[2] !== 0) validationIssues.push(`adminDurationC ${adminDurations[2]} should be 0 (infinite)`);

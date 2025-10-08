@@ -128,15 +128,15 @@ export default [
       },
       {
         "indexed": false,
-        "internalType": "uint32[3]",
+        "internalType": "uint256[3]",
         "name": "adminRatesBps",
-        "type": "uint32[3]"
+        "type": "uint256[3]"
       },
       {
         "indexed": false,
-        "internalType": "uint32[3]",
+        "internalType": "uint256[3]",
         "name": "adminDurations",
-        "type": "uint32[3]"
+        "type": "uint256[3]"
       }
     ],
     "name": "LaunchTokenCreated",
@@ -320,6 +320,16 @@ export default [
         "type": "uint256"
       },
       {
+        "internalType": "uint256[3]",
+        "name": "adminRatesBps",
+        "type": "uint256[3]"
+      },
+      {
+        "internalType": "uint256[3]",
+        "name": "adminDurations",
+        "type": "uint256[3]"
+      },
+      {
         "internalType": "address",
         "name": "user2Recipient",
         "type": "address"
@@ -328,16 +338,6 @@ export default [
         "internalType": "uint256",
         "name": "user2Share",
         "type": "uint256"
-      },
-      {
-        "internalType": "uint32[3]",
-        "name": "adminRatesBps",
-        "type": "uint32[3]"
-      },
-      {
-        "internalType": "uint32[3]",
-        "name": "adminDurations",
-        "type": "uint32[3]"
       },
       {
         "internalType": "bytes",
@@ -458,14 +458,14 @@ export default [
         "type": "uint256"
       },
       {
-        "internalType": "uint32[3]",
+        "internalType": "uint256[3]",
         "name": "adminRatesBps",
-        "type": "uint32[3]"
+        "type": "uint256[3]"
       },
       {
-        "internalType": "uint32[3]",
+        "internalType": "uint256[3]",
         "name": "adminDurations",
-        "type": "uint32[3]"
+        "type": "uint256[3]"
       },
       {
         "internalType": "address",
