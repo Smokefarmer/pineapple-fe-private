@@ -437,11 +437,11 @@ export default function UserDashboardPage() {
         BigInt(backendMessage.liquidityBackingETH), // liquidityBackingETH (uint256 -> BigInt)
         backendMessage.liquidityTokenPercent, // liquidityTokenPercent (uint256 but as number like in working script)
         backendMessage.whitelistOnlyDuration, // whitelistOnlyDuration (uint256 but as number like in working script)
+        // Admin arrays MUST come before user2 parameters to match contract signature
+        backendMessage.adminRatesBps || [backendMessage.adminPhaseARateBps || 0, backendMessage.adminPhaseBRateBps || 0, backendMessage.adminPhaseCRateBps || 0], // adminRatesBps (uint256[3])
+        backendMessage.adminDurations || [backendMessage.adminPhaseADuration || 0, backendMessage.adminPhaseBDuration || 0, backendMessage.adminPhaseCDuration || 0], // adminDurations (uint256[3])
         backendMessage.taxRecipient2 || '0x0000000000000000000000000000000000000000', // user2Recipient (address)
         backendMessage.taxRecipient2Share || 0, // user2Share (uint256)
-        // Try both individual fields and array formats for admin data
-        backendMessage.adminRatesBps || [backendMessage.adminPhaseARateBps || 0, backendMessage.adminPhaseBRateBps || 0, backendMessage.adminPhaseCRateBps || 0], // adminRatesBps (uint32[3])
-        backendMessage.adminDurations || [backendMessage.adminPhaseADuration || 0, backendMessage.adminPhaseBDuration || 0, backendMessage.adminPhaseCDuration || 0], // adminDurations (uint32[3])
         signature, // signature (bytes)
       ] as const;
       console.log("Token deployment arguments (matching working script format):", {
