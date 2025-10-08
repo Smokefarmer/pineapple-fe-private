@@ -461,10 +461,10 @@ export default function UserDashboardPage() {
           liquidityBackingETH: tokenArgs[11].toString(),
           liquidityTokenPercent: tokenArgs[12], // number (not BigInt)
           whitelistOnlyDuration: tokenArgs[13], // number (not BigInt)
-          user2Recipient: tokenArgs[14], // address
-          user2Share: tokenArgs[15], // number
-          adminRatesBps: tokenArgs[16],
-          adminDurations: tokenArgs[17],
+          adminRatesBps: tokenArgs[14], // array - REORDERED
+          adminDurations: tokenArgs[15], // array - REORDERED
+          user2Recipient: tokenArgs[16], // address - REORDERED
+          user2Share: tokenArgs[17], // number - REORDERED
           signature: tokenArgs[18]
         }
       });
@@ -481,22 +481,22 @@ export default function UserDashboardPage() {
       if (tokenArgs[8] < 400 || tokenArgs[8] > 2000) validationIssues.push(`startBuyTax ${tokenArgs[8]} not in range 400-2000`);
       if (tokenArgs[9] < 400 || tokenArgs[9] > 2000) validationIssues.push(`startSellTax ${tokenArgs[9]} not in range 400-2000`);
       
-      // Check user2 parameters
-      const user2Recipient = tokenArgs[14] as string;
-      const user2Share = tokenArgs[15] as number;
-      if (user2Recipient !== '0x0000000000000000000000000000000000000000' && !user2Recipient.startsWith('0x')) {
-        validationIssues.push(`user2Recipient address ${user2Recipient} invalid`);
-      }
-      if (user2Share < 0 || user2Share > 10000) validationIssues.push(`user2Share ${user2Share} not in range 0-10000 basis points`);
-      
-      // Check admin rates (should be reasonable basis points)
-      const adminRates = tokenArgs[16] as number[];
+      // Check admin rates (should be reasonable basis points) - NOW AT INDEX 14
+      const adminRates = tokenArgs[14] as number[];
       if (adminRates[0] < 0 || adminRates[0] > 5000) validationIssues.push(`adminRateA ${adminRates[0]} not in range 0-5000`);
       if (adminRates[1] < 0 || adminRates[1] > 5000) validationIssues.push(`adminRateB ${adminRates[1]} not in range 0-5000`);
       if (adminRates[2] < 0 || adminRates[2] > 5000) validationIssues.push(`adminRateC ${adminRates[2]} not in range 0-5000`);
       
-      // Check admin durations (should be reasonable)
-      const adminDurations = tokenArgs[17] as number[];
+      // Check admin durations (should be reasonable) - NOW AT INDEX 15
+      const adminDurations = tokenArgs[15] as number[];
+      
+      // Check user2 parameters - NOW AT INDICES 16 and 17
+      const user2Recipient = tokenArgs[16] as string;
+      const user2Share = tokenArgs[17] as number;
+      if (user2Recipient !== '0x0000000000000000000000000000000000000000' && !user2Recipient.startsWith('0x')) {
+        validationIssues.push(`user2Recipient address ${user2Recipient} invalid`);
+      }
+      if (user2Share < 0 || user2Share > 10000) validationIssues.push(`user2Share ${user2Share} not in range 0-10000 basis points`);
       if (adminDurations[0] < 0) validationIssues.push(`adminDurationA ${adminDurations[0]} is negative`);
       if (adminDurations[1] < 0) validationIssues.push(`adminDurationB ${adminDurations[1]} is negative`);
       if (adminDurations[2] !== 0) validationIssues.push(`adminDurationC ${adminDurations[2]} should be 0 (infinite)`);
