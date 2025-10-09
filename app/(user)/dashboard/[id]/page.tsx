@@ -176,7 +176,7 @@ export default function UserDashboardPage() {
   // Refetch token data when LP is confirmed
   useEffect(() => {
     if (isLpConfirmed && tokenId && !isNewTokenCreation) {
-      toast.success("Liquidity Pool Created", { id: "lp-toast", description: "Liquidity successfully added to PancakeSwap." });
+      toast.success("Liquidity Pool Created", { id: "lp-toast", description: `Liquidity successfully added to ${dexName}.` });
       queryClient.invalidateQueries({ queryKey: ['token', tokenId] });
       setLpTxHash(undefined); // Reset hash after confirmation
     }
@@ -961,6 +961,11 @@ Timestamp: ${new Date().toISOString()}
   // Check form data for liquidity amount when deciding if LP can be created
   const canCreateLP = isOnchainNoLiquidity && !!tokenState.erc20Address && !!formData?.liquidity && Number(formData.liquidity) > 0;
 
+  // Determine DEX name based on chain
+  // Ethereum networks (1 = Mainnet, 11155111 = Sepolia) use Uniswap
+  // BSC networks (56 = Mainnet, 97 = Testnet) use PancakeSwap
+  const dexName = (chainId === 1 || chainId === 11155111) ? 'Uniswap' : 'PancakeSwap';
+
   // Show loading state to prevent hydration mismatch
   if ((isLoading && !isNewTokenCreation) || (!isNewTokenCreation && !details)) {
     return (
@@ -1162,7 +1167,7 @@ Timestamp: ${new Date().toISOString()}
       <Card className={`bg-card shadow-xl border border-border/40 rounded-lg ${isOnchainNoLiquidity ? 'ring-2 ring-green-500/20' : ''}`}>
         <CardHeader className="px-6 pt-6 pb-4">
           <CardTitle className="flex items-center gap-2 text-lg font-semibold"> <Coins className="h-5 w-5 text-primary" /> 3. Create Liquidity Pool </CardTitle>
-          <CardDescription className="mt-1">Add liquidity to enable trading on PancakeSwap.</CardDescription>
+          <CardDescription className="mt-1">Add liquidity to enable trading on {dexName}.</CardDescription>
         </CardHeader>
         <CardContent className="px-6 pb-6">
           <Button onClick={() => handleCreateLP()}
@@ -1182,7 +1187,7 @@ Timestamp: ${new Date().toISOString()}
             )}
           </Button>
           {tokenState?.liquidityAdded && <p className="mt-3 text-xs text-green-400 flex items-center gap-1"><CheckCircle2 size={14} /> Liquidity Pool is Live!</p>}
-          {!tokenState?.liquidityAdded && isOnchainNoLiquidity && formData.liquidity && <p className="mt-3 text-xs text-muted-foreground">Adding liquidity will enable trading on PancakeSwap.</p>}
+          {!tokenState?.liquidityAdded && isOnchainNoLiquidity && formData.liquidity && <p className="mt-3 text-xs text-muted-foreground">Adding liquidity will enable trading on {dexName}.</p>}
           {/* Update feedback messages */}
           {tokenState?.isContractDeployed && !tokenState?.isTokenApproved && <p className="mt-3 text-xs text-yellow-400 flex items-center gap-1"><Info size={14} /> Token awaiting admin approval.</p>}
           {tokenState?.isTokenApproved && !tokenState?.isLiquidityApproved && <p className="mt-3 text-xs text-yellow-400 flex items-center gap-1"><Info size={14} /> Liquidity parameters awaiting admin approval.</p>}
@@ -1211,7 +1216,7 @@ Timestamp: ${new Date().toISOString()}
           <div className="flex justify-between items-center"><span>Deployment Status:</span> {tokenState?.isContractDeployed ? <span className="text-green-400 font-medium flex items-center gap-1"><CheckCircle2 size={16} />Deployed</span> : <span className="text-yellow-400 font-medium flex items-center gap-1"><Info size={16} />Not Deployed</span>}</div>
           {tokenState?.erc20Address && <div className="flex justify-between items-center gap-4"><span>Contract Address:</span> <div className="flex items-center"><code className="text-xs font-mono bg-muted/50 px-2 py-1 rounded-md truncate max-w-full">{tokenState.erc20Address}</code><Button variant="ghost" size="icon" className="h-auto w-auto p-0 ml-1 text-muted-foreground hover:text-foreground" onClick={() => copyAddress(tokenState.erc20Address)}><CopyIcon className="h-4 w-4" /></Button></div></div>}
           <Separator className="bg-border/30 my-3" />
-          <div className="flex justify-between items-center"><span>Liquidity Pool:</span> {tokenState?.liquidityAdded ? <span className="text-green-400 font-medium flex items-center gap-1"><CheckCircle2 size={16} />Live (PancakeSwap)</span> : <span className="text-yellow-400 font-medium flex items-center gap-1"><Info size={16} />Not Created</span>}</div>
+          <div className="flex justify-between items-center"><span>Liquidity Pool:</span> {tokenState?.liquidityAdded ? <span className="text-green-400 font-medium flex items-center gap-1"><CheckCircle2 size={16} />Live ({dexName})</span> : <span className="text-yellow-400 font-medium flex items-center gap-1"><Info size={16} />Not Created</span>}</div>
           <Separator className="bg-border/30 my-3" />
           <div>
             <strong className="block mb-2 text-base">Tax Wallets:</strong>
