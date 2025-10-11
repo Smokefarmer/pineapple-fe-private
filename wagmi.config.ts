@@ -40,16 +40,16 @@ const addressesTest = {
 // Ethereum Mainnet addresses - TODO: Replace with actual deployed contract addresses
 const addressesEthMainnet = {
   "network": "ethereum",
-  "systemContext": "0x0000000000000000000000000000000000000000", // TODO: Replace with actual address
-  "registry": "0x0000000000000000000000000000000000000000", // TODO: Replace with actual address
-  "factory": "0x0000000000000000000000000000000000000000", // TODO: Replace with actual address
-  "router": "0x0000000000000000000000000000000000000000", // TODO: Replace with actual address
-  "verifyTypedData": "0x0000000000000000000000000000000000000000", // TODO: Replace with actual address
-  "masterTaxHandler": "0x0000000000000000000000000000000000000000", // TODO: Replace with actual address
-  "masterLaunchWhitelist": "0x0000000000000000000000000000000000000000", // TODO: Replace with actual address
+  "systemContext": "0x0e4a498dc3fc5c5e4e3774cbc0c5eefbb51b0c8e", // TODO: Replace with actual address
+  "registry": "0x3ca7b3f15a55ff29380376588db2eb13bfe43901", // TODO: Replace with actual address
+  "factory": "0xd645645ee16d3c8127ee46e8866be393f0ae2045", // TODO: Replace with actual address
+  "router": "0x90ef3445b7296ad8d57bd6ddc7cb7a4c6787252b", // TODO: Replace with actual address
+  "verifyTypedData": "0xb455e2bb78bae7d8cf20db076fb0cd1d13a21789", // TODO: Replace with actual address
+  "masterTaxHandler": "0xfd1e575b55e2ef197a8db22f74daccb7185dd415", // TODO: Replace with actual address
+  "masterLaunchWhitelist": "0x163d8cdfbd361ea2514ecb7e9345479987661d13", // TODO: Replace with actual address
   "uniswapRouter": "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D", // Uniswap V2 Router
   "uniswapFactory": "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f", // Uniswap V2 Factory
-  "teamFinanceLocker": "0x0000000000000000000000000000000000000000" // TODO: Replace with actual address
+  "teamFinanceLocker": "0xc8F5c3a8467D9E12C8293288DD9F88D30c41C237" // TODO: Replace with actual address
 }
 
 // Sepolia Testnet addresses - Latest deployed contract addresses
