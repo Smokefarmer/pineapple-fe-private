@@ -344,6 +344,7 @@ export default function UserDashboardPage() {
     submissionData.append('taxRecipient2', formData.taxWallet2 || '');
     submissionData.append('taxRecipient2Share', formData.taxWallet2 ? String(parseFloat(formData.taxWallet2Share || '0') * 100) : '0');
     submissionData.append('creator', address || ''); // Add creator address
+    submissionData.append('chainId', String(chainId)); // Add chainId from connected wallet
     // Append file data
     if (imageFile) {
       submissionData.append('image', imageFile);
@@ -351,6 +352,7 @@ export default function UserDashboardPage() {
 
     // Log data before sending
     console.log('Submitting token creation data:', Object.fromEntries(submissionData.entries()));
+    console.log('🔗 Token will be deployed on chain:', chainId);
 
 
     // Call the mutation
