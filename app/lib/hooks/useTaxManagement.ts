@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import { useAccount } from 'wagmi';
 import { useToken } from '../queries';
 import { 
-  useReadTaxHandlerGetCurrentTaxRates, 
+  useReadTaxHandlerGetCurrentTaxRates,
+  useReadTaxHandlerGetSwapConfig,
   useWriteTaxHandlerDecreaseTaxes,
   useWriteTaxHandlerDisableTaxes
 } from '@/src/generated';
@@ -18,8 +19,20 @@ export interface UseTaxManagementProps {
   launchTime?: number; // Unix timestamp of when liquidity was added
 }
 
+export interface SwapConfig {
+  accumulatedTotalTokens: bigint;
+  accumulatedAdminTokens: bigint;
+  accumulatedUser1Tokens: bigint;
+  accumulatedUser2Tokens: bigint;
+  swapThreshold: bigint;
+  swapAndLiquifyEnabled: boolean;
+  pairAddress: string;
+  effectiveThreshold: bigint;
+}
+
 export interface UseTaxManagementReturn {
   taxInfo: TaxInfo | null;
+  swapConfig: SwapConfig | null;
   isLoading: boolean;
   error: string | null;
   decreaseTaxes: (form: TaxDecreaseForm) => Promise<void>;
@@ -69,6 +82,19 @@ export const useTaxManagement = ({
     }
   });
 
+  // ✅ Read swap config (threshold, accumulated tokens, etc.)
+  const {
+    data: swapConfigData,
+    isLoading: isLoadingSwapConfig,
+    refetch: refetchSwapConfig
+  } = useReadTaxHandlerGetSwapConfig({
+    args: tokenAddress ? [tokenAddress as `0x${string}`] : undefined,
+    query: {
+      enabled: !!tokenAddress,
+      refetchInterval: 60000, // Refetch every minute
+    }
+  });
+
   // Check if user can decrease taxes (must be creator)
   const canDecrease = userAddress && creatorAddress && 
     userAddress.toLowerCase() === creatorAddress.toLowerCase();
@@ -104,6 +130,18 @@ export const useTaxManagement = ({
     timeUntilDisable: launchTime && totalPhaseDuration > 0 && currentTime ? 
       Math.max(0, totalPhaseDuration - (currentTime - launchTime)) : 
       undefined
+  } : null;
+
+  // Process swap config from contract
+  const swapConfig: SwapConfig | null = swapConfigData ? {
+    accumulatedTotalTokens: swapConfigData[0],
+    accumulatedAdminTokens: swapConfigData[1],
+    accumulatedUser1Tokens: swapConfigData[2],
+    accumulatedUser2Tokens: swapConfigData[3],
+    swapThreshold: swapConfigData[4],
+    swapAndLiquifyEnabled: swapConfigData[5],
+    pairAddress: swapConfigData[6],
+    effectiveThreshold: swapConfigData[7]
   } : null;
 
   // Handle errors
@@ -168,14 +206,20 @@ export const useTaxManagement = ({
     }
   };
 
+  const refetchTaxInfo = () => {
+    refetchTaxRates();
+    refetchSwapConfig();
+  };
+
   return {
     taxInfo,
-    isLoading: isLoadingTaxRates,
+    swapConfig,
+    isLoading: isLoadingTaxRates || isLoadingSwapConfig,
     error,
     decreaseTaxes,
     disableTaxes,
     isDecreasingTaxes,
     isDisablingTaxes,
-    refetchTaxInfo: refetchTaxRates
+    refetchTaxInfo
   };
 };

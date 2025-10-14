@@ -15,7 +15,9 @@ import {
   Loader2, 
   TrendingDown,
   Shield,
-  Percent
+  Percent,
+  Droplets,
+  Activity
 } from "lucide-react";
 import { useTaxManagement } from '@/app/lib/hooks/useTaxManagement';
 import { 
@@ -60,6 +62,7 @@ export default function TaxManagement({
 
   const {
     taxInfo,
+    swapConfig,
     isLoading,
     error,
     decreaseTaxes,
@@ -178,6 +181,85 @@ export default function TaxManagement({
         {/* Tax Information Display */}
         {taxInfo && (
           <>
+            {/* Swap & Liquify Information */}
+            {swapConfig && (
+              <>
+                <div className="bg-blue-500/10 border border-blue-500/30 p-4 rounded-lg">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Droplets className="h-5 w-5 text-blue-500" />
+                    <h3 className="text-sm font-medium">Swap & Liquify Config</h3>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <div className="text-xs text-muted-foreground mb-1">Swap Threshold</div>
+                      <div className="text-lg font-semibold text-blue-400">
+                        {(Number(swapConfig.effectiveThreshold) / 1e18).toLocaleString(undefined, {
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 2
+                        })} tokens
+                      </div>
+                      <div className="text-xs text-muted-foreground mt-1">
+                        Triggers automatic swap at this amount
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <div className="text-xs text-muted-foreground mb-1">Accumulated Tokens</div>
+                      <div className="text-lg font-semibold text-green-400">
+                        {(Number(swapConfig.accumulatedTotalTokens) / 1e18).toLocaleString(undefined, {
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 2
+                        })} tokens
+                      </div>
+                      <div className="text-xs text-muted-foreground mt-1">
+                        {swapConfig.swapAndLiquifyEnabled ? (
+                          <span className="text-green-400 flex items-center gap-1">
+                            <Activity className="h-3 w-3" /> Swap enabled
+                          </span>
+                        ) : (
+                          <span className="text-yellow-400">Swap disabled</span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Accumulated tokens breakdown */}
+                  <div className="mt-3 pt-3 border-t border-blue-500/20">
+                    <div className="text-xs text-muted-foreground mb-2">Token Breakdown:</div>
+                    <div className="grid grid-cols-3 gap-2 text-xs">
+                      <div>
+                        <div className="text-muted-foreground">Admin</div>
+                        <div className="font-medium">
+                          {(Number(swapConfig.accumulatedAdminTokens) / 1e18).toLocaleString(undefined, {
+                            maximumFractionDigits: 0
+                          })}
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-muted-foreground">User 1</div>
+                        <div className="font-medium">
+                          {(Number(swapConfig.accumulatedUser1Tokens) / 1e18).toLocaleString(undefined, {
+                            maximumFractionDigits: 0
+                          })}
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-muted-foreground">User 2</div>
+                        <div className="font-medium">
+                          {(Number(swapConfig.accumulatedUser2Tokens) / 1e18).toLocaleString(undefined, {
+                            maximumFractionDigits: 0
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <Separator />
+              </>
+            )}
+
             {/* Current Tax Rates */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="bg-muted/50 p-4 rounded-lg">
