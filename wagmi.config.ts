@@ -40,16 +40,17 @@ const addressesTest = {
 // Ethereum Mainnet addresses - TODO: Replace with actual deployed contract addresses
 const addressesEthMainnet = {
   "network": "ethereum",
-  "systemContext": "0x0e4a498dc3fc5c5e4e3774cbc0c5eefbb51b0c8e", // TODO: Replace with actual address
-  "registry": "0x3ca7b3f15a55ff29380376588db2eb13bfe43901", // TODO: Replace with actual address
-  "factory": "0xd645645ee16d3c8127ee46e8866be393f0ae2045", // TODO: Replace with actual address
-  "router": "0x90ef3445b7296ad8d57bd6ddc7cb7a4c6787252b", // TODO: Replace with actual address
-  "verifyTypedData": "0xb455e2bb78bae7d8cf20db076fb0cd1d13a21789", // TODO: Replace with actual address
-  "masterTaxHandler": "0xfd1e575b55e2ef197a8db22f74daccb7185dd415", // TODO: Replace with actual address
-  "masterLaunchWhitelist": "0x163d8cdfbd361ea2514ecb7e9345479987661d13", // TODO: Replace with actual address
-  "uniswapRouter": "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D", // Uniswap V2 Router
-  "uniswapFactory": "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f", // Uniswap V2 Factory
-  "teamFinanceLocker": "0xc8F5c3a8467D9E12C8293288DD9F88D30c41C237" // TODO: Replace with actual address
+  "systemContext": "0x660d7c818de67cfaf33b37f827913081c0501e2d",
+  "registry": "0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca",
+  "factory": "0xc46f55b5359ba32b733a8b2dcefe1b4b6224867c",
+  "router": "0x366564536c7d4c5889217ca29e7a7430cd4478fb",
+  "verifyTypedData": "0x72c3f78c1f056edd4faba0bb81226ccb952f1db8",
+  "masterTaxHandler": "0x4e9a6222cd1af165c561109d4c94527a2239138e",
+  "masterLaunchWhitelist": "0x98d6c24f90fb7af480643216b8afaa4cc69a743d",
+  "uniswapRouter": "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
+  "uniswapFactory": "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",
+  "teamFinanceLocker": "0xc8F5c3a8467D9E12C8293288DD9F88D30c41C237",
+  "backendSigner": "0xA58255dC711CD3A32004bbd5bDb1f76394D3d829"
 }
 
 // Sepolia Testnet addresses - Latest deployed contract addresses
