@@ -832,7 +832,7 @@ export default function TokenDetailPage() {
                      <span>%</span>
                    </div>
                    <p className="text-xs text-muted-foreground mt-1">
-                     Percentage of tokens to be locked for liquidity (10%-90%).
+                     Percentage of tokens to be locked for liquidity.
                    </p>
                  </div>
               )}
