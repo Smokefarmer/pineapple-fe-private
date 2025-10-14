@@ -128,11 +128,12 @@ export default function TokenDetailPage() {
   // Handle approve token (for non-deployed tokens)
   const handleApproveToken = () => {
     const liquidityPercent = parseFloat(liquidityTokenPercent);
+    /*
     if (!token || token.erc20Address || isNaN(liquidityPercent) || liquidityPercent < 10 || liquidityPercent > 90) {
       toast.warning("Cannot Approve", { description: "Liquidity Token Percent must be between 10% and 90%." });
       return;
     }
-    
+    */
     // Validate admin phase C rate against flat tax rates
     const flatBuyTaxPercent = token.flatBuyTax / 100; // Convert from basis points to percentage
     const flatSellTaxPercent = token.flatSellTax / 100; // Convert from basis points to percentage
