@@ -173,6 +173,11 @@ export default function UserDashboardPage() {
       hash: lpTxHash,
     });
 
+  // Determine DEX name based on chain
+  // Ethereum networks (1 = Mainnet, 11155111 = Sepolia) use Uniswap
+  // BSC networks (56 = Mainnet, 97 = Testnet) use PancakeSwap
+  const dexName = (chainId === 1 || chainId === 11155111) ? 'Uniswap' : 'PancakeSwap';
+
   // Refetch token data when LP is confirmed
   useEffect(() => {
     if (isLpConfirmed && tokenId && !isNewTokenCreation) {
@@ -184,7 +189,7 @@ export default function UserDashboardPage() {
       toast.error("LP Confirmation Failed", { id: "lp-toast", description: lpConfirmError.message });
       setLpTxHash(undefined); // Reset hash after error
     }
-  }, [isLpConfirmed, isLpConfirmError, lpConfirmError, tokenId, queryClient, isNewTokenCreation]);
+  }, [isLpConfirmed, isLpConfirmError, lpConfirmError, tokenId, queryClient, isNewTokenCreation, chainId, dexName]);
 
   // Check if the token has been deployed by querying the contract
   const { data: tokenAddress, refetch: refetchTokenAddress } = useReadRouterGetToken({
@@ -479,7 +484,6 @@ export default function UserDashboardPage() {
 
       // Check user2 parameters
       const user2Recipient = tokenArgs[16] as string;
-      const user2Share = tokenArgs[17] as number;
       if (user2Recipient !== '0x0000000000000000000000000000000000000000' && !user2Recipient.startsWith('0x')) {
         validationIssues.push(`user2Recipient address ${user2Recipient} invalid`);
       }
@@ -962,11 +966,6 @@ Timestamp: ${new Date().toISOString()}
   const canDeploy = isApprovedNotOnchain;
   // Check form data for liquidity amount when deciding if LP can be created
   const canCreateLP = isOnchainNoLiquidity && !!tokenState.erc20Address && !!formData?.liquidity && Number(formData.liquidity) > 0;
-
-  // Determine DEX name based on chain
-  // Ethereum networks (1 = Mainnet, 11155111 = Sepolia) use Uniswap
-  // BSC networks (56 = Mainnet, 97 = Testnet) use PancakeSwap
-  const dexName = (chainId === 1 || chainId === 11155111) ? 'Uniswap' : 'PancakeSwap';
 
   // Show loading state to prevent hydration mismatch
   if ((isLoading && !isNewTokenCreation) || (!isNewTokenCreation && !details)) {

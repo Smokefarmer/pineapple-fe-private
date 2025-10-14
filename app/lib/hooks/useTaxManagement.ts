@@ -52,7 +52,7 @@ export const useTaxManagement = ({
   }, []);
   
   // Fetch token details to get tax configuration
-  const { data: tokenData, isLoading: isLoadingToken } = useToken(tokenId || '', {
+  const { data: tokenData } = useToken(tokenId || '', {
     enabled: !!tokenId
   });
   
@@ -83,7 +83,6 @@ export const useTaxManagement = ({
   // Write operations for decreasing taxes
   const { 
     writeContract: writeDecreaseTaxes,
-    data: decreaseTaxesHash,
     isPending: isDecreasingTaxes,
     error: decreaseTaxesError 
   } = useWriteTaxHandlerDecreaseTaxes();
@@ -91,7 +90,6 @@ export const useTaxManagement = ({
   // Write operations for disabling taxes
   const { 
     writeContract: writeDisableTaxes,
-    data: disableTaxesHash,
     isPending: isDisablingTaxes,
     error: disableTaxesError 
   } = useWriteTaxHandlerDisableTaxes();
@@ -141,9 +139,10 @@ export const useTaxManagement = ({
       toast.success("Tax decrease submitted", {
         description: "Transaction is being processed"
       });
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : "Unknown error occurred";
       toast.error("Failed to submit transaction", {
-        description: err.message
+        description: errorMessage
       });
     }
   };
@@ -161,9 +160,10 @@ export const useTaxManagement = ({
       toast.success("Tax disable submitted", {
         description: "Transaction is being processed"
       });
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : "Unknown error occurred";
       toast.error("Failed to submit transaction", {
-        description: err.message
+        description: errorMessage
       });
     }
   };
