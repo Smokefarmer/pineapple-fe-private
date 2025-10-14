@@ -502,7 +502,7 @@ export default function UserDashboardPage() {
       if (adminDurations[2] !== 0) validationIssues.push(`adminDurationC ${adminDurations[2]} should be 0 (infinite)`);
 
       // Check liquidity token percent (should be reasonable)
-      if (tokenArgs[12] < 1000 || tokenArgs[12] > 9000) validationIssues.push(`liquidityTokenPercent ${tokenArgs[12]} not in range 1000-9000 (10%-90%)`);
+      // if (tokenArgs[12] < 1000 || tokenArgs[12] > 9000) validationIssues.push(`liquidityTokenPercent ${tokenArgs[12]} not in range 1000-9000 (10%-90%)`);
 
       // Check addresses
       if (!tokenArgs[4] || !tokenArgs[4].startsWith('0x')) validationIssues.push(`creator address ${tokenArgs[4]} invalid`);
