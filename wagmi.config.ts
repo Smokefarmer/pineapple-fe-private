@@ -10,52 +10,57 @@ import PineappleAccessControl from './abis/PineappleAccessControl';
 import SystemContext from './abis/SystemContext';
 
 const addresses = {
-  "network": "mainnet",
-  "systemContext": "0xc3b77fdd9cbced4309052fb8f77b39853e2306cd",
-  "registry": "0xe3f6288f5f8c0032ab6452018af1c032b78fffca",
-  "factory": "0xb398cee9c9e8d98d15f03f0c12e411ad9c3e7530",
-  "router": "0x301e4d7a3da5eef64038190e4968c51d5c5b6c46",
-  "verifyTypedData": "0x66c61ebdc293a76c1d5063228f6da075906f0a6b",
-  "masterTaxHandler": "0x9c0225c1cf39bd8c3cf679d8dd2b449094c61cc0",
-  "masterLaunchWhitelist": "0x3c979ba68662da5bcd7e42d69b88731d26bd4286",
+  "network": "bscMainnet",
+  "systemContext": "0x63a55187a3d80ad339562ad13b5ee6690bd6ed65",
+  "acl": "0x5e980a5834e549cf9f483d4aef174c3bb40eadb9",
+  "registry": "0xb64ea959cce5370c8970e443c7530672c723c728",
+  "factory": "0x4bbe11f7885b2dc3348f2e5b1d1b9762a1c9ea40",
+  "router": "0x20c11ca62f43b487017ae44e4f98bd48f8926e04",
+  "verifyTypedData": "0x70193f52323bba019414f7fed661655b579b33be",
+  "masterTaxHandler": "0xcef1b84d20585253226d9b2c8c70cfb62900240c",
+  "masterLaunchWhitelist": "0x85305d0ad6fb1b2db9934abb4d2aa133c784d394",
   "pancakeRouter": "0x10ED43C718714eb63d5aA57B78B54704E256024E",
   "pancakeFactory": "0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73",
-  "teamFinanceLocker": "0xda60847CCeb04ce00c072c7357677e908263317B"
+  "teamFinanceLocker": "0x5C8539F834829efE4FCFd134283035f0119481b7",
+  "backendSigner": "0xA58255dC711CD3A32004bbd5bDb1f76394D3d829"
 }
 
 const addressesTest = {
   "network": "bscTestnet",
-  "systemContext": "0x524091b0a431af72b305f7a0be336cb26bb4d05d",
-  "registry": "0x90ef3445b7296ad8d57bd6ddc7cb7a4c6787252b",
-  "factory": "0x3ca7b3f15a55ff29380376588db2eb13bfe43901",
-  "router": "0xb455e2bb78bae7d8cf20db076fb0cd1d13a21789",
-  "verifyTypedData": "0x0e4a498dc3fc5c5e4e3774cbc0c5eefbb51b0c8e",
-  "masterTaxHandler": "0xd645645ee16d3c8127ee46e8866be393f0ae2045",
-  "masterLaunchWhitelist": "0xfd1e575b55e2ef197a8db22f74daccb7185dd415",
+  "systemContext": "0x95c895b566d14f09ebf87ed106edcb26ce6dd8c1",
+  "acl": "0xd6e5e9151f8088cfb7b6bc35d63c4648ef40deab",
+  "registry": "0xfd0fbee680253eb69f127f5b3b522b452cb72339",
+  "factory": "0xcee5e098273973f8883194c7ed6273e16f8e0e2e",
+  "router": "0xf5b9e717dd864b3fb52d6420b796115adf507fd2",
+  "verifyTypedData": "0x5c8539f834829efe4fcfd134283035f0119481b7",
+  "masterTaxHandler": "0x5e980a5834e549cf9f483d4aef174c3bb40eadb9",
+  "masterLaunchWhitelist": "0x63a55187a3d80ad339562ad13b5ee6690bd6ed65",
   "pancakeRouter": "0xD99D1c33F9fC3444f8101754aBC46c52416550D1",
   "pancakeFactory": "0x6725F303b657a9451d8BA641348b6761A6CC7a17",
-  "teamFinanceLocker": "0xD7eaa812Ab150A8E9a82A5b4107A83BA1F228dfA"
+  "teamFinanceLocker": "0x61CDC76F4eD13BB034a667eBC8ca7E3b9D317DEf",
+  "backendSigner": "0xA58255dC711CD3A32004bbd5bDb1f76394D3d829"
 }
 
-// Ethereum Mainnet addresses - TODO: Replace with actual deployed contract addresses
+// Ethereum Mainnet addresses
 const addressesEthMainnet = {
-  "network": "ethereum",
-  "systemContext": "0x660d7c818de67cfaf33b37f827913081c0501e2d",
-  "registry": "0x41c735c9fd918e4ac18c09f7a33c36c49d20a7ca",
-  "factory": "0xc46f55b5359ba32b733a8b2dcefe1b4b6224867c",
-  "router": "0x366564536c7d4c5889217ca29e7a7430cd4478fb",
-  "verifyTypedData": "0x72c3f78c1f056edd4faba0bb81226ccb952f1db8",
-  "masterTaxHandler": "0x4e9a6222cd1af165c561109d4c94527a2239138e",
-  "masterLaunchWhitelist": "0x98d6c24f90fb7af480643216b8afaa4cc69a743d",
+  "network": "ethMainnet",
+  "systemContext": "0xd022ef71a4993aa654cc99106efbf0d190065d7b",
+  "acl": "0xcdbc2def67fced930ac8e3ff774fc9e1520ce91c",
+  "registry": "0xd57fe4367ef5aa6ff4bb700e7610fa62688cd2aa",
+  "factory": "0xb5d9ad9db07b73e3e4152949ac7ffb11ef65c2ee",
+  "router": "0x65c4d5e48944e3d73b084c9a3ca17ef40ce5f47e",
+  "verifyTypedData": "0xdb4581ad615fa2b93fc6205b9a9dd4234724a4a5",
+  "masterTaxHandler": "0x749284ab46a43c85d2fc91b2a7a6216504675199",
+  "masterLaunchWhitelist": "0x5e0ab84c4c79b41f57c10655df80c3df2cb8808c",
   "uniswapRouter": "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
   "uniswapFactory": "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",
   "teamFinanceLocker": "0xc8F5c3a8467D9E12C8293288DD9F88D30c41C237",
   "backendSigner": "0xA58255dC711CD3A32004bbd5bDb1f76394D3d829"
 }
 
-// Sepolia Testnet addresses - Latest deployed contract addresses
+// Sepolia Testnet addresses
 const addressesSepoliaTestnet = {
-  "network": "sepoliaTestnet",
+  "network": "sepolia",
   "systemContext": "0xc16d960610844562d8e39021a0f05f828656cbfb",
   "registry": "0x2024d32232fd6200b942374c8fb15d0ac5b17ae9",
   "factory": "0x475cf945747f6259e27fc5f9ae4b31548ee8c1a1",
