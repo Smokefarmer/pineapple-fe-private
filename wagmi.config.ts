@@ -54,7 +54,7 @@ const addressesEthMainnet = {
   "masterLaunchWhitelist": "0x5e0ab84c4c79b41f57c10655df80c3df2cb8808c",
   "uniswapRouter": "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
   "uniswapFactory": "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",
-  "teamFinanceLocker": "0xc8F5c3a8467D9E12C8293288DD9F88D30c41C237",
+  "teamFinanceLocker": "0xE2fE530C047f2d85298b07D9333C05737f1435fB",
   "backendSigner": "0xA58255dC711CD3A32004bbd5bDb1f76394D3d829"
 }
 
