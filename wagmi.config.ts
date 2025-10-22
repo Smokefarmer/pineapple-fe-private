@@ -17,7 +17,7 @@ const addresses = {
   factory: "0x4bbe11f7885b2dc3348f2e5b1d1b9762a1c9ea40",
   router: "0x20c11ca62f43b487017ae44e4f98bd48f8926e04",
   verifyTypedData: "0x70193f52323bba019414f7fed661655b579b33be",
-  masterTaxHandler: "0xcef1b84d20585253226d9b2c8c70cfb62900240c",
+  masterTaxHandler: "0x774a038327f5b6d4b0fe334868c063da119c6c33",
   masterLaunchWhitelist: "0x85305d0ad6fb1b2db9934abb4d2aa133c784d394",
   pancakeRouter: "0x10ED43C718714eb63d5aA57B78B54704E256024E",
   pancakeFactory: "0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73",
