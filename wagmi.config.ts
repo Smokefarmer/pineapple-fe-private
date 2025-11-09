@@ -58,20 +58,20 @@ const addressesEthMainnet = {
   backendSigner: "0xA58255dC711CD3A32004bbd5bDb1f76394D3d829",
 };
 
-// Sepolia Testnet addresses
+// Sepolia Testnet addresses (Updated: Nov 9, 2025)
 const addressesSepoliaTestnet = {
   network: "sepolia",
-  systemContext: "0xc16d960610844562d8e39021a0f05f828656cbfb",
-  registry: "0x2024d32232fd6200b942374c8fb15d0ac5b17ae9",
-  factory: "0x475cf945747f6259e27fc5f9ae4b31548ee8c1a1",
-  router: "0x71fa6b273e1736e388b508303846f5203aaeca2a",
-  verifyTypedData: "0xaab7109d0ef4c1f02b62bd36fc8e01492868b21c",
-  masterTaxHandler: "0xe4d1a1570b9a4feb0a2070ba78ef9751f05ce0e9",
-  masterLaunchWhitelist: "0xa259d106caeed43c49c068e05a902e1380407fa1",
+  systemContext: "0xc446ccdb5967f7b7f758a151384ae4fa7f92dd8c",
+  acl: "0x75cb760897100e62e29932c1662452c1cf5a4d2c",
+  registry: "0x46af5da8dfbdacc1644dbb78259c67eef7b54a97",
+  factory: "0x5866ca1977019c4ba2557e9fc896c38454954834",
+  router: "0x9a666e32fa45f52152b9557526b7c916d35863cc",
+  verifyTypedData: "0x2d53f51e55a96e3fe4d0e56441bc5c619953e61a",
+  masterTaxHandler: "0x5918361493b689fbc90fbbfe02e1eacafe5eada1",
+  masterLaunchWhitelist: "0x0969e06420ac2ebde41708a55dd0b84e1fb7bff6",
   uniswapRouter: "0xC532a74256D3Db42D0Bf7a0400fEFDbad7694008",
   uniswapFactory: "0x7E0987E5b3a30e3f2828572Bb659A548460a3003",
   teamFinanceLocker: "0xdB4581Ad615fA2B93fC6205b9a9Dd4234724A4A5",
-  // Previous masterTaxHandler: "0x366564536c7d4c5889217ca29e7a7430cd4478fb"
 };
 
 export default defineConfig({
