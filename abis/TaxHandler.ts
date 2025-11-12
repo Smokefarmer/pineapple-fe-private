@@ -452,12 +452,59 @@ export default [
   },
   {
     "inputs": [],
+    "name": "FEE_UPDATE_INTERVAL",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "adminWallet",
     "outputs": [
       {
         "internalType": "address",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "buyFees",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "adminAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "user1Amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "user2Amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -716,8 +763,32 @@ export default [
     "inputs": [
       {
         "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "lastFeeUpdate",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "token",
         "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
       }
     ],
     "name": "manualSwapAndLiquify",
@@ -847,6 +918,40 @@ export default [
     "name": "resetAccumulator",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "sellFees",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "adminAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "user1Amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "user2Amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -1088,6 +1193,24 @@ export default [
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "guid",
+        "type": "bytes32"
+      }
+    ],
+    "name": "updateDynamicFees",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
