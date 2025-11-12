@@ -1,4 +1,4 @@
-import { bsc, bscTestnet, mainnet, sepolia } from 'wagmi/chains';
+import { base, bsc, bscTestnet, mainnet, sepolia } from 'wagmi/chains';
 
 /**
  * Get the native currency symbol for a given chain ID
@@ -10,6 +10,7 @@ export function getNativeCurrencySymbol(chainId: number): string {
       return 'BNB';
     case mainnet.id: // Ethereum Mainnet
     case sepolia.id: // Sepolia Testnet
+    case base.id: // Base Mainnet
       return 'ETH';
     default:
       return 'ETH'; // Default to ETH for unknown chains
@@ -29,6 +30,8 @@ export function getNativeCurrencyName(chainId: number): string {
       return 'Ethereum';
     case sepolia.id:
       return 'Sepolia';
+    case base.id:
+      return 'Base';
     default:
       return 'Ethereum';
   }
@@ -44,6 +47,7 @@ export function getDexName(chainId: number): string {
       return 'PancakeSwap';
     case mainnet.id:
     case sepolia.id:
+    case base.id:
       return 'Uniswap';
     default:
       return 'Uniswap';

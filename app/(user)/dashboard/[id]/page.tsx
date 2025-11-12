@@ -19,6 +19,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/app/components/ui/alert";
 import { toast } from "sonner";
 import { CheckCircle2, Info, Loader2, XCircle, Settings, Rocket, HelpCircle, Coins, CopyIcon, RefreshCw } from "lucide-react";
 import TaxManagement from '@/app/components/tax/TaxManagement';
+import { getDexName, getNativeCurrencySymbol, getNativeCurrencyName } from '@/app/lib/chain-utils';
 
 // --- Placeholder Types ---
 interface ProjectDetails {
@@ -174,12 +175,10 @@ export default function UserDashboardPage() {
     });
 
   // Determine DEX name, chain name, and native currency based on chain
-  // Ethereum networks (1 = Mainnet, 11155111 = Sepolia) use Uniswap
-  // BSC networks (56 = Mainnet, 97 = Testnet) use PancakeSwap
-  const isEthereumNetwork = chainId === 1 || chainId === 11155111;
-  const dexName = isEthereumNetwork ? 'Uniswap' : 'PancakeSwap';
-  const nativeCurrency = isEthereumNetwork ? 'ETH' : 'BNB';
-  const chainName = chainId === 1 ? 'Ethereum' : chainId === 11155111 ? 'Sepolia' : 'BNB Chain';
+  // Using utility functions from chain-utils.ts for consistent network detection
+  const dexName = getDexName(chainId);
+  const nativeCurrency = getNativeCurrencySymbol(chainId);
+  const chainName = getNativeCurrencyName(chainId);
 
   // Refetch token data when LP is confirmed
   useEffect(() => {

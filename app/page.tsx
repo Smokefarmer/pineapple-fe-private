@@ -63,7 +63,7 @@ const features = [
   {
     icon: Zap,
     title: "Instant Liquidity",
-    description: "Create liquidity pools on Uniswap (ETH) or PancakeSwap (BNB) with a single click.",
+    description: "Create liquidity pools on Uniswap (ETH/Base) or PancakeSwap (BNB) with a single click.",
   },
   {
     icon: Sparkles,

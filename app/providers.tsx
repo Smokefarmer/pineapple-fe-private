@@ -10,7 +10,7 @@ import {
 } from '@rainbow-me/rainbowkit';
 import { http, WagmiProvider } from 'wagmi';
 // Import chains
-import { bsc, bscTestnet, mainnet, sepolia } from 'wagmi/chains';
+import { base, bsc, bscTestnet, mainnet, sepolia } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
 import { SessionProvider } from "next-auth/react";
@@ -30,6 +30,7 @@ const chains = [
   bscTestnet,
   mainnet,
   sepolia,
+  base,
 ] as const;
 
 const { wallets } = getDefaultWallets();
@@ -44,6 +45,7 @@ const config = getDefaultConfig({
     [bscTestnet.id]: http(`https://bnb-testnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`),
     [mainnet.id]: http(`https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`),
     [sepolia.id]: http(`https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}`),
+    [base.id]: http(`https://base-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`),
   },
 });
 

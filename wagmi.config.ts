@@ -1,7 +1,7 @@
 import { defineConfig } from '@wagmi/cli'
 import { Abi, Address, erc20Abi } from 'viem'
 
-import { bsc, bscTestnet, mainnet, sepolia } from 'wagmi/chains'
+import { base, bsc, bscTestnet, mainnet, sepolia } from 'wagmi/chains'
 import { react } from '@wagmi/cli/plugins'
 import Router from './abis/Router';
 import WhitelistHandler from './abis/WhitelistHandler';
@@ -17,7 +17,7 @@ const addresses = {
   "factory": "0x4bbe11f7885b2dc3348f2e5b1d1b9762a1c9ea40",
   "router": "0x20c11ca62f43b487017ae44e4f98bd48f8926e04",
   "verifyTypedData": "0x70193f52323bba019414f7fed661655b579b33be",
-  "masterTaxHandler": "0xcef1b84d20585253226d9b2c8c70cfb62900240c",
+  "masterTaxHandler": "0x774a038327f5b6d4b0fe334868c063da119c6c33",
   "masterLaunchWhitelist": "0x85305d0ad6fb1b2db9934abb4d2aa133c784d394",
   "pancakeRouter": "0x10ED43C718714eb63d5aA57B78B54704E256024E",
   "pancakeFactory": "0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73",
@@ -74,6 +74,23 @@ const addressesSepoliaTestnet = {
   // Previous masterTaxHandler: "0x366564536c7d4c5889217ca29e7a7430cd4478fb"
 }
 
+// Base Mainnet addresses
+const addressesBaseMainnet = {
+  "network": "baseMainnet",
+  "systemContext": "0xc354883c5167870e3e3e83868926a37885b4de8c",
+  "acl": "0x08018331a80efd7a493f58033fbf836be96957e1",
+  "registry": "0x00dc3ce5f9d03378260fc7a6ec8a7a2808316789",
+  "factory": "0xbf31776c519289fdb21cf3524ea0fffd471ddeda",
+  "router": "0x94076da503d735cb297722be8f9ec4885be05e8f",
+  "verifyTypedData": "0x1254db043eda2abee2406f174ac32ed2cd6df135",
+  "masterTaxHandler": "0xec355df56371ac365b4dd4b460f71a50e01504f1",
+  "masterLaunchWhitelist": "0x02c6981f4d00aca7ef842e77d59703618ed93172",
+  "uniswapRouter": "0x6BDED42c6DA8FBf0d2bA55B2fa120C5e0c8D7891",
+  "uniswapFactory": "0x71524B4f93c58fcbF659783284E38825f0622859",
+  "teamFinanceLocker": "0x90EF3445b7296ad8d57bd6DDC7CB7a4C6787252b",
+  "backendSigner": "0xA58255dC711CD3A32004bbd5bDb1f76394D3d829"
+}
+
 export default defineConfig({
   out: 'src/generated.ts',
   contracts: [
@@ -89,8 +106,9 @@ export default defineConfig({
         [bsc.id]: addresses.router as Address,
         [mainnet.id]: addressesEthMainnet.router as Address,
         [sepolia.id]: addressesSepoliaTestnet.router as Address,
+        [base.id]: addressesBaseMainnet.router as Address,
       },
-    }, {
+    },     {
       name: 'Whitelist',
       abi: WhitelistHandler as Abi,
       address: {
@@ -98,8 +116,9 @@ export default defineConfig({
         [bsc.id]: addresses.masterLaunchWhitelist as Address,
         [mainnet.id]: addressesEthMainnet.masterLaunchWhitelist as Address,
         [sepolia.id]: addressesSepoliaTestnet.masterLaunchWhitelist as Address,
+        [base.id]: addressesBaseMainnet.masterLaunchWhitelist as Address,
       },
-    }, {
+    },     {
       name: 'TaxHandler',
       abi: TaxHandler as Abi,
       address: {
@@ -107,8 +126,9 @@ export default defineConfig({
         [bsc.id]: addresses.masterTaxHandler as Address,
         [mainnet.id]: addressesEthMainnet.masterTaxHandler as Address,
         [sepolia.id]: addressesSepoliaTestnet.masterTaxHandler as Address,
+        [base.id]: addressesBaseMainnet.masterTaxHandler as Address,
       },
-    }, {
+    },     {
       name: 'SystemContext',
       abi: SystemContext as Abi,
       address: {
@@ -116,6 +136,7 @@ export default defineConfig({
         [bsc.id]: addresses.systemContext as Address,
         [mainnet.id]: addressesEthMainnet.systemContext as Address,
         [sepolia.id]: addressesSepoliaTestnet.systemContext as Address,
+        [base.id]: addressesBaseMainnet.systemContext as Address,
       },
     }, {
       name: 'PineappleAccessControl',

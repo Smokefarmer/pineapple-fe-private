@@ -822,9 +822,10 @@ export default function TokenDetailPage() {
                      <Input
                        id="liquidityTokenPercent"
                        type="number"
-                       placeholder="e.g., 50"
+                       placeholder="e.g., 50.25"
                        min="10"
                        max="90"
+                       step="0.01"
                        value={liquidityTokenPercent || ''}
                        onChange={(e) => setLiquidityTokenPercent(e.target.value === '' ? '' : e.target.value)}
                        onWheel={(e) => e.currentTarget.blur()}
@@ -833,7 +834,7 @@ export default function TokenDetailPage() {
                      <span>%</span>
                    </div>
                    <p className="text-xs text-muted-foreground mt-1">
-                     Percentage of tokens to be locked for liquidity.
+                     Percentage of tokens to be locked for liquidity (supports decimals, e.g., 50.25).
                    </p>
                  </div>
               )}
@@ -949,7 +950,6 @@ export default function TokenDetailPage() {
                   <TableRow>
                     <TableHead>Wallet Address</TableHead>
                     <TableHead className="text-right">Exact Amount</TableHead>
-                    <TableHead className="text-right">Allowed Buy</TableHead>
                     <TableHead>Created At</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -968,7 +968,6 @@ export default function TokenDetailPage() {
                         </Button>
                       </TableCell>
                       <TableCell className="text-right">{((entry.allowedBuyAmount)/1e18).toFixed(6)}</TableCell>
-                      <TableCell className="text-right">{ ((entry.allowedBuyAmount)/1e18 * 0.95).toFixed(6)}</TableCell>
                       <TableCell>{new Date(entry.createdAt).toLocaleString()}</TableCell>
                     </TableRow>
                   ))}
